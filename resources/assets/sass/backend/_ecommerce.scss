@@ -1,0 +1,142 @@
+td{
+  vertical-align: middle !important
+}
+.pt-40{
+  padding-top: 40px;
+}
+.el-form, form{
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 10px;
+  .desc-text{
+    color: #cccccc;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+}
+
+.el-tree-node__content{
+  height: 36px !important;
+  font-size: 18px;
+  label{
+    margin-bottom: 0px;
+  }
+}
+
+.high-light-box{
+  padding: 10px;
+  border: solid 1px $main-color-red;
+  color: #1b1e21;
+  font-weight: bold;
+}
+
+.ql-snow{
+  .ql-picker{
+    height: 38px !important;
+  }
+}
+
+.product-manager-title{
+  margin-top: 15px;
+  margin-bottom: 18px;
+  h3{
+    line-height: 24px;
+    font-size: 19px;
+  }
+}
+
+.border-box{
+  border: dotted 2px #cccccc;
+  padding: 20px;
+}
+.box-card{
+  width: 360px;
+  margin: 5px;
+}
+.productOptionItemsBox{
+  padding-left: 20px;
+  padding-top: 10px;
+  border-top: solid 1px #cccccc;
+}
+
+#product-attribute-editor, #product-description-editor{
+  min-height: 350px;
+}
+
+#product-short-description-editor{
+  min-height: 100px;
+}
+
+.exist-attachment-wrap{
+  margin-top: 10px;
+  border: dotted 1px #cccccc;
+  .exist-attachment-item{
+    padding: 5px 10px;
+    a{
+      margin-right: 30px;
+    }
+  }
+}
+
+.product-color-form{
+  .p-color-picker-wrap{
+    .el-input-group__append{
+      background-color: #ffffff;
+      padding: 0px;
+      .el-color-picker{
+        .el-color-picker__trigger{
+          border: none;
+        }
+      }
+    }
+  }
+  .avatar-uploader{
+    .el-upload{
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      &:hover{
+        border-color: #409EFF;
+      }
+    }
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+}
+
+/* Product manager */
+#products-manager-app{
+  .product-fields-switch-btn{
+    .box{
+      margin-bottom: 5px !important;
+      &:hover{
+        border-color: whitesmoke;
+      }
+    }
+    .box.active{
+      background-color: $color-green;
+      color: #fff;
+    }
+  }
+}
+
+// 修复一些前端css框架中的干扰互斥
+.v-modal{
+  display: none !important;
+}
+.el-dialog__wrapper{
+  background-color: rgba(0,0,0,0.5);
+}

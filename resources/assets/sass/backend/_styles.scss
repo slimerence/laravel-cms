@@ -1,0 +1,163 @@
+//@import "redactor/redactor";
+@import "redactor3/redactor";
+@import "redactor3/variable_plugin";
+@import "redactor3/filemanager";
+@import url("https://fonts.googleapis.com/css?family=Oswald");
+h1,h2,h3,h4,h5,p,a,span,li,td,div{
+  font-family:  "Oswald Regular";
+}
+
+.admin-login-wrapper{
+  height: 100%;
+  background-image: url("../../images/backend/back_login-bg.jpg");
+  background-position: center 0;
+  background-repeat: no-repeat;
+  padding-top: 30%;
+}
+.is-vertical-centered{
+  display: flex;
+  align-items: center;
+}
+.is-full{
+  width: 100%;
+}
+.pull-right{
+  float: right;
+}
+.bg-white{
+  background-color: white;
+}
+.navbar-brand{
+  &:focus{
+    outline: 0;
+  }
+}
+.mobile-drawer-trigger{
+  background: $color-dark;
+  color: white;
+  border: none;
+  font-size: 23px;
+  border-radius: 0;
+  &:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+    border: none;
+  }
+}
+
+.navbar-menu{
+  .is-active{
+    color: #3273dc !important;
+    background-color: whitesmoke !important;
+  }
+}
+
+// 后台上传图片的控件; Feature image uploader
+.avatar-uploader{
+  .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+      border-color: #409EFF;
+    }
+  }
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px !important;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+// 后台上传图片的控件; Feature image uploader End
+
+/* 用来显示一块单独的信息 */
+$color-block-border: #f5f6f6;
+.content-block{
+  width: 98.9%;
+  background-color: #fcfdfd;
+  display: block;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px 24px 10px 24px;
+  min-height: 184px;
+  border: solid 1px $color-block-border;
+  .content-title-line{
+    padding-top: 8px;
+    border-bottom: solid 1px $color-block-border;
+    margin-bottom: 8px;
+    h3{
+      font-size: 18px;
+      line-height: 24px;
+      color: $color-default-text;
+      font-weight: bold;
+    }
+  }
+  .content-detail-wrap{
+    margin-top: 13px;
+    .content-line{
+      line-height: 18px;
+      label{
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 18px;
+        margin-left:5px;
+        min-width: 100px;
+      }
+      .value{
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: normal;
+        a{
+          color: $color-hyperlink;
+        }
+      }
+      .actions{
+
+      }
+    }
+    .table{
+      th{
+        border-top: none;
+      }
+      td{
+        .option-notes{
+          margin-top: 15px;
+          .note-option-item{
+            line-height: 20px;
+            font-size: 13px;
+            margin: 0px;
+            padding-left: 3px;
+            padding-bottom: 2px;
+            .note-option-name{
+              font-weight: bold;
+              margin-right: 3px;
+              min-width: 70px;
+              display: block;
+              float: left;
+            }
+          }
+        }
+      }
+      tr.em{
+        font-weight: bold;
+        background-color: $color-block-border;
+      }
+    }
+    .origin-price-txt{
+      font-size: 14px;
+    }
+    .items-total-bar{
+
+    }
+  }
+}

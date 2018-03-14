@@ -1,0 +1,124 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', 'Frontend\Pages@index')->name('home');
+Route::get('/contact-us', 'Frontend\Pages@contact_us')->name('contact_us');
+Route::post('/contact-us', 'Frontend\Pages@contact_us_handler');
+Route::get('/terms', 'Frontend\Pages@terms')->name('terms');
+
+// 特定的URI
+Route::prefix('page')->group(function(){
+    Route::get('/blog', 'Frontend\Pages@blog');
+    Route::get('/blog/{uri}', 'Frontend\Pages@blog_view');
+    Route::get('/news', 'Frontend\Pages@news');
+    Route::get('/news/{uri}', 'Frontend\Pages@news_view');
+});
+Route::get('/page/{uri}', 'Frontend\Pages@view');
+
+Auth::routes();
+
+Route::prefix('backend')->middleware('auth')->group(function(){
+    // 联系的 Leads 列表
+    Route::get('leads','Backend\Pages@leads');
+    Route::get('leads/delete/{id}','Backend\Pages@lead_delete');
+
+    // 目录相关
+    Route::get('menus/index','Backend\Menus@index');
+    Route::get('menus/add','Backend\Menus@add');
+    Route::get('menus/edit/{id}','Backend\Menus@edit');
+    Route::get('menus/delete/{id}','Backend\Menus@delete');
+    Route::post('menus/save','Backend\Menus@persistent');
+
+    // 静态页相关
+    Route::get('pages/index','Backend\Pages@index');
+    Route::get('pages/add','Backend\Pages@add');
+    Route::get('pages/edit/{id}','Backend\Pages@edit');
+    Route::get('pages/delete/{id}','Backend\Pages@delete');
+    Route::post('pages/save','Backend\Pages@persistent');
+
+    // 博客内容相关
+    Route::get('blog/index','Backend\Blog@index');
+    Route::get('blog/add','Backend\Blog@add');
+    Route::get('blog/edit/{id}','Backend\Blog@edit');
+    Route::get('blog/delete/{id}','Backend\Blog@delete');
+    Route::post('blog/save','Backend\Blog@persistent');
+
+    // 新闻相关
+    Route::get('news/index','Backend\Press@index');
+    Route::get('news/add','Backend\Press@add');
+    Route::get('news/edit/{id}','Backend\Press@edit');
+    Route::get('news/delete/{id}','Backend\Press@delete');
+    Route::post('news/save','Backend\Press@persistent');
+
+    // Widgets
+    Route::get('widgets/sliders','Backend\Widgets@list_sliders');
+    Route::get('widgets/blocks','Backend\Widgets@list_blocks');
+    Route::get('blocks/add','Backend\Widgets@add_block');
+    Route::get('blocks/edit/{id}','Backend\Widgets@edit_block');
+    Route::get('blocks/delete/{id}','Backend\Widgets@delete_block');
+    Route::post('blocks/save','Backend\Widgets@save_block');
+    Route::get('widgets/galleries','Backend\Widgets@list_galleries');
+
+    // 网站设置
+    Route::post('configuration/save','Backend\Home@save_config');
+
+    /**
+     * 以下为电商相关内容的管理
+     */
+    // 网站的产品目录管理
+    Route::get('categories', 'Backend\Categories@index')->name('categories');
+    // 网站的产品管理
+    Route::get('products', 'Backend\Products@index')->name('products');
+    Route::get('products/add', 'Backend\Products@add');
+    Route::get('products/edit/{id}', 'Backend\Products@edit');
+    Route::get('products/delete/{uuid}', 'Backend\Products@delete');
+
+    /**
+     * 管理某个属性集的路由
+     */
+    Route::get('attribute-sets', 'Backend\AttributeSet@index')->name('attribute_set');
+    Route::get('attribute-sets/add', 'Backend\AttributeSet@add');
+    Route::post('attribute-sets/save', 'Backend\AttributeSet@save');
+    Route::get('attribute-sets/edit/{id}', 'Backend\AttributeSet@edit');
+    Route::get('attribute-sets/delete/{id}', 'Backend\AttributeSet@delete');
+    Route::get('attribute-sets/listing/{id}/{productAttributeId?}', 'Backend\AttributeSet@listing');
+    Route::get('attribute-sets/delete-product-attribute/{id}', 'Backend\AttributeSet@delete_product_attribute');
+
+    /**
+     * 客户管理
+     */
+    Route::get('customers','Backend\Customers@index')->name('customers');
+    Route::get('customers/add','Backend\Customers@add');
+    Route::get('users/add','Backend\Users@add');
+    Route::get('customers/edit/{id}','Backend\Customers@edit');
+    Route::get('customers/delete/{id}','Backend\Customers@delete');
+    Route::get('users/delete/{id}','Backend\Users@delete');
+    Route::get('users/edit/{id}','Backend\Users@edit');
+    Route::post('customers/save','Backend\Customers@save');
+    Route::post('users/save','Backend\Users@save');
+
+    Route::get('system-users','Backend\Users@index')->name('system-users');
+    Route::get('update-password','Backend\Users@update_password');
+    Route::post('update-password','Backend\Users@update_password_handler');
+    Route::get('wechat-config','Backend\AttributeSet@index');
+
+    /**
+     * 订单管理的路由
+     */
+    Route::get('orders', 'Backend\Orders@my_orders')->name('orders');
+    Route::get('orders/view/{orderId}', 'Backend\Orders@view');
+    Route::post('orders/ajax_search', 'Backend\Orders@ajax_search');
+    Route::get('orders/ajax_issue_invoice/{id}', 'Backend\Orders@ajax_issue_invoice');  // 切换订单的状态到发票已开的状态
+});
+
+Route::get('/home', 'Backend\Home@index');

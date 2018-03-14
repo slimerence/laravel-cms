@@ -1,0 +1,70 @@
+/* CSS rules for front and back */
+// Fonts
+// @import url("https://fonts.googleapis.com/css?family=Oswald");
+
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
+h1,h2,h3,h4,h5,p,a,span,li,td,div{
+  font-family:  "Helvetica,Arial,Helvetica,sans-serif;";
+}
+.full-width{
+  width: 100%;
+}
+.pl-10{
+  padding-left: 10px !important;
+}
+.pl-20{
+  padding-left: 20px !important;
+}
+.pr-10{
+  padding-right: 10px !important;
+}
+.pr-20{
+  padding-right: 20px !important;
+}
+.pt-10{
+  padding-top: 10px !important;
+}
+.m-0{
+  margin: 0;
+}
+.ml-10{
+  margin-left: 10px !important;
+}
+.ml-20{
+  margin-left: 20px !important;
+}
+.-ml-20{
+  margin-left: -20px !important;
+}
+.mr-10{
+  margin-right: 10px !important;
+}
+.mr-20{
+  margin-right: 20px !important;
+}
+.-mr-20{
+  margin-right: -20px !important;
+}
+.mb-10{
+  margin-bottom: 10px !important;
+}
+.mb-20{
+  margin-bottom: 20px !important;
+}
+.mt-10{
+  margin-top: 10px !important;
+}
+.mt-20{
+  margin-top: 20px !important;
+}
+
+.must-on-layer-top{
+  z-index: 9999 !important;
+}
+.bg-grey{
+  background-color: #e5e5e5;
+}

@@ -1,0 +1,143 @@
+.container{
+  background-color: white;
+}
+.grey-shadow{
+  -webkit-box-shadow: 10px 10px 8px 0px rgba(0,0,0,0.05);
+  -moz-box-shadow: 10px 10px 8px 0px rgba(0,0,0,0.05);
+  box-shadow: 10px 10px 8px 0px rgba(0,0,0,0.05);
+}
+.border-dark-grey{
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+}
+
+// Mobile Header 手机版的顶部
+.bg-green{
+  background-color: $color-green;
+  color: white;
+  a{
+    color: white;
+  }
+}
+.bg-dark-blud-gradient{
+  background: linear-gradient(#113c82,#0b2653,#0b2653,#0b2653,#0b2653,#0b2653);
+}
+.bg-grey{
+  background-color: $color-grey;
+}
+.bg-white{
+  background-color: white;
+}
+
+.mobile-drawer-trigger{
+  color: white;
+  background: transparent;
+  border: none;
+  font-size: 23px;
+}
+/* 移动版Header的文字 */
+.mobile-head-txt{
+  line-height: 52px;
+  text-align: center;
+  margin-left: -45px;
+  font-size: 24px;
+}
+// Mobile Header 手机版的顶部的css结束
+
+// 这个css rule 是widget专有的, 必须在实际页面输出的时候隐藏
+.widget-short-code{
+  display: none !important;
+}
+
+.logo-head-text{
+  font-size: 60px;
+  font-weight: bold;
+  color: $color-dark-logo;
+  &:hover{
+    background-color: white;
+  }
+}
+.logo-img{
+  max-height: 80px !important;
+  height: 80px;
+}
+.logo-img-mobile{
+  width: 100%;
+  margin-top: -25px;
+}
+
+// 顶部菜单的搜索框
+.nav-search-form{
+  margin-right: 20px;
+  margin-top: 26px;
+  .el-input{
+    .el-input__inner{
+      margin: 5px;
+      border-radius: 0;
+    }
+  }
+}
+// 深色背景的导航菜单栏
+.dark-theme-nav{
+  background: linear-gradient(#113c82,#0b2653,#0b2653,#0b2653,#0b2653,#0b2653);
+  .navbar-start{
+    .navbar-item{
+      color: white;
+      font-size: 21px;
+      font-weight: bold;
+      &:hover{
+        background-color: $main-color-red;
+      }
+    }
+  }
+}
+
+.page-title-wrap{
+  h1{
+    margin: 20px 0;
+  }
+}
+.page-content-wrap{
+  ul{
+    padding-left: 20px;
+    li{
+      line-height: 24px;
+      font-size: 14px;
+      margin: 6px 0;
+    }
+  }
+}
+.el-autocomplete-suggestion{
+  z-index: 9999 !important;
+}
+
+// Side bar
+.left-side-bar-wrap, .right-side-bar-wrap{
+  margin-top: 35px;
+  .box{
+    border-radius: 0;
+    h2{
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 40px;
+    }
+    ul{
+      padding-left: 5px;
+      li{
+        margin: 5px;;
+      }
+    }
+  }
+}
+
+figure{
+  margin:0;
+}
+ul.tight-list{
+  li{
+    margin:0;
+    padding: 0;
+    font-size: 17px;
+    line-height: 24px;
+  }
+}
