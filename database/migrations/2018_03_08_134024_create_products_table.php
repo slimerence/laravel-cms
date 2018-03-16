@@ -45,10 +45,10 @@ class CreateProductsTable extends Migration
             // 产品的默认价格
             $table->float('default_price',8,2)->default(0);
             // 产品的特价
-            $table->float('special_price',8,2)->default(0);
+            $table->float('special_price',8,2)->nullable();
 
             // 产品的GST
-            $table->unsignedSmallInteger('tax')->default(10);
+            $table->unsignedSmallInteger('tax')->nullable();
             $table->string('unit_text')->nullable();  // 产品出售的单位,比如一个, 一打, Carton等等. 默认是一个
 
             $table->string('image_path')->nullable();
