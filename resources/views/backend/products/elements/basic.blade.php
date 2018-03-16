@@ -24,7 +24,7 @@
 <el-form-item label="Product URI">
     <el-input placeholder="产品的URL链接: 必填" v-model="product.uri"></el-input>
 </el-form-item>
-<el-form-item label="Position">
+<el-form-item label="Position" prop="position" required>
     <el-input placeholder="排序: 选填 默认为0" v-model="product.position"></el-input>
 </el-form-item>
 

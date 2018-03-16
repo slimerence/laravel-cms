@@ -85,6 +85,9 @@
                 ],
                 default_price: [
                     { required: true, message: 'Basic Price Required', trigger: 'blur' }
+                ],
+                position: [
+                    { required: true, message: 'Product\'s position is Required', trigger: 'blur' }
                 ]
             }
         },
