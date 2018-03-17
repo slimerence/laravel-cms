@@ -65,7 +65,7 @@ class ContentTool
      * @return mixed
      */
     public static function RemoveNewLineFromString($string){
-        return preg_replace('#\R+#', ' ', $string);
+        return str_replace(array("\r\n","\r"),"",$string);
     }
 
     /**

@@ -56,10 +56,12 @@
                             <td>{{ $value->min_quantity }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="button is-small" href="{{ url('backend/products/edit/'.$value->id) }}">
+                                    <a class="button is-small" href="{{ url('backend/products/edit/'.$value->id) }}" title="Edit Product">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
-
+                                    <a class="button is-small" href="{{ url('backend/products/related/'.$value->id) }}" title="Related Products">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                    </a>
                                     <a class="button is-danger is-small btn-delete" href="{{ url('backend/products/delete/'.$value->uuid) }}">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>

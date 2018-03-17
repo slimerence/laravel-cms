@@ -82,6 +82,8 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('products/add', 'Backend\Products@add');
     Route::get('products/edit/{id}', 'Backend\Products@edit');
     Route::get('products/delete/{uuid}', 'Backend\Products@delete');
+    Route::get('products/related/{uuid}', 'Backend\Products@related');
+    Route::post('products/save-related-products', 'Backend\Products@save_related_products');
 
     /**
      * 管理某个属性集的路由

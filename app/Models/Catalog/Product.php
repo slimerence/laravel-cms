@@ -188,7 +188,7 @@ class Product extends Model
      */
     public static function DoClone($productData, $images, $categories, $productOptionsData, $productAttributeData,$productColours){
         $result = false;
-        $productData = ContentTool::RemoveNewLine($productData);
+//        $productData = ContentTool::RemoveNewLine($productData);
 
         DB::beginTransaction();
         if(empty($productData['id'])){
@@ -584,5 +584,22 @@ class Product extends Model
             }
         }
         return $result;
+    }
+
+    /**
+     * 加载和当前产品相关的产品的方法
+     * @param bool $idAndNameOnly
+     * @return mixed
+     */
+    public function loadRelatedProducts($idAndNameOnly = false){
+        return $this->relatedProduct ? $this->relatedProduct->load($idAndNameOnly) : [];
+    }
+
+    /**
+     * 获取关联产品的对象
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function relatedProduct(){
+        return $this->hasOne(RelatedProduct::class);
     }
 }
