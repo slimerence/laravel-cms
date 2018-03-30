@@ -15,7 +15,7 @@ return [
             'desktop'=>[
                 'styles'=>[
                     'padding'=>'',
-                    'max-width'=>'1024px'
+                    'max-width'=>''
                 ]
             ],
             'mobile'=>[

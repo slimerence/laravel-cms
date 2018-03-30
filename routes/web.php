@@ -121,6 +121,15 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('orders/view/{orderId}', 'Backend\Orders@view');
     Route::post('orders/ajax_search', 'Backend\Orders@ajax_search');
     Route::get('orders/ajax_issue_invoice/{id}', 'Backend\Orders@ajax_issue_invoice');  // 切换订单的状态到发票已开的状态
+
+    /**
+     * 合作经销商管理
+     */
+    Route::get('groups', 'Backend\Groups@index')->name('groups');
+    Route::get('groups/add', 'Backend\Groups@add');
+    Route::get('groups/edit/{id}', 'Backend\Groups@edit');
+    Route::get('groups/delete/{id}', 'Backend\Groups@delete');
+    Route::post('groups/save','Backend\Groups@save');
 });
 
 Route::get('/home', 'Backend\Home@index');

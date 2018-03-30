@@ -55,6 +55,26 @@
                     @endif
                 </div>
 
+                @if(env('support_multiple_groups', false))
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">所属经销商</label>
+                                <div class="control">
+                                    <div class="select full-width">
+                                        <select class="full-width" name="group_id">
+                                            <option value="0" {{ $user->group_id === 0 ? 'selected' : null }}>N.A</option>
+                                            @foreach($groups as $group)
+                                            <option value="{{ $group->id }}" {{ $user->group_id == $group->id ? 'selected' : null }}>{{ $group->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="field is-horizontal">
                     <div class="control">
                         <button type="submit" class="button is-link">

@@ -9,6 +9,7 @@ return [
         'blocks'=>'内容块管理',
         'categories'=>'产品目录管理',
         'products'=>'产品列表',
+        'groups'=>'经销商列表',
     ],
     'new'=>[
         'menu'=>'创建新菜单',
@@ -17,6 +18,7 @@ return [
         'news'=>'创建新闻',
         'blocks'=>'创建内容块',
         'products'=>'创建产品',
+        'groups'=>'创建经销商',
     ],
     'mgr'=>'管理',
     'edit'=>[
@@ -26,5 +28,6 @@ return [
         'pages'=>'修改静态页',
         'blocks'=>'修改内容块',
         'products'=>'修改产品',
+        'groups'=>'修改经销商',
     ]
 ];

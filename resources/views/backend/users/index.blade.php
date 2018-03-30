@@ -20,6 +20,9 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Status</th>
+                    @if(env('support_multiple_groups', false))
+                    <th>Dealer</th>
+                    @endif
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -35,7 +38,9 @@
                         <td>
                             {{ $value->status ? 'Active':'Suspend' }}
                         </td>
-
+                        @if(env('support_multiple_groups', false))
+                            <td>{{ $value->group_id ? $value->group->name : null }}</td>
+                        @endif
                         <td>
                             <a class="button is-small" href="{{ url('backend/users/edit/'.$value->id) }}">
                                 <i class="fa fa-edit"></i>&nbsp;Edit

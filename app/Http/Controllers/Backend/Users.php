@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Utils\UserGroup;
 use App\User;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ class Users extends Controller
     public function add(){
         $this->dataForView['menuName'] = 'users';
         $this->dataForView['user'] = new User();
+        $this->dataForView['groups'] = Group::where('id','>',1)->orderBy('name','asc')->get();
         return view('backend.users.add', $this->dataForView);
     }
 
@@ -45,6 +47,7 @@ class Users extends Controller
     public function edit($id, Request $request){
         $this->dataForView['menuName'] = 'users';
         $this->dataForView['user'] = User::find($id);
+        $this->dataForView['groups'] = Group::where('id','>',1)->orderBy('name','asc')->get();
         return view('backend.users.add', $this->dataForView);
     }
 

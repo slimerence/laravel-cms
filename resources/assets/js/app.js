@@ -44,7 +44,7 @@ fastclick.attach(document.body);
 
 // 导航菜单的应用
 let NavigationApp = new Vue({
-    el: '#navigation',
+    el: '#navigation-app',
     data(){
         return {
             searchKeyword: '',
@@ -83,6 +83,25 @@ if(document.getElementById('menu')){
 
     document.querySelector('.toggle-button').addEventListener('click', function() {
         slideout.toggle();
+    });
+}
+
+// Homepage 上播放的视频
+if(document.getElementById('homepage-video')){
+    let containerWidth = $('.container').width();
+    let maskHeight = containerWidth * 0.5625;
+    $('#homepage-video-mask').css('height', maskHeight + 'px').css('margin-top', -maskHeight + 'px');
+
+    let videoPlayerObject = videojs('homepage-video',{
+        controls: true,
+        autoplay: true,
+        preload: 'auto',
+        loop: true,
+        width: containerWidth + 'px'
+    });
+
+    videoPlayerObject.ready(function(){
+        this.removeClass('is-invisible');
     });
 }
 

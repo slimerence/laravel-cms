@@ -1,6 +1,6 @@
 /* CSS rules for front and back */
 // Fonts
-// @import url("https://fonts.googleapis.com/css?family=Oswald");
+@import url("https://fonts.googleapis.com/css?family=Oswald");
 
 html, body{
   width: 100%;
@@ -8,7 +8,7 @@ html, body{
 }
 
 h1,h2,h3,h4,h5,p,a,span,li,td,div{
-  font-family:  "Helvetica,Arial,Helvetica,sans-serif;";
+  font-family:  "Oswald";
 }
 .full-width{
   width: 100%;

@@ -50,4 +50,15 @@ class Group extends Model
             }
         }
     }
+
+    /**
+     * 返回经销商地址
+     * Return group address text
+     * @return string
+     */
+    public function getAddressText(){
+        return $this->address ?
+            $this->address.', '.$this->city.' '.$this->postcode.', '.$this->state.' '.$this->country
+            : null;
+    }
 }

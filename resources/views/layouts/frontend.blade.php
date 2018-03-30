@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" ⚡>
     @include('layouts.frontend.head')
 <body>
 @if($agentObject->isPhone())
@@ -21,10 +21,10 @@
     </main>
 @else
     <!-- Desktop Version -->
-    <section class="section is-paddingless bg-grey">
+    <section class="section is-paddingless ">
         @include('layouts.frontend.header')
         @include('layouts.frontend.homepage_slider')
-        <div class="container border-dark-grey">
+        <div class="container">
             @include('layouts.frontend.session_flash_msg_box')
             @yield('content')
             @include('layouts.frontend.footer')

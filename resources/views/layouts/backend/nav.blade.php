@@ -9,18 +9,25 @@
         </ul>
     </section>
 
-    @if(env('activate_wechat', false))
     <section class="menu-section">
         <h3 class="menu-section-title">Extensions</h3>
         <ul class="menu-section-list">
-            <li>
-                <a class="{{ $menuName=='blocks' ? 'is-active' : null }}" href="{{ url('/backend/widgets/blocks') }}">
-                    <i class="fab fa-weixin"></i>WeChat 微信公众号
-                </a>
-            </li>
+            @if(env('activate_wechat', false))
+                <li>
+                    <a class="{{ $menuName=='blocks' ? 'is-active' : null }}" href="{{ url('/backend/widgets/blocks') }}">
+                        <i class="fab fa-weixin"></i>WeChat 微信公众号
+                    </a>
+                </li>
+            @endif
+            @if(env('support_multiple_groups', false))
+                <li>
+                    <a class="{{ $menuName=='groups' ? 'is-active' : null }}" href="{{ url('/backend/groups') }}">
+                        <i class="fas fa-shopping-basket"></i>合作经销商管理
+                    </a>
+                </li>
+            @endif
         </ul>
     </section>
-    @endif
 
     <section class="menu-section">
         <h3 class="menu-section-title">Users</h3>

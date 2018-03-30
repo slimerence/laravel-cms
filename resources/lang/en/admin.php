@@ -16,6 +16,7 @@ return [
         'users'=>'System Accounts',
         'orders'=>'Orders',
         'galleries'=>'Galleries',
+        'groups'=>'Dealers',
     ],
     'new'=>[
         'menu'=>'Create Menu',
@@ -29,6 +30,7 @@ return [
         'users'=>'New System Account',
         'orders'=>'New Order',
         'galleries'=>'New Gallery',
+        'groups'=>'New Dealer',
     ],
     'mgr'=>'Management',
     'edit'=>[
@@ -43,5 +45,6 @@ return [
         'users'=>'Modify System Account',
         'orders'=>'Modify Order',
         'galleries'=>'Modify Gallery',
+        'groups'=>'Modify Dealer',
     ]
 ];
