@@ -17,6 +17,7 @@ return [
         'orders'=>'Orders',
         'galleries'=>'Galleries',
         'groups'=>'Dealers',
+        'brands'=>'Brands',
     ],
     'new'=>[
         'menu'=>'Create Menu',
@@ -31,6 +32,7 @@ return [
         'orders'=>'New Order',
         'galleries'=>'New Gallery',
         'groups'=>'New Dealer',
+        'brands'=>'New Brand',
     ],
     'mgr'=>'Management',
     'edit'=>[
@@ -46,5 +48,6 @@ return [
         'orders'=>'Modify Order',
         'galleries'=>'Modify Gallery',
         'groups'=>'Modify Dealer',
+        'brands'=>'Modify Brand',
     ]
 ];

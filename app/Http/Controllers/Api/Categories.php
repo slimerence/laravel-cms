@@ -52,4 +52,8 @@ class Categories extends Controller
             return JsonBuilder::Error();
         }
     }
+
+    public function load_nav($uuid){
+        return JsonBuilder::Success(Category::GetByUuid($uuid)->loadForNav());
+    }
 }

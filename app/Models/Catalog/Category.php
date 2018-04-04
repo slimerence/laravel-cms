@@ -29,6 +29,10 @@ class Category extends Model
         return self::where('id','!=',$root)->select('id','name')->orderBy('name','asc')->get();
     }
 
+    public static function GetByUuid($uuid){
+        return self::where('uuid',$uuid)->orderBy('id','asc')->first();
+    }
+
     /**
      * 保存目录的方法
      * @param array $data
@@ -146,6 +150,52 @@ class Category extends Model
     }
 
     /**
+     * 取得所包含的产品的信息
+     * @param int $max
+     * @return null
+     */
+    public function productCategoriesSimple($max = 5){
+        $cps = CategoryProduct::select('product_id')->where('category_id',$this->id)->get();
+        $productsId = [];
+        if(count($cps)>0){
+            foreach ($cps as $key=>$cp) {
+                $productsId[] = $cp->product_id;
+                if($key == $max-1){
+                    break;
+                }
+            }
+        }
+
+        if(count($productsId)>0){
+            return Product::select('uuid','name','uri')->whereIn('id',$productsId)->orderBy('position','ASC')->orderBy('id','DESC')->get();
+        }else{
+            return [];
+        }
+    }
+
+    /**
+     * 为了生成导航菜单中的目录数据
+     * @return array
+     */
+    public function loadForNav(){
+        $children = $this->children;
+        $data = [
+            'subs' => [],
+            'brands' => [],
+            'images'=>[]
+        ];
+        foreach ($children as $child) {
+            $data['subs'][] = [
+                'id'=>$child->uuid,
+                'name'=>$child->name,
+                'uri'=>$child->uri,
+                'products'=>$child->productCategoriesSimple()
+            ];
+        }
+        return $data;
+    }
+
+    /**
      * 获取该目录的URL
      * @return string
      */
@@ -176,11 +226,22 @@ class Category extends Model
     public function parent(){
         return $this->belongsTo(Category::class,'parent_id');
     }
+
     /**
      * 取得当前目录对象的下一级目录
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function children(){
         return $this->hasMany(Category::class,'parent_id');
+    }
+
+    /**
+     * 获取第一级别的目录
+     */
+    public static function LoadFirstLevelCategoriesInMenu(){
+        return self::where('parent_id',1)
+            ->where('include_in_menu', true)
+            ->orderBy('position','asc')
+            ->get();
     }
 }

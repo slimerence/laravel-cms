@@ -11,6 +11,7 @@ use App\Models\Menu;
 use App\Models\Configuration;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use App\Models\Catalog\Category;
 
 class Controller extends BaseController
 {
@@ -39,6 +40,14 @@ class Controller extends BaseController
     {
         $this->dataForView['agentObject'] = new Agent();
         $this->dataForView['rootMenus'] = Menu::getRootMenus();
+        $categoriesTree = Category::LoadFirstLevelCategoriesInMenu();
+        $this->dataForView['categoriesTree'] = $categoriesTree;
+
+        $data = [];
+        foreach ($categoriesTree as $category) {
+            $data[] = $category->loadForNav();
+        }
+        $this->dataForView['categoriesNav'] = $data;
         $this->dataForView['siteConfig'] = Configuration::find(1);
     }
 

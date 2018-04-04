@@ -77,6 +77,8 @@ Route::prefix('category')->group(function(){
     Route::post('delete','Api\Categories@delete');
     // 为加载目录树的接口
     Route::get('tree','Api\Categories@tree');
+    // 为了菜单显示目录详情用
+    Route::get('load-nav/{uuid}','Api\Categories@load_nav');
 });
 
 /**

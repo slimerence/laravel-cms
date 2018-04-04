@@ -25,6 +25,9 @@
                 <a class="navbar-item {{ $menuName=='categories' ? 'is-active' : null }}" href="{{ url('/backend/categories') }}">
                     <i class="fab fa-bitbucket"></i>&nbsp;{{ trans('admin.menu.categories') }}
                 </a>
+                <a class="navbar-item {{ $menuName=='brands' ? 'is-active' : null }}" href="{{ url('/backend/brands') }}">
+                    <i class="fab fa-adversal"></i>&nbsp;{{ trans('admin.menu.brands') }}
+                </a>
                 <a class="navbar-item {{ $menuName=='catalog' ? 'is-active' : null }}" href="{{ url('/backend/products') }}">
                     <i class="fab fa-product-hunt"></i>&nbsp;{{ trans('admin.menu.products') }}
                 </a>

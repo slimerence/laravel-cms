@@ -25,6 +25,9 @@ Route::prefix('page')->group(function(){
 });
 Route::get('/page/{uri}', 'Frontend\Pages@view');
 
+// 加载产品目录的内容
+Route::get('/category/view/{uri}', 'Frontend\Categories@view');
+
 Auth::routes();
 
 Route::prefix('backend')->middleware('auth')->group(function(){
@@ -130,6 +133,15 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('groups/edit/{id}', 'Backend\Groups@edit');
     Route::get('groups/delete/{id}', 'Backend\Groups@delete');
     Route::post('groups/save','Backend\Groups@save');
+
+    /**
+     * 品牌管理
+     */
+    Route::get('brands', 'Backend\Brands@index')->name('brands');
+    Route::get('brands/add', 'Backend\Brands@add');
+    Route::get('brands/edit/{id}', 'Backend\Brands@edit');
+    Route::get('brands/delete/{id}', 'Backend\Brands@delete');
+    Route::post('brands/save','Backend\Brands@save');
 });
 
 Route::get('/home', 'Backend\Home@index');

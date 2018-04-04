@@ -1,0 +1,258 @@
+<template>
+    <div id="catalog-viewer-wrap">
+        <div class="vue-js-catalog-viewer-wrap" :style="{'height': height+'px','width': width+'px'}">
+            <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px'}">
+                <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler" v-on:mouseout="outCategoryItemSectionHandler">
+                    <li v-for="(flc, idx) in firstLevelCategories" :key="idx" class="flc-item" @mouseover="loadCategoryDetail(flc.id)">
+                        {{ flc.name }}
+                    </li>
+                    <li id="details-wrapper">
+                        <div class="vue-js-sub-category-details-wrapper"
+                             :style="{'width': currentCategoryDetailsWrapperWidth + 'px', 'left':firstLevelCategoriesWrapperWidth+'px', 'top':-firstLevelCategories.length*46+'px'}"
+                             :class="{'is-invisible': !showCurrentCategoryDetailFlag}"
+                        >
+                            <div class="columns">
+                                <div class="column is-9">
+                                    <div class="brands-wrap" v-if="currentCategory.brands">
+                                        <div class="brand" v-for="(brand, idx) in currentCategory.brands" :key="idx">
+                                            <a :href="buildBrandViewLink(brand.name)">{{ brand.name }}</a>
+                                        </div>
+                                    </div>
+                                    <ul class="sub-cats-wrap" v-if="currentCategory.subs">
+                                        <li class="sub-cat" v-for="(subCat, idx) in currentCategory.subs" :key="idx">
+                                            <div class="wrap">
+                                                <div class="columns">
+                                                    <div class="column is-3">
+                                                        <div class="sub-cat-name">
+                                                            <a :href="buildCategoryViewLink(subCat.uri)">{{ subCat.name }}<i class="fas fa-angle-right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="column is-9 products">
+                                                        <div class="product" v-for="(p,pidx) in subCat.products" :key="pidx"><a :href="buildProductViewLink(p.uri)">{{ p.name }}</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="column is-3" v-if="currentCategory.images">
+                                    <div class="img-wrap" v-for="(image, idx) in currentCategory.images">
+                                        <a href="image.link">
+                                            <img :src="image.url" alt="Image">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script type="text/ecmascript-6">
+    const CATALOG_VIEWER_LEFT_SECTION_WIDTH = 213;
+    export default {
+        name:'CatalogViewer',
+        props:{
+            // 大尺寸图片
+            categoryLoadingUrl:{
+                type: String,
+                required: true
+            },
+            productLoadingUrl:{
+                type: String,
+                required: false
+            },
+            brandLoadingUrl:{
+                type: String,
+                required: false
+            },
+            firstLevelCategories:{
+                type: Array,
+                required: true
+            },
+            width:{
+                type: Number,
+                required: true
+            },
+            height:{
+                type: Number,
+                required: true
+            },
+            leftWidth:{
+                type: Number,
+                required: false
+            }
+        },
+        data: function(){
+            return {
+                firstLevelCategoriesWrapperWidth: null,     // 第一级目录区宽度
+                currentCategoryDetailsWrapperWidth: null,     // 当前目录区宽度
+                currentCategory:{},         // 当前hover到的category
+                inCategoryItemSection: false,   // 鼠标在目录项的范围内
+                inCategoryDetail: false,        // 鼠标在目录详情的范围内
+                showCurrentCategoryDetailFlag: false   // 是否显示当前hover的目录的详情
+            }
+        },
+        watch: {
+        },
+        created() {
+            // 左侧目录树的宽度与右侧展示区的宽度
+            this.firstLevelCategoriesWrapperWidth = this.leftWidth ? this.leftWidth : CATALOG_VIEWER_LEFT_SECTION_WIDTH;
+            this.currentCategoryDetailsWrapperWidth = this.width - this.firstLevelCategoriesWrapperWidth;
+        },
+        mounted() {
+
+        },
+        methods:{
+            buildCategoryViewLink: function(id){
+                return '/' + this.categoryLoadingUrl + '/' + id;
+            },
+            buildProductViewLink: function(id){
+                return '/' + this.productLoadingUrl + '/' + id;
+            },
+            buildBrandViewLink: function(brandName){
+                return '/' + this.brandLoadingUrl + '?brand=' + brandName;
+            },
+            inCategoryItemSectionHandler: function(){
+                this.showCurrentCategoryDetailFlag = true;
+            },
+            outCategoryItemSectionHandler: function(){
+                this.showCurrentCategoryDetailFlag = false;
+            },
+            /**
+             * 根据鼠标的hover位置加载目录信息
+             * @param id
+             */
+            loadCategoryDetail: function(id){
+                let idx = _.findIndex(this.firstLevelCategories, function(cat){
+                    return cat.id == id;
+                });
+                if(idx > -1){
+                    this.currentCategory =  this.firstLevelCategories[idx];
+                }
+            }
+        }
+    }
+</script>
+<style scoped lang="scss" rel="stylesheet/scss">
+    // css rule here
+    #catalog-viewer-wrap{
+        position: relative;
+        width: 100%;
+        height: auto;
+        .vue-js-catalog-viewer-wrap{
+            position: absolute;
+            top:0;
+            left:0;
+            z-index: 1000;
+            background-color: transparent;
+            height: auto;
+            .vue-js-categories-list{
+                background-color: rgba(0, 0, 0, 0.8);
+                height: auto;
+                float: left;
+                margin:0;
+                padding: 0;
+                .the-list{
+                    .flc-item{
+                        line-height: 30px;
+                        font-size: 16px;
+                        color: #fff;
+                        padding: 8px 0px 8px 18px;
+                        font-weight: 100;
+                        &:hover{
+                            background-color: #999395;
+                            color: #b92e2d;
+                        }
+                    }
+                    #details-wrapper{
+                        position:relative;
+                        .vue-js-sub-category-details-wrapper{
+                            position: absolute;
+                            margin: 0;
+                            padding: 14px;
+                            height: 600px;
+                            background-color: white;
+                            .brands-wrap{
+                                display: flex;
+                                margin-bottom: 20px;
+                                .brand{
+                                    background-color: #6e6568;
+                                    line-height: 28px;
+                                    font-size: 16px;
+                                    padding-left:10px;
+                                    padding-right:10px;
+                                    margin-right: 10px;
+                                    a{
+                                        color: white;
+                                    }
+                                    &:hover{
+                                        background-color: #999395;
+                                        color: #b92e2d;
+                                    }
+                                }
+                            }
+                            .sub-cats-wrap{
+                                display: flex;
+                                flex-direction: column;
+                                .sub-cat{
+                                    width: 100%;
+                                    margin-bottom: 16px;
+                                    .wrap{
+                                        .sub-cat-name{
+                                            padding-right: 20px;
+                                            text-align: right;
+                                            line-height: 30px;
+                                            font-size: 14px;
+                                            font-weight: bold;
+                                            border-right: solid 1px #e0e0e0;
+                                            a{
+                                                color:#666;
+                                                i, svg{
+                                                    margin-left: 14px;
+                                                    font-size:20px;
+                                                }
+                                                &:hover{
+                                                    color: #b92e2d;
+                                                }
+                                            }
+                                        }
+                                        .products{
+                                            display: flex;
+                                            padding-bottom: 10px;
+                                            margin-bottom: 10px;
+                                            border-bottom: solid 1px #e0e0e0;
+                                            .product{
+                                                line-height: 30px;
+                                                font-size: 14px;
+                                                padding-right: 16px;
+                                                margin-right: 16px;
+                                                border-right: solid 1px #e0e0e0;
+                                                a{
+                                                    color: #666;
+                                                    &:hover{
+                                                        color: #b92e2d;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .img-wrap{
+                                text-align: right;
+                                img{
+                                    width: 90%;
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>

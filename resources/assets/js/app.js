@@ -38,9 +38,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 // import { Loading } from 'element-ui';
 Vue.use(ElementUI);
 
+// 导入子定义的 vue js editor组件
+Vue.component('CatalogViewer', require('./components/catalog-viewer/catalogviewer.vue'));
+Vue.component('VuejsSlider', require('./components/vuejs-slider/VuejsSlider.vue'));
+
 fastclick.attach(document.body);
-
-
 
 // 导航菜单的应用
 let NavigationApp = new Vue({
@@ -83,6 +85,18 @@ if(document.getElementById('menu')){
 
     document.querySelector('.toggle-button').addEventListener('click', function() {
         slideout.toggle();
+    });
+}
+
+// 模仿京东的目录浏览控件
+if(document.getElementById('catalog-viewer-app')){
+    let catalogViewerApp = new Vue({
+        el: '#catalog-viewer-app',
+        data(){
+            return {
+                
+            }
+        }
     });
 }
 
