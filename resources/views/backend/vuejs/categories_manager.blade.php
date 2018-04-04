@@ -22,7 +22,8 @@
                 keywords:'',
                 seo_description: '',
                 include_in_menu: false,
-                as_link: false
+                as_link: false,
+                brands:[]
             },
             rules: {
                 name: [
@@ -31,13 +32,33 @@
                 short_description: [
                     { required: true, message: 'Short Description Required', trigger: 'blur' }
                 ]
-            }
+            },
+            brandsData: []
         },
         created: function(){
             this.loadCategoriesTree();
             $('#categories-manager-app').removeClass('invisible');
+            // 加载所有的Brands
+            this._loadAllBrands(this.currentCategory.id);
         },
         methods: {
+            // 和Brands相关
+            _loadAllBrands: function(id){
+                var that = this;
+                axios.get(
+                    '/api/category/load-brands/' + id
+                ).then(function(res){
+                    if(res.data.error_no == 100){
+                        // 成功
+                        that.brandsData = res.data.data.brands;
+                        that.currentCategory.brands = res.data.data.categoryBrands;
+                    }else{
+                        // 失败
+                        that._notify('error','Error','Something wrong, please refresh the page!');
+                    }
+                });
+            },
+            // 和品牌Brands相关结束
             loadCategoriesTree: function(){
                 // 加载目录树的操作
                 var that = this;
@@ -57,6 +78,7 @@
                 return window.categoryNoteRender(h, { node, data, store });
             },
             handleEdit: function(cate, node, tree){
+                console.log(cate);
                 // 加载选定的目录树种的目录,放到待编辑表单中
                 this.currentParentCategoryId = cate.id;
                 this.currentSelectedCategoryName = cate.name;
@@ -69,6 +91,7 @@
                 this.currentCategory.seo_description = cate.seo_description;
                 this.currentCategory.include_in_menu = cate.include_in_menu;
                 this.currentCategory.as_link = cate.as_link;
+                this.currentCategory.brands = cate.brands;
             },
             createNewCategoryForm: function(){
                 // 点击 New Category之后, 将表格设置为新添状态. 以当前选定的目录作为父目录
@@ -81,6 +104,7 @@
                 this.currentCategory.seo_description = '';
                 this.currentCategory.include_in_menu = false;
                 this.currentCategory.as_link = false;
+                this.currentCategory.brands = [];
             },
             createNewRootCategoryForm: function(){
                 // 创建一个新的顶级目录

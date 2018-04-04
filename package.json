@@ -29,6 +29,7 @@
         "bulma": "^0.6.2",
         "bulma-accordion": "^1.0.1",
         "bulma-carousel": "^1.0.10",
+        "bulma-tagsinput": "^1.0.7",
         "element-ui": "^2.2.1",
         "fastclick": "^1.0.6",
         "photoswipe": "^4.1.2",

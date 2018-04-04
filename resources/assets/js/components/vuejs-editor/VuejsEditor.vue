@@ -53,7 +53,7 @@
         },
         watch: {
             'originalContent': function(newContent, oldContent){
-                if(newContent){
+                if(newContent != oldContent){
                     this.setContent(newContent);
                 }
             }

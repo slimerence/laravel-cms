@@ -79,6 +79,8 @@ Route::prefix('category')->group(function(){
     Route::get('tree','Api\Categories@tree');
     // 为了菜单显示目录详情用
     Route::get('load-nav/{uuid}','Api\Categories@load_nav');
+    // 和品牌相关
+    Route::get('load-brands/{categoryId?}','Api\Brands@load_all');
 });
 
 /**

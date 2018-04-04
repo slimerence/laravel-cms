@@ -15,12 +15,13 @@ class Category extends Model
     protected $fillable = [
         'name','parent_id','position','short_description',
         'uri','active','include_in_menu','image_path',
-        'keywords','seo_description','uuid','as_link','name_cn'
+        'keywords','seo_description','uuid','as_link','name_cn','brands'
     ];
 
     protected $casts = [
         'include_in_menu' => 'boolean',
         'as_link' => 'boolean',
+        'brands'=>'array'
     ];
 
     public $timestamps = false;

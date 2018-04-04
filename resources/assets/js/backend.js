@@ -1,7 +1,9 @@
 require('./bootstrap');
 import './bulma/carousel';
 import './bulma/accordion';
+import './bulma/tagsinput';
 import Slideout from 'slideout';
+
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

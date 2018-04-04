@@ -1,13 +1,20 @@
 <h5 class="desc-text">Categories</h5>
-<div class="columns">
-@foreach($categories as $key=>$category)
-    <div class="column is-2 form-check form-check-inline">
-        <label class="checkbox form-check-label">
-            <input v-model="categories" class="checkbox form-check-input"
-                   type="checkbox" value="{{ $category->id }}"> {{ $category->name }}
-        </label>
+<div class="container">
+    <?php
+        $chunks = $categories->chunk(5);
+    ?>
+    @foreach($chunks as $row)
+    <div class="columns">
+        @foreach($row as $key=>$category)
+        <div class="column is-2 form-check form-check-inline">
+            <label class="checkbox form-check-label">
+                <input v-model="categories" class="checkbox form-check-input"
+                       type="checkbox" value="{{ $category->id }}"> {{ $category->name }}
+            </label>
+        </div>
+        @endforeach
     </div>
-@endforeach
+    @endforeach
 </div>
 <hr>
 <h5 class="desc-text">属性集</h5>

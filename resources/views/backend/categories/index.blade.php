@@ -42,15 +42,26 @@
                 <hr>
                 <div class="container">
                     <el-form ref="currentCategory" :rules="rules" :model="currentCategory" label-width="160px">
-                        <el-form-item label="Category Name" prop="name" required>
+                        <el-form-item label="Category Name" prop="name">
                             <el-input placeholder="名称: 必填" v-model="currentCategory.name"></el-input>
                         </el-form-item>
                         <el-form-item label="包含在导航栏中">
                             <el-switch v-model="currentCategory.include_in_menu"></el-switch>
                         </el-form-item>
+
                         <el-form-item label="作为静态页面链接">
                             <el-switch v-model="currentCategory.as_link"></el-switch>
                         </el-form-item>
+
+                        <el-form-item label="Brands">
+                            <el-transfer
+                                v-model="currentCategory.brands"
+                                :data="brandsData"
+                                :titles="['所有品牌', '已选定品牌']"
+                            >
+                            </el-transfer>
+                        </el-form-item>
+
                         <el-form-item label="Position" prop="position">
                             <el-input placeholder="排序: 选填 默认为0" v-model="currentCategory.position"></el-input>
                         </el-form-item>
@@ -59,7 +70,7 @@
                             <vuejs-editor
                                     ref="categoryShortDescriptionEditor"
                                     class="rich-text-editor"
-                                    placeholder="(必填) Put content here"
+                                    placeholder="(必填) 填入目录的简要描述"
                                     text-area-id="category-short-description-editor"
                                     image-upload-url="/api/images/upload"
                                     existed-images="/api/images/load-all"
