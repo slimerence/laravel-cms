@@ -16,5 +16,6 @@ foreach ($categoriesTree as $item) {
     :width="1280"
     :height="600"
     :left-width="213"
+    :show-now="true"
     >
 </catalog-viewer>

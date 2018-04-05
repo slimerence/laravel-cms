@@ -182,7 +182,7 @@ class Category extends Model
         $children = $this->children;
         $data = [
             'subs' => [],
-            'brands' => [],
+            'brands' => Brand::whereIn('id',$this->brands)->get()->toArray(),
             'images'=>[]
         ];
         foreach ($children as $child) {

@@ -216,7 +216,13 @@ class Product extends Model
                 if($categories && is_array($categories)){
                     foreach ($categories as $categoryId) {
                         CategoryProduct::create(
-                            ['product_id'=>$product->id,'category_id'=>$categoryId]
+                            [
+                                'product_id'=>$product->id,
+                                'category_id'=>$categoryId,
+                                'product_name'=>$product->name,
+                                'position'=>$product->position,
+                                'price'=>$product->default_price
+                            ]
                         );
                     }
                 }
@@ -314,7 +320,13 @@ class Product extends Model
                     // 把提交的从新添加进去
                     foreach ($categories as $categoryId) {
                         CategoryProduct::create(
-                            ['product_id'=>$product->id,'category_id'=>$categoryId]
+                            [
+                                'product_id'=>$product->id,
+                                'category_id'=>$categoryId,
+                                'product_name'=>$product->name,
+                                'position'=>$product->position,
+                                'price'=>$product->default_price
+                            ]
                         );
                     }
                 }
@@ -378,7 +390,13 @@ class Product extends Model
                 if($categories && is_array($categories)){
                     foreach ($categories as $categoryId) {
                         CategoryProduct::create(
-                            ['product_id'=>$product->id,'category_id'=>$categoryId]
+                            [
+                                'product_id'=>$product->id,
+                                'category_id'=>$categoryId,
+                                'product_name'=>$product->name,
+                                'position'=>$product->position,
+                                'price'=>$product->default_price
+                            ]
                         );
                     }
                 }

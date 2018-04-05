@@ -7,7 +7,7 @@ import Slideout from 'slideout';
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-// import { Loading } from 'element-ui';
+import { Loading } from 'element-ui';
 Vue.use(ElementUI);
 
 // 导入子定义的 vue js editor组件

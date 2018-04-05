@@ -1,8 +1,8 @@
 <template>
     <div id="catalog-viewer-wrap">
-        <div class="vue-js-catalog-viewer-wrap" :style="{'height': height+'px','width': width+'px'}">
+        <div class="vue-js-catalog-viewer-wrap" :style="{'height': height+'px','width': width+'px'}" :class="{'is-invisible':!isShowSubsNow}">
             <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px'}">
-                <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler" v-on:mouseout="outCategoryItemSectionHandler">
+                <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler($event)" v-on:mouseout="outCategoryItemSectionHandler($event)">
                     <li v-for="(flc, idx) in firstLevelCategories" :key="idx" class="flc-item" @mouseover="loadCategoryDetail(flc.id)">
                         {{ flc.name }}
                     </li>
@@ -84,16 +84,29 @@
             leftWidth:{
                 type: Number,
                 required: false
+            },
+            showNow: {
+                type: Boolean,
+                required: true
+            },
+            showBy: {
+                type: String,
+                required: false
+            },
+            triggerId: {
+                type: String,
+                required: false
             }
         },
         data: function(){
             return {
                 firstLevelCategoriesWrapperWidth: null,     // 第一级目录区宽度
-                currentCategoryDetailsWrapperWidth: null,     // 当前目录区宽度
-                currentCategory:{},         // 当前hover到的category
-                inCategoryItemSection: false,   // 鼠标在目录项的范围内
-                inCategoryDetail: false,        // 鼠标在目录详情的范围内
-                showCurrentCategoryDetailFlag: false   // 是否显示当前hover的目录的详情
+                currentCategoryDetailsWrapperWidth: null,   // 当前目录区宽度
+                currentCategory:{},                         // 当前hover到的category
+                inCategoryItemSection: false,               // 鼠标在目录项的范围内
+                inCategoryDetail: false,                    // 鼠标在目录详情的范围内
+                showCurrentCategoryDetailFlag: false,       // 是否显示当前hover的目录的详情
+                isShowSubsNow: false                        // 是否显示子菜单
             }
         },
         watch: {
@@ -104,7 +117,19 @@
             this.currentCategoryDetailsWrapperWidth = this.width - this.firstLevelCategoriesWrapperWidth;
         },
         mounted() {
-
+            this.isShowSubsNow = this.showNow;
+            if(!this.isShowSubsNow){
+                // 如果不是默认显示子菜单
+                if(this.showBy === 'hover' && $(this.triggerId).length >0){
+                    // 表示要通过hover的方式触发子菜单
+                    $(this.triggerId).on('mouseover',e => {
+                        this.isShowSubsNow = true;
+                    });
+                    $(this.triggerId).on('mouseout',e => {
+                        this.isShowSubsNow = false;
+                    });
+                }
+            }
         },
         methods:{
             buildCategoryViewLink: function(id){
@@ -116,10 +141,10 @@
             buildBrandViewLink: function(brandName){
                 return '/' + this.brandLoadingUrl + '?brand=' + brandName;
             },
-            inCategoryItemSectionHandler: function(){
+            inCategoryItemSectionHandler: function(e){
                 this.showCurrentCategoryDetailFlag = true;
             },
-            outCategoryItemSectionHandler: function(){
+            outCategoryItemSectionHandler: function(e){
                 this.showCurrentCategoryDetailFlag = false;
             },
             /**
