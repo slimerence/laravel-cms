@@ -109,3 +109,8 @@ Route::prefix('payment')->group(function(){
     Route::get('weixin/notify','Api\Payment@weixin_notify');
     Route::get('weixin/success','Api\Payment@weixin_success');
 });
+
+// Brand的功能接口
+Route::prefix('brands')->group(function(){
+    Route::post('load-by-name','Api\Brands@load_by_name');
+});

@@ -28,6 +28,24 @@
     <el-input placeholder="排序: 选填 默认为0" v-model="product.position"></el-input>
 </el-form-item>
 
+<el-form-item label="Brand">
+    <el-autocomplete
+        class="inline-input is-pulled-left"
+        v-model="product.brand"
+        :fetch-suggestions="brandSearch"
+        placeholder="请输入品牌"
+        :trigger-on-focus="true"
+        @select="handleSelectBrand"
+    ></el-autocomplete>
+
+    <div v-if="currentBrandImage" class="is-pulled-left ml-20">
+        <img :src="currentBrandImage" class="image is-pulled-left" style="height: 40px;">
+        <span style="margin-top: 8px;" class="ml-20 is-pulled-left tag is-success" v-if="currentBrand.status">上线</span>
+        <span style="margin-top: 8px;" class="ml-20 is-pulled-left tag is-danger" v-if="!currentBrand.status">下线</span>
+        <span style="margin-top: 8px;" class="ml-20 is-pulled-left tag is-primary" v-if="currentBrand.promotion">推广品牌</span>
+    </div>
+</el-form-item>
+
 <el-form-item label="Short Description">
     <vuejs-editor
             ref="productShortDescriptionEditor"

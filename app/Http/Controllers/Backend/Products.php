@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Catalog\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product;
@@ -55,6 +56,7 @@ class Products extends Controller
         $this->dataForView['categories'] = Category::NameList();
         $this->dataForView['product'] = new Product;
         $this->dataForView['attributesSet'] = ProductAttributeSet::orderBy('name','asc')->get();
+        $this->dataForView['brands'] = Brand::select('name as value','image_url')->orderBy('name','asc')->get();
         $this->dataForView['vuejs_libs_required'] = [
             'products_manager'
         ];
@@ -71,6 +73,7 @@ class Products extends Controller
         $this->dataForView['menuName'] = 'catalog';
         $this->dataForView['product'] = Product::find($id);
         $this->dataForView['groups'] = Group::orderBy('name','asc')->get();
+        $this->dataForView['brands'] = Brand::select('name as value','image_url')->orderBy('name','asc')->get();
         $this->dataForView['categories'] = Category::NameList();
         $this->dataForView['attributesSet'] = ProductAttributeSet::orderBy('name','asc')->get();
 

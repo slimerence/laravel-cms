@@ -9,7 +9,6 @@
                     {{ trans('admin.menu.categories') }} {{ trans('admin.mgr') }}
                 </h2>
                 <br>
-
                 <el-tree
                         :data="categories"
                         :props="defaultProps"

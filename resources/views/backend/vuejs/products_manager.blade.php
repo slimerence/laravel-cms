@@ -67,8 +67,9 @@
                 tax:'<?php echo $product->tax ? $product->tax : 10; ?>',
                 min_quantity:'<?php echo $product->min_quantity ? $product->min_quantity : 1; ?>',
                 manage_stock: '{{ $product->manage_stock ? 1 : 0 }}',
-                stock:'<?php echo $product->stock ? $product->stock : 0; ?>',
-                unit_text: '<?php echo $product->unit_text; ?>'
+                stock: '<?php echo $product->stock ? $product->stock : 0; ?>',
+                unit_text: '<?php echo $product->unit_text; ?>',
+                brand: '<?php echo $product->brand; ?>'
             },
             rules: {
                 name: [
@@ -89,13 +90,17 @@
                 position: [
                     { required: true, message: 'Product\'s position is Required', trigger: 'blur' }
                 ]
-            }
+            },
+            brands: {!! json_encode($brands) !!},
+            currentBrandImage: null,
+            currentBrand: null
         },
         created: function(){
             if(this.product.id){
                 // 表示是编辑一个已经存在的产品
                 this._loadProductImages();
                 this._loadProductExistOptionsAndColours();
+                this._loadCurrentBrandData(this.product.brand);
             }
             $('#products-manager-app').removeClass('invisible');
             // 加载当前属性集的属性
@@ -120,6 +125,38 @@
             }
         },
         methods: {
+            // 产品品牌相关
+            brandSearch: function(queryString, cb){
+                var brandsArray = this.brands;
+                var results = queryString ? brandsArray.filter(this._createBrandFilter(queryString)) : brandsArray;
+                // 调用 callback 返回建议列表的数据
+                cb(results);
+            },
+            _createBrandFilter: function(queryString){
+                return function(brand){
+                    return (brand.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+                };
+            },
+            handleSelectBrand: function(item){
+                this.product.brand = item.value;
+                this._loadCurrentBrandData(item.value);
+            },
+            _loadCurrentBrandData: function(name){
+                if(name && name.trim().length > 0){
+                    // 品牌名称如果不为空, 则尝试重复加载
+                    var that = this;
+                    axios.post(
+                            '/api/brands/load-by-name',
+                            {name:name}
+                    ).then(function(res){
+                        if(res.data.error_no === 100){
+                            that.currentBrandImage = res.data.data.brandImage;
+                            that.currentBrand = res.data.data.brand;
+                        }
+                    });
+                }
+            },
+            // 产品品牌结束
             // 产品的颜色相关
             addNewProductColour: function(){
                 this._resetProductColourForm();
@@ -203,7 +240,6 @@
                 // 同样需要检查是否索要被删除的option item是否有ID, 如果有, 则去服务器删除
                 var pColor = this.productColours[idx];
                 var that = this;
-
 
                 this.$confirm('此操作将永久删除该颜色, 是否继续?', '提示', {
                         confirmButtonText: '确定',
@@ -411,14 +447,14 @@
                 // 验证并保存当前正在编辑的产品信息
                 var that = this;
                 this.$refs[formName].validate(
-                        function(valid){
-                            if (valid) {
-                                that._saveProduct();
-                            } else {
-                                that._notify('error','还有必须的字段没有填写');
-                                return false;
-                            }
+                    function(valid){
+                        if (valid) {
+                            that._saveProduct();
+                        } else {
+                            that._notify('error','还有必须的字段没有填写');
+                            return false;
                         }
+                    }
                 );
             },
             _saveProduct: function(){
@@ -465,15 +501,15 @@
                     this.product.short_description = this.$refs.productShortDescriptionEditor.getContent();
 
                     axios.post(
-                            '<?php echo url('api/products/save') ?>',
-                            {
-                                product:this.product,
-                                images: this.productImages,
-                                categories: this.categories,
-                                productOptions: this.productOptions,
-                                productColours: this.productColours,
-                                productAttributeData: paData // 和产品属性相关的值
-                            }
+                        '<?php echo url('api/products/save') ?>',
+                        {
+                            product:this.product,
+                            images: this.productImages,
+                            categories: this.categories,
+                            productOptions: this.productOptions,
+                            productColours: this.productColours,
+                            productAttributeData: paData // 和产品属性相关的值
+                        }
                     ).then(function(res){
                         if(res.data.error_no == 100){
                             // 成功 从新加载一下
@@ -672,8 +708,6 @@
 //                console.log(file);
             },
             handleAttachmentRemove: function(file, fileList){
-//                console.log(file);
-//                console.log(fileList);
                 var that = this;
                 if(file.response){
                     if(file.status=='success' && file.response){

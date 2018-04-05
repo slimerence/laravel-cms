@@ -40,7 +40,8 @@ class Product extends Model
         'short_description',
         'description',
         'keywords',
-        'seo_description'
+        'seo_description',
+        'brand'
     ];
 
     /**
@@ -567,7 +568,7 @@ class Product extends Model
     public function getProductDefaultImageUrl(){
         $defaultImage = $this->getProductDefaultImage();
 
-        return $defaultImage ? Storage::url($defaultImage->url) : Storage::url('/uploads/default.png');
+        return $defaultImage ? $defaultImage->url : Storage::url('/uploads/default.png');
     }
 
     /**

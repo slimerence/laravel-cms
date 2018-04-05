@@ -46,15 +46,15 @@
 
         <el-form-item :label="pAttribute.name" v-if="pAttribute.type=={{ \App\Models\Utils\OptionTool::$TYPE_ATTACHMENT }}">
             <el-upload
-                    class="upload-demo"
-                    :data="{index:idx}"
-                    :ref="'productAttachmentsUploader'+idx"
-                    action="{{ url('api/attachments/upload') }}"
-                    :on-preview="handleAttachmentPreview"
-                    :on-remove="handleAttachmentRemove"
-                    :on-success="putAttachmentUrlIntoList"
-                    :before-upload="beforeFileUploadCheck"
-                    :auto-upload="false"
+                class="upload-demo"
+                :data="{index:idx}"
+                :ref="'productAttachmentsUploader'+idx"
+                action="{{ url('api/attachments/upload') }}"
+                :on-preview="handleAttachmentPreview"
+                :on-remove="handleAttachmentRemove"
+                :on-success="putAttachmentUrlIntoList"
+                :before-upload="beforeFileUploadCheck"
+                :auto-upload="false"
             >
                 <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                 <el-button style="margin-left: 10px;" size="small" type="success" v-on:click="submitAttachment(idx,'productAttachmentsUploader'+idx)">上传到服务器</el-button>

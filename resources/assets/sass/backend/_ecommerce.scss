@@ -124,11 +124,13 @@ td{
       margin-bottom: 5px !important;
       &:hover{
         border-color: whitesmoke;
+        box-shadow: 0 2px 3px #ccc;
       }
     }
     .box.active{
       background-color: $color-green;
       color: #fff;
+      box-shadow: none;
     }
   }
 }

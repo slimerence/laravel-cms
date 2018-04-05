@@ -26,4 +26,20 @@ class Brands extends Controller
         }
         return JsonBuilder::Success(['brands'=>$brands,'categoryBrands'=>$categoryBrandsArray]);
     }
+
+    /**
+     * 根据品牌名称加载
+     * @param Request $request
+     * @return string
+     */
+    public function load_by_name(Request $request){
+        $name = $request->get('name');
+        if($name){
+            $brand = Brand::where('name',$name)->orderBy('id','asc')->first();
+            if($brand){
+                return JsonBuilder::Success(['brandImage'=>$brand->getImageUrl(),'brand'=>$brand]);
+            }
+        }
+        return JsonBuilder::Error();
+    }
 }
