@@ -34,7 +34,11 @@ body{
 .bg-white{
   background-color: white;
 }
-
+.no-list-style{
+  li{
+    list-style: none;
+  }
+}
 .mobile-drawer-trigger{
   color: white;
   background: transparent;
@@ -85,17 +89,21 @@ body{
 }
 // 深色背景的导航菜单栏
 .dark-theme-nav{
-  //background: linear-gradient(#113c82,#0b2653,#0b2653,#0b2653,#0b2653,#0b2653);
   background: rgba(0,0,0,0.8);
   .navbar-start{
     .navbar-item{
       color: white;
       font-size: 21px;
       font-weight: bold;
+      display: block;
+      line-height: 34px;
       &:hover{
         background-color: rgba(0,0,0,0.7);
         color: $color-gold;
       }
+    }
+    .product-category-root{
+      min-height: 54px;
     }
   }
 }

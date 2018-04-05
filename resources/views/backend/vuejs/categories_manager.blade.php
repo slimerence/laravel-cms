@@ -16,6 +16,7 @@
             currentCategory: {
                 id: null,
                 name:'',
+                uri:'',
                 position:0,
                 parent_id: 1,
                 short_description: '',
@@ -29,6 +30,9 @@
                 name: [
                     { required: true, message: 'Category Name Required', trigger: 'blur' }
                 ],
+                uri: [
+                    { required: true, message: 'Category URI Required', trigger: 'blur' }
+                ],
                 short_description: [
                     { required: true, message: 'Short Description Required', trigger: 'blur' }
                 ]
@@ -40,6 +44,16 @@
             $('#categories-manager-app').removeClass('invisible');
             // 加载所有的Brands
             this._loadAllBrands(this.currentCategory.id);
+        },
+        watch:{
+            'currentCategory.name': function(newVal, oldVal){
+                // 在创建新的目录时, 自动生成URI, keywords 和 SEO desc
+                if(this.currentCategory.id == null){
+                    this.currentCategory.uri = _replace_space_with_dash(newVal);
+                    this.currentCategory.keywords = newVal;
+                    this.currentCategory.seo_description = newVal;
+                }
+            }
         },
         methods: {
             // 和Brands相关
@@ -63,7 +77,7 @@
                 // 加载目录树的操作
                 var that = this;
                 axios.get(
-                        '/api/category/tree'
+                    '/api/category/tree'
                 ).then(function(res){
                     if(res.data.error_no == 100){
                         // 成功
@@ -84,6 +98,7 @@
                 this.currentSelectedCategoryName = cate.name;
                 this.currentCategory.id = cate.id;
                 this.currentCategory.name = cate.name;
+                this.currentCategory.uri = cate.uri;
                 this.currentCategory.position = cate.position;
                 this.currentCategory.parent_id = cate.parent_id;
                 this.currentCategory.short_description = cate.short_description;
@@ -97,6 +112,7 @@
                 // 点击 New Category之后, 将表格设置为新添状态. 以当前选定的目录作为父目录
                 this.currentCategory.id = null;
                 this.currentCategory.name = '';
+                this.currentCategory.uri = '';
                 this.currentCategory.position = 0;
                 this.currentCategory.parent_id = this.currentParentCategoryId;
                 this.currentCategory.short_description = '';

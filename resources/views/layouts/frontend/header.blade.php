@@ -27,7 +27,7 @@
     <div id="navMenu" class="navbar-menu dark-theme-nav">
         <div class="navbar-start">
             @if(isset($categoriesTree) && count($categoriesTree) > 0)
-                <a id="product-category-root" class="navbar-item" href="#" style="width: 213px; background-color: #000;color: #fff;">
+                <a id="product-category-root" class="navbar-item" href="#" style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: #000;">
                     <i class="fas fa-cube"></i>&nbsp;&nbsp;Catalog
                 </a>
             @endif

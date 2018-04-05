@@ -4,17 +4,17 @@
         @if ($paginator->onFirstPage())
             <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
         @else
-            <a class="pagination-previous" href="{{ $paginator->previousPageUrl() }}" rel="prev">Previous</a>
+            <a class="pagination-previous" href="{{ $paginator->previousPageUrl() }}" rel="prev"><i class="fas fa-arrow-circle-left"></i></a>
         @endif
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <a class="pagination-next" href="{{ $paginator->nextPageUrl() }}" rel="next">Next page</a>
+            <a class="pagination-next" href="{{ $paginator->nextPageUrl() }}" rel="next"><i class="fas fa-arrow-circle-right"></i></a>
         @else
             <a class="pagination-next" title="This is the last page" disabled>Next page</a>
         @endif
 
-        <ul class="pagination-list">
+        <ul class="pagination-list is-marginless no-list-style">
             {{-- Pagination Elements --}}
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}

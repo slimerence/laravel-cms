@@ -25,11 +25,25 @@ class Categories extends Controller
         // 加载排序条件
         $orderBy = $request->has('orderBy') ? $request->get('orderBy') : 'position';
         $direction = $request->has('dir') ? $request->get('dir') : 'asc';
+        $this->dataForView['orderBy'] = $orderBy;
+        $this->dataForView['direction'] = $direction;
+        $paginationAppendParams = [
+            'orderBy'=>$orderBy,
+            'dir'=>$direction
+        ];
+        $this->dataForView['paginationAppendParams'] = $paginationAppendParams;
 
         $category = Category::where('uri',$uri)->first();
         $cps = CategoryProduct::select('product_id',$orderBy)->where('category_id',$category->id)
             ->orderBy($orderBy, $direction)
             ->paginate(config('system.PAGE_SIZE'));
+
+        // Pagination的对象
+        $this->dataForView['cps'] = $cps;
+
+        // 将价格区间计算出了放到View中
+        $this->_calculatePricesRange($cps->total(), $category);
+
         $productsId = [];
         foreach ($cps as $cp) {
             $productsId[] = $cp->product_id;
@@ -37,6 +51,35 @@ class Categories extends Controller
         $products = Product::whereIn('id',$productsId)->get();
 
         $this->dataForView['products'] = $products;
+        $this->dataForView['category'] = $category;
         return view('frontend.default.catalog.category',$this->dataForView);
+    }
+
+    /**
+     * 找出给定目录的产品数量的最合适的价格区间数据
+     * @param $productsCount
+     * @param Category $category
+     */
+    private function _calculatePricesRange($productsCount, Category $category){
+
+        if($productsCount == 0){
+            return;
+        }
+
+        // 本目录中产品的最低价格
+        $lowest_price = intval(CategoryProduct::where('category_id',$category->id)->min('price'));
+        $highest_price = intval(CategoryProduct::where('category_id',$category->id)->max('price'));
+        $ranges = null;
+
+//        $lowest_price = 1000;
+//        $highest_price = 10000;
+//        $productsCount = 19;
+
+        $count = $productsCount < 5 ? $productsCount : 5;
+        $step = intval( ($highest_price - $lowest_price)/$count );
+        if($step>1){
+            $ranges = range($lowest_price,$highest_price,$step);
+        }
+        $this->dataForView['price_ranges'] = $ranges;
     }
 }

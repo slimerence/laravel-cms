@@ -4,7 +4,7 @@
             <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px'}">
                 <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler($event)" v-on:mouseout="outCategoryItemSectionHandler($event)">
                     <li v-for="(flc, idx) in firstLevelCategories" :key="idx" class="flc-item" @mouseover="loadCategoryDetail(flc.id)">
-                        {{ flc.name }}
+                        <a class="has-text-white" :href="buildCategoryViewLink(flc.uri)">{{ flc.name }}</a>
                     </li>
                     <li id="details-wrapper">
                         <div class="vue-js-sub-category-details-wrapper"
@@ -139,7 +139,7 @@
                 return '/' + this.productLoadingUrl + '/' + id;
             },
             buildBrandViewLink: function(brandName){
-                return '/' + this.brandLoadingUrl + '?brand=' + brandName;
+                return '/catalog/brand/load?name=' + brandName;
             },
             inCategoryItemSectionHandler: function(e){
                 this.showCurrentCategoryDetailFlag = true;

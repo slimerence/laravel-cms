@@ -68,3 +68,6 @@ h1,h2,h3,h4,h5,p,a,span,li,td,div{
 .bg-grey{
   background-color: #e5e5e5;
 }
+.border-dotted-top{
+  border-top: dotted 1px $color-footer-logo-bg;
+}

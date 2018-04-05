@@ -8,7 +8,8 @@
 return [
     'frontend_theme'=>'default',
     'MAX_UPLOAD_FILE_SIZE'=>1000000,
-    'PAGE_SIZE'=>12,
+    'PAGE_SIZE'=>20,
+    'CATALOG_TRIGGER_MENU_WIDTH'=>161,
     'CURRENCY'=>'$',
     'layout'=>[
         'container'=>[

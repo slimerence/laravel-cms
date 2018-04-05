@@ -245,4 +245,16 @@ class Category extends Model
             ->orderBy('position','asc')
             ->get();
     }
+
+    /**
+     * 当前产品的数量
+     * @return mixed
+     */
+    public function productsCount(){
+        return CategoryProduct::where('category_id',$this->id)->count();
+    }
+
+    public function loadBrands(){
+        return Brand::whereIn('id',$this->brands)->get();
+    }
 }

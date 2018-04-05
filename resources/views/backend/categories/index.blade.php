@@ -44,6 +44,11 @@
                         <el-form-item label="Category Name" prop="name">
                             <el-input placeholder="名称: 必填" v-model="currentCategory.name"></el-input>
                         </el-form-item>
+
+                        <el-form-item label="Category URI" prop="uri">
+                            <el-input placeholder="目录链接URI: 必填" v-model="currentCategory.uri"></el-input>
+                        </el-form-item>
+
                         <el-form-item label="包含在导航栏中">
                             <el-switch v-model="currentCategory.include_in_menu"></el-switch>
                         </el-form-item>
