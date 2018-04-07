@@ -39,5 +39,10 @@
                 </a>
             @endif
         </div>
+        <div class="navbar-end">
+            <a class="navbar-item" href="{{ url('/') }}" target="_blank">
+                <i class="fa fa-arrow-right"></i>&nbsp;Website
+            </a>
+        </div>
     </div>
 </nav>
