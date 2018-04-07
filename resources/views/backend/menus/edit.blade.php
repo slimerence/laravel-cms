@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -14,8 +14,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <form class="full-width" method="POST" action="{{ url('backend/menus/save') }}">
+        <div class="content">
+            <form method="POST" action="{{ url('backend/menus/save') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $menu->id }}">
                 <div class="field">
