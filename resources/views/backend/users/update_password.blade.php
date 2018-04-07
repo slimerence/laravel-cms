@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -11,8 +11,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <form class="full-width" method="POST" action="{{ url('backend/update-password') }}">
+        <div class="content">
+            <form method="POST" action="{{ url('backend/update-password') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $user->id }}">
                 <div class="columns">

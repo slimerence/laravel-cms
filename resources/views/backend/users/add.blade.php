@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -14,8 +14,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <form class="full-width" method="POST" action="{{ url('backend/users/save') }}">
+        <div class="content">
+            <form method="POST" action="{{ url('backend/users/save') }}">
                 @csrf
                 <input type="hidden" name="id" value="{{ $user->id }}">
                 <input type="hidden" name="status" value="1">
