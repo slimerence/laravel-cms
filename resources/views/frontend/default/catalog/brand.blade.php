@@ -1,39 +1,29 @@
 @extends('layouts.catalog')
 @section('content')
     <div class="content pl-20 pr-20 page-content-wrap">
-        <hr>
-        <div class="columns">
-            <div class="column is-1">
-                <i class="far fa-thumbs-up is-size-1 has-text-danger"></i>
-                <br>
-                <p class="has-text-left has-text-danger is-size-7 mt-10">Feature Products</p>
-            </div>
-            <div class="column is-11-desktop">
-                <div class="columns">
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
+        @if(isset($featureProducts) && count($featureProducts)>0)
+            <hr>
+            <div class="columns">
+                <div class="column is-1">
+                    <i class="far fa-thumbs-up is-size-1 has-text-danger"></i>
+                    <br>
+                    <p class="has-text-left has-text-danger is-size-7 mt-10">Feature Products</p>
+                </div>
+                <div class="column is-11-desktop">
+                    <div class="columns">
+                        @foreach($featureProducts as $featureProduct)
+                            <div class="column">
+                                <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
+                                    <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
+            <hr>
+        @endif
+
         <div class="box is-radiusless">
             <div class="columns">
                 <div class="column">

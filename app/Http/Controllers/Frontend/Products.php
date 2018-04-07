@@ -6,6 +6,7 @@ use App\Models\Catalog\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product\Colour;
+use App\Models\Catalog\Category;
 
 class Products extends Controller
 {
@@ -58,6 +59,8 @@ class Products extends Controller
         // 将价格区间计算出了放到View中
         $this->_calculatePricesRange($products->total(), $request->get('name'));
         $this->dataForView['brand'] = $request->get('name');
+
+        $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
 
         // 总是加载Features product and promotion
         return view('frontend.default.catalog.brand',$this->dataForView);
