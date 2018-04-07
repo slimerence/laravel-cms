@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 @section('content')
-    <div id="panel">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -12,8 +12,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <form class="full-width" method="POST" action="{{ url('backend/configuration/save') }}" enctype="multipart/form-data">
+        <div class="content">
+            <form method="POST" action="{{ url('backend/configuration/save') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $config->id }}">
                 <div class="columns">
