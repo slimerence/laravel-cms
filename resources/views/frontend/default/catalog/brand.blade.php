@@ -73,24 +73,6 @@
             @endif
         </div>
         <div class="columns">
-            <div class="column is-2">
-                <!-- 推荐产品 -->
-                <div class="content">
-                    <p class="has-text-left has-text-danger is-size-4 is-marginless mb-10">Promotion</p><br>
-                    <a href="#">
-                        <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        <p class="is-size-6 has-text-grey mb-10">Product Name</p>
-                        <p class="is-size-5 has-text-danger mb-10">AUD $100</p>
-                    </a>
-                    <hr>
-                    <a href="#">
-                        <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        <p class="is-size-6 has-text-grey mb-10">Product Name</p>
-                        <p class="is-size-5 has-text-danger mb-10">AUD $100</p>
-                    </a>
-                    <hr>
-                </div>
-            </div>
             <div class="column">
                 @include('frontend.default.catalog.elements.filters_brand')
                 @include('frontend.default.catalog.elements.simple_paginate_brand')

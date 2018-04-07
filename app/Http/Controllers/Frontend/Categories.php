@@ -54,6 +54,8 @@ class Categories extends Controller
         $this->dataForView['category'] = $category;
 
         // 总是加载Features product and promotion
+        $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
+        $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
         return view('frontend.default.catalog.category',$this->dataForView);
     }

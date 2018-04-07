@@ -1,6 +1,7 @@
 @extends('layouts.catalog')
 @section('content')
     <div class="content pl-20 pr-20 page-content-wrap">
+        @if(isset($featureProducts) && count($featureProducts)>0)
         <hr>
         <div class="columns">
             <div class="column is-1">
@@ -10,31 +11,19 @@
             </div>
             <div class="column is-11-desktop">
                 <div class="columns">
+                    @foreach($featureProducts as $featureProduct)
                     <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
+                        <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
+                            <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10">
                         </a>
                     </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
-                    <div class="column">
-                        <a href="">
-                            <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
         <hr>
-        <div class="box is-radiusless">
+        @endif
+        <div class="box is-radiusless mt-20">
             <div class="columns">
                 <div class="column">
                     <div class="field is-grouped is-grouped-multiline">
@@ -100,24 +89,26 @@
             @endif
         </div>
         <div class="columns">
+            @if(isset($promotionProducts) && count($promotionProducts)>0)
             <div class="column is-2">
-                <!-- 推荐产品 -->
                 <div class="content">
                     <p class="has-text-left has-text-danger is-size-4 is-marginless mb-10">Promotion</p><br>
-                    <a href="#">
-                        <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        <p class="is-size-6 has-text-grey mb-10">Product Name</p>
-                        <p class="is-size-5 has-text-danger mb-10">AUD $100</p>
+                    @foreach($promotionProducts as $promotionProduct)
+                    <a href="{{ url('catalog/product/'.$promotionProduct->uri) }}">
+                        <img src="{{ $promotionProduct->getProductDefaultImageUrl() }}" alt="{{ $promotionProduct->name }}" class="image mb-10">
+                        <p class="is-size-6 has-text-grey mb-10">{{ $promotionProduct->name }}</p>
+                        <div class="price-box">
+                            <p class="is-pulled-left {{ $promotionProduct->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">AUD${{ $promotionProduct->default_price }}</p>
+                            @if($promotionProduct->special_price)
+                                <p class="is-pulled-right has-text-danger is-size-4">AUD${{ $promotionProduct->special_price }}</p>
+                            @endif
+                        </div>
                     </a>
                     <hr>
-                    <a href="#">
-                        <img src="{{ asset('images/376_305.jpg') }}" alt="" class="image mb-10">
-                        <p class="is-size-6 has-text-grey mb-10">Product Name</p>
-                        <p class="is-size-5 has-text-danger mb-10">AUD $100</p>
-                    </a>
-                    <hr>
+                    @endforeach
                 </div>
             </div>
+            @endif
             <div class="column">
                 @include('frontend.default.catalog.elements.filters')
                 @include('frontend.default.catalog.elements.simple_paginate')
@@ -135,7 +126,7 @@
                                 @if($product->group_id)
                                     <p class="is-pulled-right"><span class="tag is-danger">{{ $product->group->name }}</span></p>
                                 @else
-                                    <p class="is-pulled-right"><span class="tag is-info">ICKE</span></p>
+                                    <p class="is-pulled-right"><span class="tag is-info">{{ str_replace('_',' ',env('APP_NAME')) }}</span></p>
                                 @endif
                                 <div class="is-clearfix"></div>
                                     <a href="{{ url('catalog/product/'.$product->uri) }}">

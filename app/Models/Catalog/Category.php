@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 use DB;
-use App\Models\Utils\ContentTool;
+use App\Models\Catalog\Product;
 
 class Category extends Model
 {
@@ -26,12 +26,43 @@ class Category extends Model
 
     public $timestamps = false;
 
+    const FEATURE_PRODUCTS_URI = 'Feature-Products';
+    const PROMOTION_PRODUCTS_URI = 'Promotion';
+
     public static function NameList($root = 1){
         return self::where('id','!=',$root)->select('id','name')->orderBy('name','asc')->get();
     }
 
     public static function GetByUuid($uuid){
         return self::where('uuid',$uuid)->orderBy('id','asc')->first();
+    }
+
+    /**
+     * 加载推荐产品
+     * @return mixed
+     */
+    public static function LoadFeatureProducts(){
+        $cps = CategoryProduct::select('product_id')->where('category_id',2)
+            ->get();
+        $productsId = [];
+        foreach ($cps as $cp) {
+            $productsId[] = $cp->product_id;
+        }
+        return Product::whereIn('id',$productsId)->get();
+    }
+
+    /**
+     * 加载打折产品
+     * @return mixed
+     */
+    public static function LoadPromotionProducts(){
+        $cps = CategoryProduct::select('product_id')->where('category_id',3)
+            ->get();
+        $productsId = [];
+        foreach ($cps as $cp) {
+            $productsId[] = $cp->product_id;
+        }
+        return Product::whereIn('id',$productsId)->get();
     }
 
     /**
