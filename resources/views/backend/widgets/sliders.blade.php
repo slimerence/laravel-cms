@@ -23,7 +23,7 @@
                         <i class="el-icon-plus"></i>&nbsp; New Slider
                     </button>
                 </p>
-                <hr>
+                <hr style="margin-top: -1px;">
                 <div class="row" v-show="showNewSliderForm">
                     <el-form ref="currentSlider" status-icon :rules="rules" :model="slider" label-width="160px">
                         <el-form-item label="Slider Name" prop="name" required>
@@ -51,6 +51,7 @@
                             <div class="column">
                                 <el-form-item  label="Thumbnail Position">
                                     <el-select v-model="slider.thumbnail_position" placeholder="请选择">
+                                        <el-option label="None" value="none"></el-option>
                                         <el-option label="Bottom" value="bottom"></el-option>
                                         <el-option label="Right" value="right"></el-option>
                                         <el-option label="Top" value="top"></el-option>
@@ -62,6 +63,7 @@
 
                         <el-form-item label="Short Code" prop="short_code" required>
                             <el-input placeholder="短码, 用于插入到页面中时使用: 必填" v-model="slider.short_code"></el-input>
+                            <span class="has-text-grey-light">专用于首页的Slider的短代码: {{ \App\Models\Widget\Slider::HOME_SLIDER_KEY }}</span>
                         </el-form-item>
 
                         <el-form-item label="Interval" prop="interval" required>

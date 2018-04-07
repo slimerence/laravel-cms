@@ -24,6 +24,7 @@ class Slider extends BaseWidget implements IWidget
     ];
 
     public $timestamps = false;
+    const HOME_SLIDER_KEY = 'slider_home_page';
 
     /**
      * 获取Slider的图片
@@ -89,7 +90,7 @@ class Slider extends BaseWidget implements IWidget
             'agentObject'=>new Agent()
         ];
 
-        if($this->short_code == 'slider_home_page'){
+        if($this->short_code == self::HOME_SLIDER_KEY){
             $data['sliders']['slider_home_page'] = $this;
             $view = View::make('frontend.'.config('system.frontend_theme').'.templates.sliders.'.$this->lib.'.home_slider',$data);
         }else{

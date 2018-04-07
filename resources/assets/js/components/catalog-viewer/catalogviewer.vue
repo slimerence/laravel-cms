@@ -1,6 +1,6 @@
 <template>
     <div id="catalog-viewer-wrap">
-        <div class="vue-js-catalog-viewer-wrap" :style="{'height': height+'px','width': width+'px'}" :class="{'is-invisible':!isShowSubsNow}">
+        <div class="vue-js-catalog-viewer-wrap" :style="{'height': '0px','width': width+'px'}" :class="{'hidden':!isShowSubsNow}">
             <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px'}">
                 <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler($event)" v-on:mouseout="outCategoryItemSectionHandler($event)">
                     <li v-for="(flc, idx) in firstLevelCategories" :key="idx" class="flc-item" @mouseover="loadCategoryDetail(flc.id)">
@@ -9,7 +9,7 @@
                     <li id="details-wrapper">
                         <div class="vue-js-sub-category-details-wrapper"
                              :style="{'width': currentCategoryDetailsWrapperWidth + 'px', 'left':firstLevelCategoriesWrapperWidth+'px', 'top':-firstLevelCategories.length*46+'px'}"
-                             :class="{'is-invisible': !showCurrentCategoryDetailFlag}"
+                             :class="{'hidden': !showCurrentCategoryDetailFlag}"
                         >
                             <div class="columns">
                                 <div class="column is-9">
@@ -147,10 +147,6 @@
             outCategoryItemSectionHandler: function(e){
                 this.showCurrentCategoryDetailFlag = false;
             },
-            /**
-             * 根据鼠标的hover位置加载目录信息
-             * @param id
-             */
             loadCategoryDetail: function(id){
                 let idx = _.findIndex(this.firstLevelCategories, function(cat){
                     return cat.id == id;

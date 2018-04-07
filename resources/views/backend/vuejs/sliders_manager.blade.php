@@ -30,7 +30,7 @@
                 id: '',
                 lib: '',
                 need_thumbnail: '',
-                thumbnail_position: ''
+                thumbnail_position: 'none'
             },
             /**
              *  控制表单显示的标志位
@@ -102,7 +102,7 @@
                 this.slider.id = '';
                 this.slider.lib = '';
                 this.slider.need_thumbnail = '';
-                this.slider.thumbnail_position = '';
+                this.slider.thumbnail_position = 'none';
             },
             loadSliderImages: function(sliderId){
                 var that = this;
