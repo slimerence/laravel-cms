@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div>
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -13,8 +13,8 @@
                 <a class="button is-primary pull-right" href="{{ url('/backend/attribute-sets') }}"><i class="fas fa-arrow-left"></i>&nbsp;Back</a>
             </div>
         </div>
-        <div class="container">
-            <form class="full-width" method="post" action="{{ url('backend/attribute-sets/save') }}">
+        <div class="content">
+            <form method="post" action="{{ url('backend/attribute-sets/save') }}">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $attributeSet->id }}">
 
