@@ -9,7 +9,7 @@
                 </h2>
             </div>
             <div class="column">
-                <a class="button is-primary pull-right" href="{{ url('/backend/pages/add') }}"><i class="fa fa-plus"></i>&nbsp;{{ trans('admin.new.pages') }}</a>
+                <a class="button is-primary pull-right" href="{{ url('/backend/pages/add') }}"><i class="fas fa-arrow-left"></i>&nbsp;{{ trans('admin.new.pages') }}</a>
             </div>
         </div>
 
