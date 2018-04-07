@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns is-invisible" id="galleries-manager-app">
             <div class="column is-one-fifth">

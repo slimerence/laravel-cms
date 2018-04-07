@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="content">
             <table class="table full-width is-hoverable">
                 <thead>
                 <tr>
