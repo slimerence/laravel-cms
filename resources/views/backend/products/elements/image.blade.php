@@ -16,7 +16,7 @@
     <img width="100%" :src="productImageUrl" alt="">
 </el-dialog>
 <hr>
-<div class="columns">
+<div class="columns is-multiline">
     <div class="column is-one-quarter" v-for="(pImage, index) in productImages" :key="index">
         <div class="card">
             <div class="card-image">

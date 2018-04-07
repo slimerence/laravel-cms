@@ -58,8 +58,8 @@
                 sku: '<?php echo $product->sku; ?>',
                 uri: '<?php echo $product->uri; ?>',
                 position: '<?php echo $product->position; ?>',
-                short_description: '<?php echo $product->short_description; ?>',
-                description: '<?php echo $product->description; ?>',
+                short_description: '<?php echo str_replace(PHP_EOL,'', $product->short_description); ?>',
+                description: '<?php echo str_replace(PHP_EOL,'', $product->description); ?>',
                 keywords: '<?php echo $product->keywords; ?>',
                 seo_description: '<?php echo $product->seo_description; ?>',
                 default_price:'<?php echo $product->default_price; ?>',
@@ -356,6 +356,7 @@
                         if(res.data.error_no == 100){
                             // 成功
                             that.productImages.splice(index,1);
+                            that._notify('success','Done','图片已经成功删除!');
                         }else{
                             // 失败
                             that._notify('info','Notice','无法删除图片!');

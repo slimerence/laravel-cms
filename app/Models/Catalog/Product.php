@@ -189,7 +189,7 @@ class Product extends Model
      */
     public static function DoClone($productData, $images, $categories, $productOptionsData, $productAttributeData,$productColours){
         $result = false;
-//        $productData = ContentTool::RemoveNewLine($productData);
+        $productData = ContentTool::RemoveNewLine($productData);
 
         DB::beginTransaction();
         if(empty($productData['id'])){
@@ -275,14 +275,6 @@ class Product extends Model
         $result = false;
         $productData = ContentTool::RemoveNewLine($productData);
 
-        // 检查 $images 是否其内部元素为数组, 如果是数组,则要调整为字符串
-        $imagesData = $images;
-        if(isset($imagesData[0]) && is_array($imagesData[0])){
-            foreach ($imagesData as $idx=>$image) {
-                $images[$idx] = $image['url'];
-            }
-        }
-
         DB::beginTransaction();
         if(isset($productData['id']) && !empty($productData['id'])){
             /**
@@ -302,9 +294,9 @@ class Product extends Model
                 if($images && is_array($images) && count($images)>0){
                     // 处理图片: 如果有id,就什么也不用干,因为根本没有修改图片的功能提供;
                     // 如果没ID, 就添加
-                    foreach ($images as $image) {
-                        if(!isset($image['id'])){
-                            Media::Persistent($product->id, MediaTool::$TYPE_IMAGE, $image, $product->name, MediaTool::$FOR_PRODUCT);
+                    foreach ($images as $key=>$image) {
+                        if(!isset($image['id']) || empty($image['id'])){
+                            Media::Persistent($product->id, MediaTool::$TYPE_IMAGE, $image['url'], $product->name, MediaTool::$FOR_PRODUCT);
                         }else{
                             if(_isAFakeMediaId($image['id'])){
                                 Media::Persistent($product->id, MediaTool::$TYPE_IMAGE, $image, $product->name, MediaTool::$FOR_PRODUCT);
@@ -374,6 +366,13 @@ class Product extends Model
             $productData['uuid'] = Uuid::uuid4()->toString();
             $product = self::create($productData);
             if($product){
+                // 检查 $images 是否其内部元素为数组, 如果是数组,则要调整为字符串
+                $imagesData = $images;
+                if(isset($imagesData[0]) && is_array($imagesData[0])){
+                    foreach ($imagesData as $idx=>$image) {
+                        $images[$idx] = $image['url'];
+                    }
+                }
                 // 处理图片的操作
                 if($images && is_array($images) && count($images)>0){
                     foreach ($images as $key=>$imageUrl) {
