@@ -15,8 +15,8 @@ $theSpecialPrice = $product->getSpecialPriceGST();
              * 价格相关的属性. 只是用来显示用, 真正的价格计算还是在服务器端
              * For display only. The final price calculation is on the server end.
              */
-            originPrice: {{ number_format($thePrice,2) }}, // 产品价格, 这个值是不变的, 用来在option导致价格刷新的时候计算方便
-            specialPrice: {{ $theSpecialPrice ? number_format($theSpecialPrice,2) : 0 }}, // 产品价格, 这个值是不变的, 用来在option导致价格刷新的时候计算方便
+            originPrice: {{ is_string($thePrice)? str_replace(',','',$thePrice) : number_format($thePrice,2) }}, // 产品价格, 这个值是不变的, 用来在option导致价格刷新的时候计算方便
+            specialPrice: {{ $theSpecialPrice ? str_replace(',','',$theSpecialPrice) : 0 }}, // 产品价格, 这个值是不变的, 用来在option导致价格刷新的时候计算方便
             originPriceDisplay: 0, // 显示用的价格属性
             specialPriceDisplay: 0, // 显示用的特价属性
             totalExtraCost: {},

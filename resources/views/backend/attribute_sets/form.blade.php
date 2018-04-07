@@ -6,7 +6,11 @@
         <div class="columns">
             <div class="column">
                 <h2 class="is-size-4">
+                    @if(empty($attributeSet->id))
                     {{ trans('admin.new.attribute_sets') }}
+                    @else
+                        {{ trans('admin.edit.attribute_sets') }}: {{ $attributeSet->name }}
+                    @endif
                 </h2>
             </div>
             <div class="column">

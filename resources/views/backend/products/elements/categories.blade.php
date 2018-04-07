@@ -1,10 +1,10 @@
 <h5 class="desc-text">Categories</h5>
-<div class="container">
+<div class="content">
     <?php
-        $chunks = $categories->chunk(5);
+        $chunks = $categories->chunk(6);
     ?>
     @foreach($chunks as $row)
-    <div class="columns">
+    <div class="columns is-multiline">
         @foreach($row as $key=>$category)
         <div class="column is-2 form-check form-check-inline">
             <label class="checkbox form-check-label">
@@ -35,8 +35,13 @@
         <el-form-item :label="pAttribute.name" v-if="pAttribute.type=={{ \App\Models\Utils\OptionTool::$TYPE_RICH_TEXT }}">
             <vuejs-editor
                     :ref="'productAttribute'+idx"
-                    :text-area-id="'product-attribute-vue-js-editor'+idx"
+                    class="rich-text-editor"
+                    :text-area-id="'product-attribute-'+idx"
                     :original-content="productAttributesValues[idx]"
+                    image-upload-url="/api/images/upload"
+                    existed-images="/api/images/load-all"
+                    short-codes-load-url="/api/widgets/load-short-codes"
+                    placeholder="(必填) Product Attribute Content"
             ></vuejs-editor>
         </el-form-item>
 
