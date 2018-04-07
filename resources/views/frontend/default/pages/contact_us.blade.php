@@ -8,11 +8,6 @@
         <div class="column">
             <div class="box">
                 <h2 class="is-size-3">Quote Online</h2>
-                <p class="has-text-danger">
-                    <strong class="has-text-danger">
-                        You will receive up to $120 cash back.Just simply fill the form below and tell {{ strtoupper(str_replace('_',' ',env('APP_NAME'))) }} your brief circumstances,we will get back to you ASAP!!
-                    </strong>
-                </p>
                 <hr>
                 <form action="{{ url('contact-us') }}" method="post" id="contact-us-form">
                     {{ csrf_field() }}
@@ -80,12 +75,9 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
-                            <h1>{{ trans('general.menu_contact') }} On 041271652</h1>
-                            <p class="is-size-5"><a style="color: black;" href="mailto:leakdoctor@hotmail.com">leakdoctor@hotmail.com</a></p>
+                            <h1>{{ trans('general.menu_contact') }} On {{ $siteConfig->contact_phone }}</h1>
+                            <p class="is-size-5"><a style="color: black;" href="mailto:{{ $siteConfig->contact_phone }}">{{ $siteConfig->contact_phone }}</a></p>
                             <hr>
-                            <p class="is-size-5">MONDAY TO FRIDAY   8:30AM-5:30PM</p>
-                            <p class="is-size-5">LEAK DOCTOR COVERS ALL MELBOURNE AREAS</p>
-
                             <?php
                             $fields = $config->getFillableArray();
                             ?>
