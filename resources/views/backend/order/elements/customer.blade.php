@@ -1,6 +1,6 @@
 <div class="content-block content-half">
     <div class="content-title-line">
-        <h3>Purchase Manager</h3>
+        <h3>Customer</h3>
     </div>
     <div class="content-detail-wrap">
         <div class="content-line">

@@ -92,7 +92,7 @@ class MediaUtil
      * @param null $id
      * @return string
      */
-    private static function NormalImage($src, $alt, $width, $height, $class = null, $id = null){
-        return '<noscript><img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'" class="'.$class.'" id="'.$id.'" /></noscript>';
+    public static function NormalImage($src, $alt, $width, $height, $class = null, $id = null){
+        return '<img alt="'.$alt.'" src="'.$src.'" width="'.$width.'" height="'.$height.'" class="'.$class.'" id="'.$id.'" />';
     }
 }

@@ -1,0 +1,355 @@
+/* Product View */
+.origin-price-txt{
+  font-size: 18px;
+  color: $color-default-light;
+  text-decoration: line-through;
+}
+
+.fotorama__fullscreen-icon{
+  left: 43%;
+  top:48%;
+  width: 60px;
+  height: 24px;
+  background-position: 0px;
+  background: url("../../images/frontend/enlarge-icon.png");
+}
+
+.fotorama--fullscreen{
+  .fotorama__fullscreen-icon{
+    left: 47%;
+    background-position: 0px -24px;
+  }
+}
+
+.product-info-wrap{
+  margin-top: 10px;
+  color: $color-default-light;
+  .sku-txt{
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .price-wrap{
+    margin-bottom: 16px;
+    .price-default-txt{
+      font-size: 24px;
+    }
+    .special-price-txt{
+      font-size: 24px;
+      margin-right: 10px;
+    }
+  }
+  .short-desc{
+    p{
+      line-height: 21px;
+    }
+  }
+  .main-attributes{
+    margin-top:14px;
+    border: solid 1px $color-default-light-super;
+    margin-bottom: 16px;
+    .attribute-wrap{
+      padding-left: 12px;
+      font-size: 14px;
+      &:first-child{
+        padding-top: 12px;
+      }
+      label{
+        color: $color-default-text;
+      }
+      .rich-txt-content{
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: -4px;
+      }
+    }
+  }
+  /* Product Options */
+  .options-wrap{
+    .options-title{
+      font-weight: bold;
+      font-size: 16px;
+      color: $color-default-text;
+    }
+    .product-option-input-wrap{
+      label{
+        font-size: 14px;
+      }
+      input{
+        font-size: 13px;
+        line-height: 14px;
+        border-radius: 0;
+      }
+    }
+    .selected-color-display{
+      // 显示被选中的产品的颜色
+      float: left;
+      margin-left: 10px;
+      margin-top: -5px;
+      .thumb{
+        margin-left: 70px;
+        margin-top: -45px;
+        width:90px;
+        height:auto;
+        border-radius: 8px;
+      }
+    }
+    .color-hex-box{
+      float: left;
+      margin: 0px;
+      .thumb{
+        width:50px;
+        height:50px;
+        margin-top: 0px;
+        margin-left: 20px;
+        border-radius: 8px;
+      }
+    }
+  }
+  /* Add to Cart */
+  .add-to-cart-form-wrap{
+    margin-top: 16px;
+    label{
+      color: $color-default-light;
+    }
+    .quantity-input-wrap{
+      width: 50%;
+      .quantity-input{
+        border-radius: 0;
+      }
+      .input-group-addon{
+        border-radius: 0;
+      }
+    }
+    .add-to-cart-btn{
+      width: 60%;
+      background-color: $color-dark-bg;
+      border: none;
+      border-radius: 0;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      &:hover{
+        background-color: $color-footer-bg;
+      }
+    }
+    .shortcut-checkout-btn{
+      border: none;
+      border-radius: 0;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  }
+}
+
+.product-additional-wrap{
+  .nav-tabs{
+    .nav-item{
+      .nav-link{
+        border-radius: 0;
+      }
+      .nav-link.active{
+        background-color: $color-dark-bg;
+        color: white;
+      }
+    }
+  }
+  .tab-content{
+    border-left: solid 1px $color-default-light-super;
+    border-right: solid 1px $color-default-light-super;
+    border-bottom: solid 1px $color-default-light-super;
+    .tab-pane{
+      padding: 20px;
+    }
+  }
+}
+
+/* Cart View Page */
+#cart-view-manager-app{
+  .product-thumb{
+    width: 80px;
+  }
+  .product-name{
+    color: $color-hyperlink;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .product-option-item{
+    p{
+      margin-bottom: 0px;
+      font-size: 13px;
+      line-height: 19px;
+      .label{
+        font-weight: bold;
+      }
+    }
+  }
+  .checkout-bar{
+    .total-txt{
+      line-height: 42px;
+      font-size: 22px;
+      font-weight: bold;
+      color: $color-default-text;
+    }
+    .el-button{
+      border-radius: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+/* Place Order View */
+#place-order-checkout-app{
+  .card{
+    .card-link{
+      color: $color-hyperlink;
+      font-weight: bold;
+      padding:5px 10px 5px 10px;
+      border: solid 1px $color-default-light-super;
+      border-radius: 5px;
+      &:hover{
+        background-color: $color-default-light-super;
+      }
+    }
+    .card-body{
+      .card-subtitle{
+        margin-bottom: 18px !important;
+      }
+      .card-text{
+        line-height: 28px;
+        padding-left: 8px;
+        margin: 0px;
+        .label{
+          min-width: 120px;
+          display: block;
+          float: left;
+        }
+      }
+    }
+  }
+}
+
+.help-block{
+  line-height: 34px;
+  color: red;
+  padding-left: 3px;
+}
+
+/**/
+.order-actions-bar{
+  padding-right: 1%;
+}
+
+/* 用来显示一块单独的信息 */
+$color-block-border: #f5f6f6;
+.content-block{
+  width: 98.9%;
+  background-color: #fcfdfd;
+  display: block;
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px 24px 10px 24px;
+  min-height: 184px;
+  border: solid 1px $color-block-border;
+  .content-title-line{
+    padding-top: 8px;
+    border-bottom: solid 1px $color-block-border;
+    margin-bottom: 8px;
+    h3{
+      font-size: 18px;
+      line-height: 24px;
+      color: $color-default-text;
+      font-weight: bold;
+    }
+  }
+  .content-detail-wrap{
+    margin-top: 13px;
+    .content-line{
+      line-height: 18px;
+      label{
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 18px;
+        margin-left:5px;
+        min-width: 100px;
+      }
+      .value{
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: normal;
+        a{
+          color: $color-hyperlink;
+        }
+      }
+      .actions{
+
+      }
+    }
+    .table{
+      th{
+        border-top: none;
+      }
+      td{
+        .option-notes{
+          margin-top: 15px;
+          .note-option-item{
+            line-height: 20px;
+            font-size: 13px;
+            margin: 0px;
+            padding-left: 3px;
+            padding-bottom: 2px;
+            .note-option-name{
+              font-weight: bold;
+              margin-right: 3px;
+              min-width: 70px;
+              display: block;
+              float: left;
+            }
+          }
+        }
+      }
+      tr.em{
+        font-weight: bold;
+        background-color: $color-block-border;
+      }
+    }
+    .origin-price-txt{
+      font-size: 14px;
+    }
+    .items-total-bar{
+
+    }
+  }
+}
+
+.content-half{
+  width: 49%;
+  float: left;
+}
+.content-one-third-left{
+  width: 30%;
+  margin-right: 1%;
+  float: left;
+}
+.content-one-third-right{
+  width: 30%;
+  margin-left: 1%;
+  float: left;
+}
+.content-two-third-right{
+  width: 61%;
+  margin-left: 1%;
+  float: left;
+}
+.content-two-third-right{
+  width: 61%;
+  margin-right: 1%;
+  float: left;
+}
+
+.declined-notes{
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  color: darkred;
+  line-height: 24px;
+  margin:0px;
+}

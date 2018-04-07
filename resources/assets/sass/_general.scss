@@ -31,6 +31,9 @@ h1,h2,h3,h4,h5,p,a,span,li,td,div{
 .m-0{
   margin: 0;
 }
+.m-5{
+  margin: 5px;
+}
 .ml-10{
   margin-left: 10px !important;
 }
@@ -66,8 +69,14 @@ h1,h2,h3,h4,h5,p,a,span,li,td,div{
   z-index: 9999 !important;
 }
 .bg-grey{
-  background-color: #e5e5e5;
+  background-color: $color-grey;
 }
 .border-dotted-top{
   border-top: dotted 1px $color-footer-logo-bg;
+}
+.hidden{
+  display: none;
+}
+.no-border{
+  border: none;
 }

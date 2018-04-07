@@ -619,6 +619,6 @@ class Product extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function relatedProduct(){
-        return $this->hasOne(RelatedProduct::class);
+        return $this->hasMany(RelatedProduct::class);
     }
 }

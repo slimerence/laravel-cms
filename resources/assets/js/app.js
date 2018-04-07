@@ -44,6 +44,20 @@ Vue.component('VuejsSlider', require('./components/vuejs-slider/VuejsSlider.vue'
 
 fastclick.attach(document.body);
 
+/**
+ * 全局可用的通知函数
+ * @param vm
+ * @param type
+ * @param title
+ * @param msg
+ * @private
+ */
+window._notify = function(vm, type, title, msg){
+    // 显示弹出消息的方法
+    vm.$notify({title:title,message:msg,type:type,position:'bottom-right'});
+    return;
+}
+
 // 导航菜单的应用
 let NavigationApp = new Vue({
     el: '#navigation-app',
@@ -166,5 +180,42 @@ $(document).ready(function(){
     // 检查是否有Slick Carousel
     if($('.slick-carousel-el').length > 0){
         $('.slick-carousel-el').slick();
+    }
+
+    // tabs 功能
+    if($('.tab-trigger-btn').length > 0){
+        $('.tab-trigger-btn').on('click',function(e){
+            e.preventDefault();
+            $('#tab-contents .tab-pane').addClass('hidden');
+            $('.tab-trigger-btn').removeClass('is-active');
+            $(this).addClass('is-active');
+            let targetTabContent = $(this).children('a').eq(0).attr('href');
+            $(targetTabContent).removeClass('hidden');
+        });
+    }
+
+    // Customer Register
+    if($('#general-customer-register-btn').length>0){
+        $('#general-customer-register-btn').on('click',function(event){
+            event.preventDefault();
+            // check if email has existed
+            let email = $('#inputEmail').val();
+            $('#checkingEmailIcon').removeClass('is-invisible');
+            axios.post(
+                '/frontend/customer/is_email_exist',
+                {email:email}
+            ).then(res=>{
+                if(res.data.error_no == 100){
+                    if(res.data.msg == 'ok'){
+                        // 可以注册
+                        $('#general-customer-register-form').submit();
+                    }else{
+                        $('#checkingEmailIcon').addClass('is-invisible');
+                        $('#inputEmail').addClass('is-invalid');
+                        $('#inputEmailErrorMessage').html('This email has been registered. If this email is yours but you can\'t remember the password, please <a href="/password/reset" style="color:blue;">click here</a> to reset your password.');
+                    }
+                }
+            });
+        })
     }
 });

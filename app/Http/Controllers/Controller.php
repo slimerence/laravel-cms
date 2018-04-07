@@ -12,6 +12,7 @@ use App\Models\Configuration;
 use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Models\Catalog\Category;
+use Gloudemans\Shoppingcart\Cart;
 
 class Controller extends BaseController
 {
@@ -49,6 +50,8 @@ class Controller extends BaseController
         }
         $this->dataForView['categoriesNav'] = $data;
         $this->dataForView['siteConfig'] = Configuration::find(1);
+
+        $this->dataForView['cart'] = $this->_createCart();
     }
 
     /**
@@ -65,5 +68,28 @@ class Controller extends BaseController
             'group'=>$user->group_id,
             'status'=>$user->status
         ]);
+    }
+
+    /**
+     * 为其他的控制器类获取购物车实例提供的方法
+     * @return \Gloudemans\Shoppingcart\Cart
+     */
+    public function getCart(){
+        if(is_null($this->dataForView['cart'])){
+            $this->dataForView['cart'] = $this->_createCart();
+        }
+        return $this->dataForView['cart'];
+    }
+
+    /**
+     * Get an instance of the cart.
+     *
+     * @return \Gloudemans\Shoppingcart\Cart
+     */
+    private function _createCart()
+    {
+        $session = app()->make('session');
+        $events = app()->make('events');
+        return new Cart($session, $events);
     }
 }

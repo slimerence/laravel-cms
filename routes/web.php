@@ -27,6 +27,43 @@ Route::get('/page/{uri}', 'Frontend\Pages@view');
 
 // 加载产品目录的内容
 Route::get('/category/view/{uri}', 'Frontend\Categories@view');
+Route::post('/products/add_to_cart','Frontend\ShoppingCartController@add_to_cart');
+Route::get('/view_cart','Frontend\ShoppingCartController@view_cart');
+Route::post('/cart/remove','Frontend\ShoppingCartController@remove_item');
+Route::post('/checkout','Frontend\ShoppingCartController@prepare_checkout');
+
+Route::prefix('catalog')->group(function(){
+    Route::get('product/{uri}', 'Frontend\Products@view');
+});
+
+// 前端页面显示相关路由组
+Route::prefix('frontend')->group(function () {
+    // 用户登录与注册
+    Route::post('customer/is_email_exist', 'Frontend\CustomersController@is_email_exist');
+    Route::get('customers/login', 'Frontend\CustomersController@login');
+    Route::post('customer/login', 'Frontend\CustomersController@login_check');
+    Route::get('customers/register', 'Frontend\CustomersController@register');
+    Route::post('customer/register', 'Frontend\CustomersController@save');
+    Route::get('wholesalers/register', 'Frontend\WholesalersController@register');
+    Route::post('wholesalers/register', 'Frontend\WholesalersController@save');
+
+    Route::get('place_order_checkout','Frontend\CheckoutController@place_order_checkout')
+        ->name('customer.checkout');
+    Route::post('place_order_checkout','Frontend\CheckoutController@place_order_checkout');
+
+    Route::get('my_orders/{userUuid?}/{clearCart?}','Frontend\Orders@my_orders');
+    // 客户的个人档案
+    Route::get('my_profile/{userUuid?}','Frontend\CustomersController@my_profile');
+    Route::post('my_profile/{userUuid?}','Frontend\CustomersController@my_profile');
+    Route::post('update_password','Frontend\CustomersController@update_password');
+
+    Route::get('view_order/{userUuid}/{orderUuid}','Frontend\Orders@view_order');
+
+    // FC 用来管理某个订单的路由
+    Route::get('approve_order/{userUuid}/{orderUuid}','Frontend\Orders@approve');
+    Route::get('decline_order/{userUuid}/{orderUuid}','Frontend\Orders@decline');
+    Route::post('decline_order/{userUuid}/{orderUuid}','Frontend\Orders@decline'); // 通过Ajax的方式拒绝订单的路由
+});
 
 Auth::routes();
 

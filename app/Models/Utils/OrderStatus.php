@@ -31,12 +31,12 @@ class OrderStatus
 
     public static function GetCssClass(){
         return [
-            self::$PENDING=>'badge badge-secondary',
-            self::$APPROVED=>'badge badge-success',
-            self::$DECLINED=>'badge badge-danger',
-            self::$INVOICED=>'badge badge-info',
-            self::$DELIVERED=>'badge badge-warning',
-            self::$COMPLETE=>'badge badge-primary'
+            self::$PENDING=>'tag',
+            self::$APPROVED=>'tag is-success',
+            self::$DECLINED=>'tag is-danger',
+            self::$INVOICED=>'tag is-info',
+            self::$DELIVERED=>'tag is-warning',
+            self::$COMPLETE=>'tag is-primary'
         ];
     }
 

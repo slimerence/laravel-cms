@@ -1,0 +1,121 @@
+.p-color-in-cart{
+  .label, .price, .color-thumb, .color-box{
+    display: inline-block;
+    float: left;
+    margin-top: 8px;
+  }
+  .color-thumb, .color-box{
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin-left: 8px;
+    margin-top: 0px;
+  }
+}
+
+#payment-form{
+  .payment-method-title{
+    background: $color-dark-bg;
+    color: $color-reverse-text;
+    padding: 20px;
+    h4{
+      margin: 0 !important;
+      font-weight: 400;
+      color: inherit;
+      line-height: 1;
+    }
+  }
+  #payment-method-list{
+    .bg-primary{
+      background: $color-hyperlink;
+      color: white;
+      .card-header{
+        a{
+          h5{
+            color: white;
+            svg{
+              color: white !important;
+            }
+          }
+        }
+      }
+    }
+    .payment-method-item{
+      border-radius: 0;
+      border-top: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      &:hover{
+        h5{
+          padding-left: 10px;
+        }
+      }
+      .card-header{
+        border-bottom: 0;
+        padding: 10px;
+        box-shadow: none;
+        .pm-select-trigger{
+          display: block;
+          height: 23px;
+          width: 100%;
+          h5{
+            float: left;
+            margin-bottom: 0;
+            margin-left: 10px;
+            font-weight: bold;
+            .paypal-logo{
+              //float: left;
+              margin-right: 10px;
+              //height: 22px;
+              //width: 36px;
+              background-repeat: no-repeat;
+              background-size: contain;
+              display: block;
+            }
+            .we-chat-pay-logo{
+              //float: left;
+              margin-right: 10px;
+              //height: 22px;
+              //width: 36px;
+              display: block;
+              color: #00c800;
+              font-size: 30px;
+            }
+          }
+          i, svg{
+            float: right;
+            color: $color-hyperlink;
+            margin-top: -5px;
+          }
+        }
+      }
+      .card-body{
+        padding: 20px;
+      }
+    }
+  }
+  .order-notes-wrap{
+    margin-top:20px;
+  }
+  label{
+    color: $color-default-light;
+    font-weight: bold;
+  }
+}
+
+.navbar-end{
+  .extra{
+    .view-order-btn, .checkout-btn{
+      margin-left: 0px;
+      margin-top:31px;
+      background-color: hsl(348, 100%, 61%);
+      color: #ffffff;
+      padding: 8px;
+      display: block;
+      float: left;
+    }
+    .checkout-btn{
+      background-color: #3273dc;
+    }
+  }
+}

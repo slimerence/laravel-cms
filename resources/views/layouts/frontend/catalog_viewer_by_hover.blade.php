@@ -13,7 +13,7 @@
         ?>
         <catalog-viewer
                 category-loading-url="category/view"
-                product-loading-url="product/view"
+                product-loading-url="catalog/product"
                 :first-level-categories="{{ json_encode($categories) }}"
                 :width="1280"
                 :height="600"
