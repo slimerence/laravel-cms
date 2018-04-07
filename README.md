@@ -15,3 +15,10 @@ npm run prod
 - Backend javascript: resources/assets/js/backend.js
 
 npm run watch or npm run dev
+
+# Deployment
+- composer install
+- Edit .env file
+- php artisan key:generate
+- php artisan migrate
+- php artisan storage:link
