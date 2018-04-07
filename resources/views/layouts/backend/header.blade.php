@@ -40,7 +40,7 @@
             @endif
         </div>
         <div class="navbar-end">
-            <a class="navbar-item" href="{{ url('/') }}" target="_blank">
+            <a class="navbar-item has-text-link" href="{{ url('/') }}" target="_blank">
                 <i class="fa fa-arrow-right"></i>&nbsp;Website
             </a>
         </div>
