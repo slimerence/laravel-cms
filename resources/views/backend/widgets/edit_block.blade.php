@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="column">
-                <a class="button is-primary pull-right" href="{{ url('/backend/widgets/blocks') }}"><i class="fa fa-plus"></i>&nbsp;Back</a>
+                <a class="button is-primary pull-right" href="{{ url('/backend/widgets/blocks') }}"><i class="fas fa-arrow-left"></i>&nbsp;Back</a>
             </div>
         </div>
 
