@@ -1,6 +1,6 @@
 @extends('layouts.backend')
 @section('content')
-    <div id="">
+    <div class="content">
         <br>
         <div class="columns">
             <div class="column">
