@@ -15,7 +15,7 @@
         </div>
 
         <div class="content">
-            <form class="full-width" method="POST" action="{{ url('backend/brands/save') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('backend/brands/save') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $brand->id }}">
 
