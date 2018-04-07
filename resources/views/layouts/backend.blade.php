@@ -8,7 +8,7 @@
         @include('layouts.backend.header')
     </header>
     <section id="main" class="section is-paddingless">
-        <div class="container is-fluid">
+        <div class="container">
             @include('layouts.backend.session_flash_msg_box')
             <div id="panel">
                 @yield('content')
