@@ -34,6 +34,7 @@ Route::post('/checkout','Frontend\ShoppingCartController@prepare_checkout');
 
 Route::prefix('catalog')->group(function(){
     Route::get('product/{uri}', 'Frontend\Products@view');
+    Route::get('brand/load', 'Frontend\Products@view_by_brand');
 });
 
 // 前端页面显示相关路由组
@@ -41,7 +42,7 @@ Route::prefix('frontend')->group(function () {
     // 用户登录与注册
     Route::post('customer/is_email_exist', 'Frontend\CustomersController@is_email_exist');
     Route::get('customers/login', 'Frontend\CustomersController@login');
-    Route::post('customer/login', 'Frontend\CustomersController@login_check');
+    Route::post('customers/login', 'Frontend\CustomersController@login_check');
     Route::get('customers/register', 'Frontend\CustomersController@register');
     Route::post('customer/register', 'Frontend\CustomersController@save');
     Route::get('wholesalers/register', 'Frontend\WholesalersController@register');

@@ -23,10 +23,10 @@
             </a>
             <hr class="dropdown-divider">
             <a href="{{ $nameLowToHigh ? '#' : url('category/view/'.$category->uri.'?orderBy=product_name&dir=asc') }}" class="dropdown-item {{ $nameLowToHigh ? 'is-active' : null }}">
-                Name A->Z
+                Product Name A->Z
             </a>
             <a href="{{ $nameHighToLow ? '#' : url('category/view/'.$category->uri.'?orderBy=product_name&dir=desc') }}" class="dropdown-item {{ $nameHighToLow ? 'is-active' : null }}">
-                Name Z->A
+                Product Name Z->A
             </a>
         </div>
     </div>

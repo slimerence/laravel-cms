@@ -4,7 +4,7 @@
             @if(empty($siteConfig->logo))
                 {{ str_replace('_',' ',env('APP_NAME','Home')) }}
                 @else
-                {!! \App\Models\Utils\AMP\MediaUtil::Image(asset($siteConfig->logo),'Logo', 80, 80, 'logo-img') !!}
+                {!! \App\Models\Utils\AMP\MediaUtil::NormalImage(asset($siteConfig->logo),'Logo', 80, 80, 'logo-img') !!}
             @endif
         </a>
     </div>

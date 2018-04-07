@@ -3,7 +3,7 @@
         <h3>I Already Have an Account</h3>
     </div>
     <div class="content-detail-wrap">
-        <form method="post" action="{{ route('login') }}">
+        <form method="post" action="{{ url('/frontend/customers/login') }}">
             {{ csrf_field() }}
             <input type="hidden" name="the_referer" value="{{ $the_referer }}">
             <div class="field">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Utils\JsonBuilder;
+use App\Models\Utils\UserGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -12,9 +13,11 @@ use Ramsey\Uuid\Uuid;
 use Hash;
 use App\Models\Newsletter\UserSubscribe;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Auth\CustomizedAuthenticatesUsers;
 
 class CustomersController extends Controller
 {
+    use CustomizedAuthenticatesUsers;
     /**
      * 加载普通客户登录表单的方法
      * @param Request $request
@@ -30,8 +33,29 @@ class CustomersController extends Controller
         );
     }
 
+    /**
+     * Customer Login Check
+     * @param Request $request
+     * @return \Illuminate\Http\Response|void
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function login_check(Request $request){
-        dd($request->all());
+        $this->validateLogin($request);
+
+        $user = User::where('email',$request->get('email'))
+            ->where('role',UserGroupTool::$GENERAL_CUSTOMER)
+            ->first();
+
+        if($user && Hash::check($request->get('password'), $user->password)){
+            $this->_saveUserInSession($user);
+            $referrer = $request->get('the_referer');
+            if($referrer == url('frontend/customers/login')){
+                $referrer = '/';
+            }
+            return redirect($referrer);
+        }else{
+            return redirect('frontend/customers/login');
+        }
     }
 
     /**
@@ -115,6 +139,7 @@ class CustomersController extends Controller
             $data['uuid'] = $userData['uuid'];
             $data['password'] = $userData['password'];
 //            $data['group_id'] = UserGroupTool::$GENERAL_CUSTOMER;
+            $data['role'] = UserGroup::$GENERAL_CUSTOMER;
 
             // 添加操作
             if($user = User::create($data)){
@@ -138,6 +163,9 @@ class CustomersController extends Controller
 
         if(!empty($referer)){
             // 从哪里来到哪里去
+            if($referer == url('/').'/'){
+                $referer = '/frontend/customers/login';
+            }
             return redirect($referer);
         }else{
             // 重定向到结账页面
