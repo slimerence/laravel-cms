@@ -106,7 +106,7 @@ class Pages extends Controller
 
         if(!$page){
             // 404 Error
-            return view('frontend.'.config('system.frontend_theme').'.pages.404', $this->dataForView);
+            return response()->view('frontend.'.config('system.frontend_theme').'.pages.404', $this->dataForView,404);
         }
 
         $this->dataForView['page'] = $page;
@@ -136,6 +136,7 @@ class Pages extends Controller
 
     /**
      * News 页面
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function news(Request $request){
