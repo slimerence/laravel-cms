@@ -47,7 +47,7 @@
                     <p class="help">特殊Block: 产品详情顶部短码: {{ \App\Models\Widget\Block::PRODUCT_DESCRIPTION_KEY_TOP }}; 产品详情底部短码: {{ \App\Models\Widget\Block::PRODUCT_DESCRIPTION_KEY_BOTTOM }}</p>
                     <p class="help">特殊Block: 产品简介顶部短码: {{ \App\Models\Widget\Block::PRODUCT_SHORT_DESCRIPTION_KEY_TOP }}; 产品简介底部短码: {{ \App\Models\Widget\Block::PRODUCT_SHORT_DESCRIPTION_KEY_BOTTOM }}</p>
                 </div>
-
+                <hr>
                 <div class="field">
                     <label class="label">Location (注: 特殊的短码, Location不生效, 可以随意点选)</label>
                     <div class="control">
