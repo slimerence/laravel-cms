@@ -134,9 +134,9 @@
                                         <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">
                                     </p>
                                     <div class="price-box">
-                                        <p class="is-pulled-left {{ $product->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">AUD${{ $product->default_price }}</p>
-                                        @if($product->special_price)
-                                            <p class="is-pulled-right has-text-danger is-size-4">AUD${{ $product->special_price }}</p>
+                                        <p class="is-pulled-left {{ $product->getSpecialPriceGST() ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">AUD${{ $product->getFinalPriceGst() }}</p>
+                                        @if($product->getSpecialPriceGST())
+                                            <p class="is-pulled-right has-text-danger is-size-4">AUD${{ $product->getSpecialPriceGST() }}</p>
                                         @endif
                                     </div>
                                     <div class="is-clearfix"></div>
