@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div id="categories-manager-app">
+    <div id="categories-manager-app" class="content">
         <br>
         <div class="columns">
             <div class="column is-one-fifth">
@@ -27,19 +27,19 @@
                         </div>
                     </div>
                     <div class="column">
-                        <el-button class="float-right" type="primary" v-on:click="createNewCategoryForm">
+                        <el-button class="is-pulled-right" type="primary" v-on:click="createNewCategoryForm">
                             <i class="el-icon-plus"></i>&nbsp; New Category
                         </el-button>
-                        <el-button class="float-left mr-20" type="default" v-on:click="createNewRootCategoryForm">
+                        <el-button class="is-pulled-right mr-20" type="default" v-on:click="createNewRootCategoryForm">
                             <i class="el-icon-plus"></i>&nbsp; New Root Category
                         </el-button>
-                        <el-button class="float-left" type="danger" v-on:click="dialogVisible = true">
+                        <el-button class="is-pulled-right mr-20" type="danger" v-on:click="dialogVisible = true">
                             <i class="el-icon-delete"></i>&nbsp; Delete
                         </el-button>
                     </div>
                 </div>
                 <hr>
-                <div class="container">
+                <div class="content">
                     <el-form ref="currentCategory" :rules="rules" :model="currentCategory" label-width="160px">
                         <el-form-item label="Category Name" prop="name">
                             <el-input placeholder="名称: 必填" v-model="currentCategory.name"></el-input>
