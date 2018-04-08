@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="container pt-40 pl-20 pr-20" id="my-orders-manager-app">
         <br>

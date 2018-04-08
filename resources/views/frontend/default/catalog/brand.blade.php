@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="content pl-20 pr-20 page-content-wrap">
         @if(isset($featureProducts) && count($featureProducts)>0)
@@ -63,8 +63,8 @@
         </div>
         <div class="columns">
             <div class="column">
-                @include('frontend.default.catalog.elements.filters_brand')
-                @include('frontend.default.catalog.elements.simple_paginate_brand')
+                @include(_get_frontend_theme_path('catalog.elements.filters_brand'))
+                @include(_get_frontend_theme_path('catalog.elements.simple_paginate_brand'))
                 <div class="is-clearfix"></div>
                 <br>
                 <?php

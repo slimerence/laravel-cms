@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="content pt-40">
         <div class="columns">

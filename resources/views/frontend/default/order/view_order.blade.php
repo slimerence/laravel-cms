@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="container pt-40 pl-20 pr-20" id="view-orders-manager-app">
         <div class="box">
@@ -38,20 +38,20 @@
 
         <div class="box">
             <div class="col">
-                @include('frontend.default.order.elements.summary')
-                @include('frontend.default.order.elements.customer')
+                @include(_get_frontend_theme_path('order.elements.summary'))
+                @include(_get_frontend_theme_path('order.elements.customer'))
             </div>
             <div class="is-clearfix"></div>
         </div>
         <br>
         <div class="box">
-            @include('frontend.default.order.elements.order_items')
+            @include(_get_frontend_theme_path('order.elements.order_items'))
             <div class="is-clearfix"></div>
         </div>
         <div class="box">
             <div class="col">
-                @include('frontend.default.order.elements.shipment')
-                @include('frontend.default.order.elements.notes')
+                @include(_get_frontend_theme_path('order.elements.shipment'))
+                @include(_get_frontend_theme_path('order.elements.notes'))
             </div>
             <div class="is-clearfix"></div>
         </div>

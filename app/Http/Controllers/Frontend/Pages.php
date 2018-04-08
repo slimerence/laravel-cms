@@ -28,6 +28,10 @@ class Pages extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
+//        $path = 'page.404';
+//        $filename = resource_path('frontend/').str_replace('.','/',_get_frontend_theme_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+//        dd(_get_frontend_theme_path('pages.404'));
+
         $page = Page::where('uri','/')->first();
         $this->dataForView['page'] = $page;
 
@@ -80,7 +84,7 @@ class Pages extends Controller
             $this->dataForView['leads'] = Lead::orderBy('id','desc')->limit(20)->get();
         }
 
-        return view('frontend.'.config('system.frontend_theme').'.pages.contact_us', $this->dataForView);
+        return view(_get_frontend_theme_path('pages.contact_us'), $this->dataForView);
     }
 
     /**
@@ -131,7 +135,7 @@ class Pages extends Controller
         $this->dataForView['pageTitle'] = 'Blog';
         $this->dataForView['metaKeywords'] = 'Blog';
         $this->dataForView['metaDescription'] = 'Blog';
-        return view('frontend.'.config('system.frontend_theme').'.templates.blog_list', $this->dataForView);
+        return view(_get_frontend_theme_path('templates.blog_list'), $this->dataForView);
     }
 
     /**
@@ -145,7 +149,7 @@ class Pages extends Controller
         $this->dataForView['pageTitle'] = 'News Room';
         $this->dataForView['metaKeywords'] = 'News Room';
         $this->dataForView['metaDescription'] = 'News Room';
-        return view('frontend.'.config('system.frontend_theme').'.templates.news_list', $this->dataForView);
+        return view(_get_frontend_theme_path('templates.news_list'), $this->dataForView);
     }
 
     /**
@@ -155,44 +159,45 @@ class Pages extends Controller
      */
     private function _getPageViewTemplate(Page $page){
         // Home page, Contact page, List view page
-        $template = 'frontend.'.config('system.frontend_theme').'.';
+//        $template = 'frontend.'.config('system.frontend_theme').'.';
+
         if(in_array($page->uri, Page::$STATIC_PAGES_URI)){
             // 是系统的几个保留页面URI
             switch ($page->uri){
                 case '/':
-                    $template .= 'pages.home';
+                    $template = 'pages.home';
                     break;
                 case '/contact-us':
-                    $template .= 'pages.contact_us';
+                    $template = 'pages.contact_us';
                     break;
                 case '/terms':
-                    $template .= 'pages.terms';
+                    $template = 'pages.terms';
                     break;
                 default:
-                    $template .= 'pages.404';
+                    $template = 'pages.404';
                     break;
             }
         }else{
             // 动态页
             switch ($page->layout){
                 case ContentTool::$LAYOUT_ONE_COLUMN:
-                    $template .= 'templates.one_column';
+                    $template = 'templates.one_column';
                     break;
                 case ContentTool::$LAYOUT_TWO_COLUMNS_LEFT:
-                    $template .= 'templates.two_columns_left';
+                    $template = 'templates.two_columns_left';
                     break;
                 case ContentTool::$LAYOUT_TWO_COLUMNS_RIGHT:
-                    $template .= 'templates.two_columns_right';
+                    $template = 'templates.two_columns_right';
                     break;
                 case ContentTool::$LAYOUT_THREE_COLUMNS:
-                    $template .= 'templates.three_columns';
+                    $template = 'templates.three_columns';
                     break;
                 default:
-                    $template .= 'pages.404';
+                    $template = 'pages.404';
                     break;
             }
         }
 
-        return $template;
+        return _get_frontend_theme_path($template);
     }
 }

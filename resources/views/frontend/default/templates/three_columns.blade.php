@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends(_get_frontend_layout_path('frontend'))
 @section('content')
     <div class="columns mb-20">
         <div class="column is-one-fifth left-side-bar-wrap">

@@ -42,3 +42,50 @@ if(!function_exists('_isAFakeMediaId')){
         return strlen($id) == 16;
     }
 }
+
+if(!function_exists('_get_frontend_theme_prefix')){
+    /**
+     * 获得前端的主题文件路径前缀
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function _get_frontend_theme_prefix(){
+        return env('frontend_theme',false) ? env('frontend_theme',false) : config('system.frontend_theme');
+    }
+
+    /**
+     * 获得前端的主题文件路径
+     * @param $path
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function _get_frontend_theme_path($path){
+        // 检查文件是否存在
+        $filename = resource_path('views/frontend/').str_replace('.','/',_get_frontend_theme_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+        if(file_exists($filename)){
+            return 'frontend.'._get_frontend_theme_prefix().'.'.$path;
+        }
+        return 'frontend.'.config('system.frontend_theme').'.'.$path;
+    }
+
+    /**
+     * 获得前端的主题文件路径前缀
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function _get_frontend_layout_prefix(){
+        return env('frontend_theme',false) ? env('frontend_theme',false) : '';
+    }
+
+    /**
+     * 获得前端的主题文件路径
+     * @param $path
+     * @return string
+     */
+    function _get_frontend_layout_path($path){
+        $filename = resource_path('views/layouts').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+        if(file_exists($filename)){
+            if(strlen(_get_frontend_layout_prefix()) > 0){
+                return 'layouts.'._get_frontend_layout_prefix().'.'.$path;
+            }
+        }
+        return 'layouts.'.$path;
+    }
+}

@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="content pl-20 pr-20 page-content-wrap" id="product-view-manager-app">
         <hr>
@@ -20,13 +20,13 @@
                 </h2>
                 <p class="sku-txt">SKU: {{ $product->sku }}</p>
 
-                @include('frontend.default.catalog.elements.sections.short_description')
+                @include(_get_frontend_theme_path('catalog.elements.sections.short_description'))
 
                 <div class="main-attributes content">
-                    @include('frontend.default.catalog.elements.sections.attributes_main')
+                    @include(_get_frontend_theme_path('catalog.elements.sections.attributes_main'))
                 </div>
 
-                @include('frontend.default.catalog.elements.sections.price')
+                @include(_get_frontend_theme_path('catalog.elements.sections.price'))
 
                 <form id="add-to-cart-form">
                     {{ csrf_field() }}
@@ -35,13 +35,13 @@
 
                     @if(count($product_colours)>0)
                         <div class="options-wrap">
-                            @include('frontend.default.catalog.elements.sections._options.colour')
+                            @include(_get_frontend_theme_path('catalog.elements.sections._options.colour'))
                         </div>
                     @endif
 
                     @if(count($product_options)>0)
                         <div class="options-wrap">
-                            @include('frontend.default.catalog.elements.sections.options')
+                            @include(_get_frontend_theme_path('catalog.elements.sections.options'))
                         </div>
                     @endif
 
@@ -86,6 +86,6 @@
                 </form>
             </div>
         </div>
-        @include('frontend.default.catalog.elements.sections.description')
+        @include(_get_frontend_theme_path('catalog.elements.sections.description'))
     </div>
 @endsection

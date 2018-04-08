@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends(_get_frontend_layout_path('frontend'))
 @section('content')
     <div class="page-title-wrap">
         <h1 class="is-size-1-desktop is-size-1-mobile">Blog</h1>

@@ -7,9 +7,9 @@
 </div>
 <div id="payment-method-list" role="tablist">
     <div class="card payment-method-item bg-primary" id="pm-place-order">
-        @include('frontend.default.checkout.elements.payment.place_order')
+        @include(_get_frontend_theme_path('checkout.elements.payment.place_order'))
     </div>
     <div class="card payment-method-item" id="pm-wechat">
-        @include('frontend.default.checkout.elements.payment.wechat_off_site')
+        @include(_get_frontend_theme_path('checkout.elements.payment.wechat_off_site'))
     </div>
 </div>

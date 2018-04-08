@@ -1,4 +1,4 @@
-@extends('layouts.catalog')
+@extends(_get_frontend_layout_path('catalog'))
 @section('content')
     <div class="content pt-40" id="place-order-checkout-app" xmlns="http://www.w3.org/1999/html">
         <div class="columns">
@@ -47,7 +47,7 @@
                 <form method="post" action="{{ url('/frontend/place_order_checkout') }}" id="payment-form">
                     {{ csrf_field() }}
                     <input type="hidden" name="payment_method" value="pm-place-order" id="payment-method-input">
-                    @include('frontend.default.checkout.elements.payments')
+                    @include(_get_frontend_theme_path('checkout.elements.payments'))
 
                     <div class="order-notes-wrap">
                         <div class="field">
