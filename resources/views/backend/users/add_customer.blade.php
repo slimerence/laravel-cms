@@ -43,9 +43,9 @@
                         </div>
                     </div>
                     <div class="column">
-                        <label class="label">Phone <span class="has-text-danger">*</span></label>
+                        <label class="label">Phone</label>
                         <div class="control">
-                            <input type="text" class="input{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ $customer->phone }}" required placeholder="Customer phone: Required">
+                            <input type="text" class="input{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ $customer->phone }}" placeholder="Customer phone: Optional">
                             @if ($errors->has('phone'))
                                 <span class="invalid-feedback">
                                 <strong>{{ $errors->first('phone') }}</strong>

@@ -23,7 +23,7 @@
                     <th>Groups</th>
                     <th>Address</th>
                     <th>Status</th>
-                    <th>Payment</th>
+                    <th>Type</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -47,7 +47,9 @@
                         <td>
                             {{ $value->status ? 'Active':'Suspend' }}
                         </td>
-                        <td></td>
+                        <td>
+                            {{ $value->role==\App\Models\Utils\UserGroup::$WHOLESALE_CUSTOMER ? 'Wholesaler' : 'General' }}
+                        </td>
                         <td>
                             <a class="button is-small" href="{{ url('backend/customers/edit/'.$value->id) }}">
                                 <i class="fa fa-edit"></i>&nbsp;Edit

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Customer\Wholesaler;
 use App\Models\Utils\JsonBuilder;
 use App\Models\Utils\UserGroup;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Hash;
 use App\Models\Newsletter\UserSubscribe;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Auth\CustomizedAuthenticatesUsers;
+use DB;
 
 class CustomersController extends Controller
 {
@@ -24,11 +26,11 @@ class CustomersController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function login(Request $request){
-        $this->dataForView['menuName'] = 'home';
+        $this->dataForView['menuName'] = 'customer';
         $this->dataForView['the_referer'] = $request->headers->get('referer');
 
         return view(
-            'frontend.default.customers.login',
+            _get_frontend_theme_path('customers.login'),
             $this->dataForView
         );
     }
@@ -64,12 +66,105 @@ class CustomersController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function register(Request $request){
-        $this->dataForView['menuName'] = 'home';
+        $this->dataForView['menuName'] = 'customer';
         $this->dataForView['the_referer'] = $request->headers->get('referer');
         return view(
-            'frontend.default.customers.register',
+            _get_frontend_theme_path('customers.register'),
             $this->dataForView
         );
+    }
+
+    /**
+     * 批发商客户的注册方法
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function register_wholesale(Request $request){
+        $this->dataForView['menuName'] = 'wholesale';
+        $this->dataForView['the_referer'] = $request->headers->get('referer');
+        return view(
+            _get_frontend_theme_path('customers.register_wholesale'),
+            $this->dataForView
+        );
+    }
+
+    /**
+     * Save wholesaler account action
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function save_wholesale(Request $request){
+        $userData = $request->all();
+
+        // 检查提交的信息是否正确
+        $validator = Validator::make($userData, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'address'=>'required|string|max:80',
+            'city'=>'required|string|max:40',
+            'state'=>'required|string|max:20',
+            'postcode'=>'required|numeric',
+            'wholesale.company_name'=>'required|string|max:255',
+            'wholesale.accountant_name'=>'required|string|max:50',
+            'wholesale.accountant_email'=>'required|string|email|max:50',
+            'wholesale.accountant_phone'=>'required|numeric',
+        ]);
+
+        $validator->validate();
+
+        $wholesaleData = $request->get('wholesale');
+        $initPassword = $userData['password'];
+
+        $userData['password'] = Hash::make($userData['password']);
+        $userData['role'] = UserGroupTool::$WHOLESALE_CUSTOMER;
+        $userData['uuid'] = Uuid::uuid4()->toString();
+
+        DB::beginTransaction();
+        $user = User::create($userData);
+
+        if($user){
+            // 记录用户的订阅记录: 如果用户选择了订阅且是有效的邮件地址
+            $subscribe_me = false;
+            if(isset($userData['subscribe_me'])){
+                $subscribe_me = true;
+            }
+            if($subscribe_me && filter_var($user->email, FILTER_VALIDATE_EMAIL)){
+                UserSubscribe::create([
+                    'user_id'=>$user->id,
+                    'type'=>UserGroupTool::$WHOLESALE_CUSTOMER,
+                    'email'=>$user->email
+                ]);
+            }
+
+            $wholesaleData['user_id'] = $user->id;
+            $wholesaler = Wholesaler::create($wholesaleData);
+            if($wholesaler){
+                // 创建成功
+                // 发布事件
+                event(new UserCreated($user,$initPassword));
+                DB::commit();
+
+                $this->_saveUserInSession($user);
+                $referrer = $request->get('the_referer');
+                if($referrer == url('frontend/wholesalers/register')){
+                    $referrer = '/';
+                }
+                return redirect($referrer);
+            }
+        }
+        DB::rollback();
+        session()->flash('msg', ['content'=>'Account: "'.$userData['email'].'" can not be created, please try again!','status'=>'danger']);
+        return redirect('frontend/wholesalers/register');
+    }
+
+    /**
+     * @return array
+     */
+    public function forget_password()
+    {
+        $this->dataForView['pageTitle'] = 'Forget password';
+        return view(_get_frontend_theme_path('customers.password.email'),$this->dataForView);
     }
 
     /**
@@ -121,13 +216,13 @@ class CustomersController extends Controller
         }else{
             // 这个是注册用户的位置
             $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
+                'name' => 'required|string|max:30',
+                'email' => 'required|string|email|max:50|unique:users',
                 'password' => 'required|string|min:6|confirmed',
                 'address'=>'required|string|max:80',
                 'city'=>'required|string|max:40',
                 'state'=>'required|string|max:20',
-                'postcode'=>'required|string|max:8'
+                'postcode'=>'required|numeric'
             ]);
             $validator->validate();
 
@@ -183,11 +278,11 @@ class CustomersController extends Controller
         if($uuid && $uuid == session('user_data.uuid')){
             // 表示当前的用户是正常的
             $user = User::find(session('user_data.id'));
-            $this->dataForView['menuName'] = 'user';
+            $this->dataForView['menuName'] = 'customers';
             $this->dataForView['user'] = $user;
             $this->dataForView['vuejs_libs_required'] = ['my_profile'];
             return view(
-                'frontend.default.customers.my_profile',
+                _get_frontend_theme_path('customers.my_profile'),
                 $this->dataForView
             );
         }

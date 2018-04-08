@@ -7,17 +7,17 @@
                 <div class="box">
                     <div class="row">
                         <div class="col">
-                            <h3 class="float-left">Create New Customer Account</h3>
+                            <h3 class="float-left">Create New Wholesaler Account</h3>
                         </div>
                         <div class="col">
-                            <a class="btn btn-sm btn-primary float-right" href="{{ url('frontend/wholesalers/register') }}">
-                                <i class="fas fa-object-group"></i>&nbsp;Or Become a Wholesaler
+                            <a class="btn btn-sm btn-primary float-right" href="{{ url('frontend/customers/register') }}">
+                                <i class="fas fa-object-group"></i>&nbsp;Or Become a Customer
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="box">
-                    <form method="post" action="{{ url('frontend/customer/register') }}" id="general-customer-register-form">
+                    <form method="post" action="{{ url('frontend/wholesalers/register') }}" id="general-customer-register-form">
                         {{ csrf_field() }}
                         <input type="hidden" name="the_referer" value="{{ $the_referer }}">
                         <div class="columns">
@@ -56,9 +56,76 @@
                                 <input required type="password" class="input" id="inputPassword2" name="password_confirmation" placeholder="To Confirm Your Password">
                             </div>
                         </div>
+
+                        <hr>
+                        <div class="field {{ $errors->has('wholesale.company_name') ? ' has-error' : '' }}">
+                            <div class="control">
+                                <label for="inputcompany_name" class="label">Business Name&nbsp;<span class="has-text-danger">*</span></label>
+                                <input required type="text" class="input {{ $errors->has('wholesale.company_name') ? 'is-danger' : '' }}" id="inputcompany_name" value="{{ old('wholesale.company_name') }}" name="wholesale[company_name]" placeholder="Your Business Name: Required">
+                                @if ($errors->has('wholesale.company_name'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('wholesale.company_name') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column {{ $errors->has('wholesale.accountant_name') ? ' has-error' : '' }}">
+                                <label for="input_accountant_name" class="label">Accountant Name&nbsp;<span class="has-text-danger">*</span></label>
+                                <input required type="text" class="input {{ $errors->has('wholesale.accountant_name') ? 'is-danger' : '' }}" id="input_accountant_name" value="{{ old('wholesale.accountant_name') }}" name="wholesale[accountant_name]" placeholder="Accountant Name: required">
+                                @if ($errors->has('wholesale.accountant_name'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('wholesale.accountant_name') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                            <div class="column {{ $errors->has('wholesale.accountant_email') ? ' has-error' : '' }}">
+                                <label for="input_accountant_email" class="label">Accountant Email&nbsp;<span class="has-text-danger">*</span></label>
+                                <input required type="email" class="input {{ $errors->has('wholesale.accountant_email') ? 'is-danger' : '' }}" value="{{ old('wholesale.accountant_email') }}" name="wholesale[accountant_email]" id="input_accountant_email" placeholder="Accountant Email: required">
+                                @if ($errors->has('wholesale.accountant_email'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('wholesale.accountant_email') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                            <div class="column {{ $errors->has('wholesale.accountant_phone') ? ' has-error' : '' }}">
+                                <label for="input_accountant_phone" class="label">Accountant Phone&nbsp;<span class="has-text-danger">*</span></label>
+                                <input required type="text" class="input {{ $errors->has('wholesale.accountant_phone') ? 'is-danger' : '' }}" value="{{ old('wholesale.accountant_phone') }}" name="wholesale[accountant_phone]" id="input_accountant_phone" placeholder="Accountant Phone: required">
+                                @if ($errors->has('wholesale.accountant_phone'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('wholesale.accountant_phone') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column {{ $errors->has('ABN') ? ' has-error' : '' }}">
+                                <label for="input_ABN" class="label">ABN</label>
+                                <input type="text" class="input {{ $errors->has('ABN') ? 'is-danger' : '' }}" id="input_ABN" value="{{ old('ABN') }}" name="wholesale[ABN]" placeholder="ABN: Optional">
+                                @if ($errors->has('ABN'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('ABN') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                            <div class="column {{ $errors->has('ACN') ? ' has-error' : '' }}">
+                                <label for="input_ACN" class="label">ACN</label>
+                                <input required type="text" class="input {{ $errors->has('accountant_email') ? 'is-danger' : '' }}" value="{{ old('ACN') }}" name="wholesale[ACN]" id="input_ACN" placeholder="ACN: Optional">
+                                @if ($errors->has('ACN'))
+                                    <p class="help is-danger">
+                                        <span>{{ $errors->first('ACN') }}</span>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <hr>
+
                         <div class="field {{ $errors->has('address') ? ' has-error' : '' }}">
                             <div class="control">
-                                <label for="inputAddress" class="label">Address&nbsp;<span class="has-text-danger">*</span></label>
+                                <label for="inputAddress" class="label">Address for Shipment&nbsp;<span class="has-text-danger">*</span></label>
                                 <input required type="text" class="input {{ $errors->has('address') ? 'is-danger' : '' }}" id="inputAddress" value="{{ old('address') }}" name="address" placeholder="Apartment, studio, or floor, 1234 Main St">
                                 @if ($errors->has('address'))
                                     <p class="help is-danger">

@@ -43,10 +43,11 @@ Route::prefix('frontend')->group(function () {
     Route::post('customer/is_email_exist', 'Frontend\CustomersController@is_email_exist');
     Route::get('customers/login', 'Frontend\CustomersController@login');
     Route::post('customers/login', 'Frontend\CustomersController@login_check');
+    Route::get('customers/forget-password', 'Frontend\CustomersController@forget_password');
     Route::get('customers/register', 'Frontend\CustomersController@register');
     Route::post('customer/register', 'Frontend\CustomersController@save');
-    Route::get('wholesalers/register', 'Frontend\WholesalersController@register');
-    Route::post('wholesalers/register', 'Frontend\WholesalersController@save');
+    Route::get('wholesalers/register', 'Frontend\CustomersController@register_wholesale');
+    Route::post('wholesalers/register', 'Frontend\CustomersController@save_wholesale');
 
     Route::get('place_order_checkout','Frontend\CheckoutController@place_order_checkout')
         ->name('customer.checkout');
