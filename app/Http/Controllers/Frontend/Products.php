@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Catalog\Brand;
 use App\Models\Catalog\Product;
+use App\Models\Widget\Block;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product\Colour;
@@ -40,6 +41,15 @@ class Products extends Controller
         $this->dataForView['product_options'] = $product->options();
         $this->dataForView['product_colours'] = Colour::LoadByProduct($product->id, true)->toArray();
         $this->dataForView['vuejs_libs_required'] = ['product_view'];
+
+        /**
+         * 加载通用的产品相关的Blocks
+         */
+        $this->dataForView['productDescriptionTop'] = Block::where('short_code','like','product_description_block_top%')->get();
+        $this->dataForView['productDescriptionBottom'] = Block::where('short_code','like','product_description_block_bottom%')->get();
+        $this->dataForView['productShortDescriptionTop'] = Block::where('short_code','like','product_short_description_block_top%')->get();
+        $this->dataForView['productShortDescriptionBottom'] = Block::where('short_code','like','product_short_description_block_bottom%')->get();
+
         return view('frontend.default.catalog.product',$this->dataForView);
     }
 

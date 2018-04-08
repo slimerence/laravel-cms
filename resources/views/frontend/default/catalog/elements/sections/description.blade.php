@@ -20,12 +20,23 @@
     <div id="tab-contents" class="content" style="padding-left: 40px;padding-right: 40px;">
         @if(!empty($product->description))
             <div class="tab-pane" id="product-description-tab-content">
+                @if(count($productDescriptionTop) > 0)
+                    @foreach($productDescriptionTop as $b)
+                        <div class="content">{!! $b->content !!}</div>
+                    @endforeach
+                    <hr>
+                    <div class="is-clearfix"></div>
+                @endif
                 {!! $product->description !!}
+                @if(count($productDescriptionBottom) > 0)
+                    <div class="is-clearfix"></div>
+                    <hr>
+                    @foreach($productDescriptionBottom as $b)
+                        <div class="content">{!! $b->content !!}</div>
+                    @endforeach
+                @endif
             </div>
         @endif
-            <div class="tab-pane hidden" id="example">
-                example
-            </div>
         @foreach($product_attributes as $key=>$product_attribute)
             @if($product_attribute->location == \App\Models\Utils\OptionTool::$LOCATION_ADDITIONAL)
             <div class="tab-pane {{ $key==0&&empty($product->description) ? '' : 'hidden' }}" id="tab-content-{{$key}}">
