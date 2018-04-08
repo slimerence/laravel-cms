@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Location</label>
+                    <label class="label">Location (注: 特殊的短码, Location不生效, 可以随意点选)</label>
                     <div class="control">
                         <div class="select">
                             <select name="type" v-model="block.type">
