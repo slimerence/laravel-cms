@@ -49,7 +49,8 @@ class Controller extends BaseController
             $data[] = $category->loadForNav();
         }
         $this->dataForView['categoriesNav'] = $data;
-        $this->dataForView['siteConfig'] = Configuration::find(1);
+        $siteConfig = Configuration::find(1);
+        $this->dataForView['siteConfig'] = $siteConfig;
 
         $this->dataForView['cart'] = $this->_createCart();
     }

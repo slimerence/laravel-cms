@@ -86,7 +86,19 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Extra Info</label>
+                    <label class="label">SEO Keywords</label>
+                    <div class="control">
+                        <textarea class="textarea" name="keywords" placeholder="Optional: SEO 关键字">{{ $brand->keywords }}</textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">SEO Description</label>
+                    <div class="control">
+                        <textarea class="textarea" name="seo_description" placeholder="Optional: SEO 描述">{{ $brand->seo_description }}</textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Extra Info (显示在品牌单页中的描述信息)</label>
                     <div class="control">
                         <textarea class="textarea" name="extra_html" placeholder="Optional: 其他信息">{{ $brand->extra_html }}</textarea>
                     </div>

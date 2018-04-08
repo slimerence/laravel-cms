@@ -27,16 +27,15 @@
         <div class="box is-radiusless">
             <div class="columns">
                 <div class="column">
-                    <div class="field is-grouped is-grouped-multiline">
-                        <div class="control">
-                            <div class="tags">
-                                <h1 class="is-size-6 tag is-link">
-                                    {{ $brand }}&nbsp;({{ $products->total() }})
-                                </h1>
-                            </div>
-                        </div>
-                    </div>
+                    <figure class="image" style="width: 200px;">
+                        <img src="{{ $brand->getImageUrl() }}" alt="{{ $brand->name }}">
+                    </figure>
                 </div>
+                @if($brand->extra_html)
+                    <div class="column is-8">
+                    {!! $brand->extra_html !!}
+                    </div>
+                @endif
             </div>
 
             @if(isset($price_ranges) && $price_ranges)

@@ -78,7 +78,7 @@
                             @foreach($price_ranges as $key=>$priceNumber)
                                 @if($key < count($price_ranges) - 1)
                                 <a class="tag is-size-7 mr-10" href="{{ url('catalog/search-category/'.$category->uri.'?fr='.$priceNumber.'&to='.$price_ranges[$key+1]) }}">
-                                    ${{ $priceNumber }} - ${{ $price_ranges[$key+1] }}
+                                    ${{ number_format($priceNumber) }} - ${{ number_format($price_ranges[$key+1]) }}
                                 </a>
                                 @endif
                             @endforeach
@@ -98,12 +98,13 @@
                         <img src="{{ $promotionProduct->getProductDefaultImageUrl() }}" alt="{{ $promotionProduct->name }}" class="image mb-10">
                         <p class="is-size-6 has-text-grey mb-10">{{ $promotionProduct->name }}</p>
                         <div class="price-box">
-                            <p class="is-pulled-left {{ $promotionProduct->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">AUD${{ $promotionProduct->default_price }}</p>
+                            <p class="is-pulled-left {{ $promotionProduct->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $promotionProduct->getDefaultPriceGST() }}</p>
                             @if($promotionProduct->special_price)
-                                <p class="is-pulled-right has-text-danger is-size-4">AUD${{ $promotionProduct->special_price }}</p>
+                                <p class="is-pulled-right has-text-danger is-size-4">${{ $promotionProduct->getSpecialPriceGST() }}</p>
                             @endif
                         </div>
                     </a>
+                    <div class="is-clearfix"></div>
                     <hr>
                     @endforeach
                 </div>

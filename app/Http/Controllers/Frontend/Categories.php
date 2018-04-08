@@ -22,6 +22,16 @@ class Categories extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function view($uri, Request $request){
+        $category = Category::where('uri',$uri)->first();
+
+        if(!$category){
+            return response()->view('frontend.default.pages.404',$this->dataForView, 404);
+        }
+
+        $this->dataForView['pageTitle'] = $category->name . ' - ' . str_replace('_',' ',env('APP_NAME'));
+        $this->dataForView['metaKeywords'] = $category->keywords;
+        $this->dataForView['metaDescription'] = $category->seo_description;
+
         // 加载排序条件
         $orderBy = $request->has('orderBy') ? $request->get('orderBy') : 'position';
         $direction = $request->has('dir') ? $request->get('dir') : 'asc';
@@ -33,7 +43,6 @@ class Categories extends Controller
         ];
         $this->dataForView['paginationAppendParams'] = $paginationAppendParams;
 
-        $category = Category::where('uri',$uri)->first();
         $cps = CategoryProduct::select('product_id',$orderBy)->where('category_id',$category->id)
             ->orderBy($orderBy, $direction)
             ->paginate(config('system.PAGE_SIZE'));

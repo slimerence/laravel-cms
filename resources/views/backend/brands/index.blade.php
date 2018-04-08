@@ -21,6 +21,7 @@
                     <th>上线状态</th>
                     <th>是否推广</th>
                     <th>Logo图片</th>
+                    <th>SEO</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -40,6 +41,10 @@
                             <figure class="image" style="width: 100px;">
                                 <img src="{{ $value->getImageUrl() }}">
                             </figure>
+                        </td>
+                        <td>
+                            <p>{{ $value->keywords }}</p>
+                            <p>{{ $value->seo_description }}</p>
                         </td>
                         <td>
                             <a class="button is-small" href="{{ url('backend/brands/edit/'.$value->id) }}">

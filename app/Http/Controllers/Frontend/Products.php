@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Catalog\Brand;
 use App\Models\Catalog\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,16 @@ class Products extends Controller
      */
     public function view($uri, Request $request){
         $product = Product::GetByUri($uri);
+
+        if(!$product){
+            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+        }
+
+        $this->dataForView['pageTitle'] = $product->name;
+        $this->dataForView['metaKeywords'] = $product->keywords;
+        $this->dataForView['metaDescription'] = $product->seo_description;
+
+
         $this->dataForView['product'] = $product;
         $this->dataForView['relatedProducts'] = $product->relatedProduct;
         $this->dataForView['product_images'] = $product->get_AllImages();
@@ -38,6 +49,17 @@ class Products extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function view_by_brand(Request $request){
+        $brand = Brand::where('name',$request->get('name'))->first();
+
+        if(!$brand){
+            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+        }
+
+        $this->dataForView['brand'] = $brand;
+        $this->dataForView['pageTitle'] = $request->get('name') . ' - ' . str_replace('_',' ',env('APP_NAME'));
+        $this->dataForView['metaKeywords'] = $brand->keywords;
+        $this->dataForView['metaDescription'] = $brand->seo_description;
+
         // 加载排序条件
         $orderBy = $request->has('orderBy') ? $request->get('orderBy') : 'position';
         $direction = $request->has('dir') ? $request->get('dir') : 'asc';
@@ -58,7 +80,6 @@ class Products extends Controller
 
         // 将价格区间计算出了放到View中
         $this->_calculatePricesRange($products->total(), $request->get('name'));
-        $this->dataForView['brand'] = $request->get('name');
 
         $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
 

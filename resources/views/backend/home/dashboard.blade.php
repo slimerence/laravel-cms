@@ -21,7 +21,7 @@
                         <div class="field">
                             <label class="label">Contact Phone</label>
                             <div class="control">
-                                <input type="text" class="input" name="contact_phone" value="{{ $config->contact_phone }}" autofocus>
+                                <input type="text" class="input" name="contact_phone" value="{{ $config->contact_phone }}">
                             </div>
                         </div>
 

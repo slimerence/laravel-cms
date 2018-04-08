@@ -20,6 +20,8 @@ class CreateBrandsTable extends Migration
             $table->boolean('promotion')->default(false);   // 是否为推荐品牌
             $table->text('image_url')->nullable();
             $table->text('extra_html')->nullable();         // 品牌描述的HTML
+            $table->text('keywords')->nullable();    // 品牌描述的seo description
+            $table->text('seo_description')->nullable();    // 品牌描述的seo description
             $table->softDeletes();
         });
     }

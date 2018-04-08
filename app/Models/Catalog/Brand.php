@@ -11,7 +11,7 @@ class Brand extends Model
 
     public $timestamps = false;
     protected $fillable = [
-        'name','image_url','status','promotion'
+        'name','image_url','status','promotion','keywords','seo_description','extra_html'
     ];
 
     protected $casts = [

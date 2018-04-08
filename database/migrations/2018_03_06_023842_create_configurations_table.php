@@ -16,7 +16,7 @@ class CreateConfigurationsTable extends Migration
     {
         Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('contact_phone')->nullable();
+            $table->string('site_name')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('contact_fax')->nullable();
             $table->string('contact_address')->nullable();
