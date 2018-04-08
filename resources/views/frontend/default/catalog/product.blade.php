@@ -4,14 +4,14 @@
         <hr>
 
         <div class="columns">
-            <div class="column is-4">
+            <div class="column is-6">
                 <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs" data-navposition="left" data-arrows="false" data-autoplay="true" data-height="350" data-maxheight="100%">
                     @foreach($product_images as $key=>$media)
                         <img src="{{ asset($media->url) }}">
                     @endforeach
                 </div>
             </div>
-            <div class="column is-8 product-info-wrap">
+            <div class="column is-6 product-info-wrap">
                 <h2>
                     {{ $product->name }}&nbsp;
                     @if($product->manage_stock && $product->stock<$product->min_quantity)
