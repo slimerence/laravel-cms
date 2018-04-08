@@ -21,7 +21,7 @@
                 <div class="field">
                     <label class="label">Name</label>
                     <div class="control">
-                        <input type="text" class="input{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $block->name }}" required autofocus placeholder="Menu name in English: Required">
+                        <input type="text" class="input{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $block->name }}" required autofocus placeholder="Block name in English: Required">
                         @if ($errors->has('name'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -40,6 +40,8 @@
                             </span>
                         @endif
                     </div>
+                    <p class="help">特殊Block: 产品详情顶部短码: {{ \App\Models\Widget\Block::PRODUCT_DESCRIPTION_KEY_TOP }}; 产品详情底部短码: {{ \App\Models\Widget\Block::PRODUCT_DESCRIPTION_KEY_BOTTOM }}</p>
+                    <p class="help">特殊Block: 产品简介顶部短码: {{ \App\Models\Widget\Block::PRODUCT_SHORT_DESCRIPTION_KEY_TOP }}; 产品简介底部短码: {{ \App\Models\Widget\Block::PRODUCT_SHORT_DESCRIPTION_KEY_BOTTOM }}</p>
                 </div>
 
                 <div class="field">

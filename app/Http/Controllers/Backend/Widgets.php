@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Utils\JsonBuilder;
 use App\Models\Widget\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,11 @@ class Widgets extends Controller
      */
     public function add_block(){
         $this->dataForView['menuName'] = 'blocks';
-        return view('backend.widgets.add_block',$this->dataForView);
+        $this->dataForView['block'] = new Block();
+        $this->dataForView['vuejs_libs_required'] = [
+            'blocks_manager'
+        ];
+        return view('backend.widgets.block_form',$this->dataForView);
     }
 
     /**
@@ -63,7 +68,10 @@ class Widgets extends Controller
     public function edit_block($id){
         $this->dataForView['menuName'] = 'blocks';
         $this->dataForView['block'] = Block::find($id);
-        return view('backend.widgets.edit_block',$this->dataForView);
+        $this->dataForView['vuejs_libs_required'] = [
+            'blocks_manager'
+        ];
+        return view('backend.widgets.block_form',$this->dataForView);
     }
 
     /**
@@ -83,16 +91,17 @@ class Widgets extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function save_block(Request $request){
-        $data = $request->all();
-        unset($data['_token']);
+        $data = $request->get('block');
+        $data['position'] = intval($data['position']);
 
         if(empty($data['id'])){
+            unset($data['id']);
             Block::create($data);
         }else{
             $id = $data['id'];
             unset($data['id']);
             Block::where('id',$id)->update($data);
         }
-        return redirect('backend/widgets/blocks');
+        return JsonBuilder::Success();
     }
 }

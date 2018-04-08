@@ -1,4 +1,4 @@
-<script>
+<script type="application/javascript">
     var AttributeSetManager = new Vue({
         el: '#attributes-manager-app',
         data: {

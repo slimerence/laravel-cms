@@ -6,6 +6,14 @@ use App\Models\Contract\IWidget;
 
 class Block extends BaseWidget implements IWidget
 {
+    /**
+     * 特殊的Block Key
+     */
+    const PRODUCT_DESCRIPTION_KEY_TOP = 'product_description_block_top';                    // 用在产品的详情中顶部的Block的Key
+    const PRODUCT_DESCRIPTION_KEY_BOTTOM = 'product_description_block_bottom';              // 用在产品的详情中底部的Block的Key
+    const PRODUCT_SHORT_DESCRIPTION_KEY_TOP = 'product_short_description_block_top';        // 用在产品的简介中顶部的Block的Key
+    const PRODUCT_SHORT_DESCRIPTION_KEY_BOTTOM = 'product_short_description_block_bottom';  // 用在产品的简介中底部的Block的Key
+
     protected $fillable = [
         'name',
         'short_code',
