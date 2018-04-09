@@ -8,6 +8,7 @@ npm run prod
 1: Frontend Development
 - Define your own frontend theme path in: app/config/system.php
 - Frontend styles: resources/assets/sass/frontend/_styles.scss ( Please scss )
+- Custom frontend styles: resources/assets/sass/frontend/_custom.scss
 - Frontend javascript: resources/assets/js/app.js
 
 2: Backend Development
