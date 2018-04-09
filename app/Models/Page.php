@@ -114,12 +114,16 @@ class Page extends Model implements ISupportWidget
      */
     public function locateWidgets()
     {
+        // 想要加载 widget, 先得有这个子字符串
+        if(strpos($this->content, 'widget-short-code') === false){
+            return null;
+        }
         // TODO: Implement locateWidgets() method.
         $dom = new Dom;
         $dom->load($this->content);
         $shortCodeElements = $dom->find('.widget-short-code');
 
-        if(count($shortCodeElements) > 0){
+        if($shortCodeElements && count($shortCodeElements) > 0){
             foreach ($shortCodeElements as $key => $shortCodeElement) {
                 $widgetHtml = BaseWidget::ParseVariable($shortCodeElement->text);
                 if($widgetHtml){
