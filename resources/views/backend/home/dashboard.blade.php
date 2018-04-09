@@ -66,6 +66,26 @@
                                 <input type="text" class="input" placeholder="Optional" name="longitude" value="{{ $config->longitude }}">
                             </div>
                         </div>
+                        <hr>
+                        <h2>Website Color Pattern</h2>
+                        <div class="field">
+                            <label class="label">Theme Main Color</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Optional" name="theme_main_color" value="{{ $config->theme_main_color }}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Menu Bar Background Color</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Optional" name="menu_bar_color" value="{{ $config->menu_bar_color }}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Menu Bar Background Color Hover</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Optional" name="menu_bar_color_hover" value="{{ $config->menu_bar_color_hover }}">
+                            </div>
+                        </div>
                     </div>
                     <div class="column">
                         <div class="field">

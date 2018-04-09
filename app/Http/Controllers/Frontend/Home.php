@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\FourSeasonsWear;
 
-use App\Models\Content\Configuration;
+use App\Models\Configuration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Catalog\Product;
-use App\Models\Content\Page;
+use App\Models\Page;
 
 class Home extends Controller
 {
@@ -36,7 +36,9 @@ class Home extends Controller
                 $featureProducts[] = $product;
             }
         }
-        $this->dataForView['featureProducts'] = $featureProducts;
+
+        $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
+        $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
         return view(
             _get_frontend_theme_prefix().'.pages.index',

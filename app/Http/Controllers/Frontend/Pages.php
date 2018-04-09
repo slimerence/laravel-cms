@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Widget\Block;
+use App\Models\Catalog\Category;
 
 class Pages extends Controller
 {
@@ -41,6 +42,10 @@ class Pages extends Controller
 
         // 尝试加载首页使用的Slider
         $this->dataForView['homeSlider'] = Slider::where('short_code','slider_home_page')->first();
+
+        // 加载特色产品和促销产品
+        $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
+        $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
         event(new StartLoading($page,$this->dataForView));
         return view($this->_getPageViewTemplate($page),$this->dataForView);

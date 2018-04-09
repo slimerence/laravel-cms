@@ -1,7 +1,7 @@
 <template>
     <div id="catalog-viewer-wrap">
         <div class="vue-js-catalog-viewer-wrap" :style="{'height': '0px','width': width+'px'}" :class="{'hidden':!isShowSubsNow}">
-            <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px'}">
+            <div class="vue-js-categories-list" :style="{'width': firstLevelCategoriesWrapperWidth + 'px','backgroundColor': categoriesListWrapperBackgroundColor}">
                 <ul class="the-list" v-on:mouseover="inCategoryItemSectionHandler($event)" v-on:mouseout="outCategoryItemSectionHandler($event)">
                     <li v-for="(flc, idx) in firstLevelCategories" :key="idx" class="flc-item" @mouseover="loadCategoryDetail(flc.id)">
                         <a class="has-text-white" :href="buildCategoryViewLink(flc.uri)">{{ flc.name }}</a>
@@ -96,10 +96,15 @@
             triggerId: {
                 type: String,
                 required: false
+            },
+            categoriesListBgColor: {
+                type: String,
+                required: false
             }
         },
         data: function(){
             return {
+                categoriesListWrapperBackgroundColor: 'rgba(0, 0, 0, 0.8)',
                 firstLevelCategoriesWrapperWidth: null,     // 第一级目录区宽度
                 currentCategoryDetailsWrapperWidth: null,   // 当前目录区宽度
                 currentCategory:{},                         // 当前hover到的category
@@ -112,6 +117,10 @@
         watch: {
         },
         created() {
+            // 下拉的子目录北京颜色
+            if(this.categoriesListBgColor){
+                this.categoriesListWrapperBackgroundColor = this.categoriesListBgColor;
+            }
             // 左侧目录树的宽度与右侧展示区的宽度
             this.firstLevelCategoriesWrapperWidth = this.leftWidth ? this.leftWidth : CATALOG_VIEWER_LEFT_SECTION_WIDTH;
             this.currentCategoryDetailsWrapperWidth = this.width - this.firstLevelCategoriesWrapperWidth;
@@ -172,7 +181,7 @@
             background-color: transparent;
             height: auto;
             .vue-js-categories-list{
-                background-color: rgba(0, 0, 0, 0.8);
+                /*background-color: rgba(0, 0, 0, 0.8);*/
                 height: auto;
                 float: left;
                 margin:0;

@@ -82,7 +82,9 @@
     <div id="navMenu" class="navbar-menu dark-theme-nav">
         <div class="navbar-start">
             @if(isset($categoriesTree) && count($categoriesTree) > 0)
-                <a id="catalog-viewer-app" class="navbar-item product-category-root" href="#" style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: #000;">
+                <a id="catalog-viewer-app" class="navbar-item product-category-root" href="#"
+                   style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: {{ $siteConfig->theme_main_color?$siteConfig->theme_main_color:'#000' }};"
+                >
                     <i class="fas fa-cube"></i>&nbsp;&nbsp;Catalog
                     <div class="columns is-marginless is-paddingless" id="" style="position: absolute;left:0;top:52px;">
                         <?php
@@ -107,6 +109,7 @@
                                 :show-now="false"
                                 trigger-id=".product-category-root"
                                 show-by="hover"
+                                categories-list-bg-color="{{ $siteConfig->menu_bar_color }}"
                         >
                         </catalog-viewer>
                     </div>

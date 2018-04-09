@@ -23,6 +23,9 @@ class Configuration extends Model
         'facebook',
         'latitude',
         'longitude',
+        'menu_bar_color',
+        'menu_bar_color_hover',
+        'theme_main_color',
     ];
 
     public function isContactUsField($key){

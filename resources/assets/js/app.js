@@ -218,4 +218,14 @@ $(document).ready(function(){
             });
         })
     }
+
+    // 一个特效控件
+    if($('.show-mask-on-hover').length > 0){
+        $('.show-mask-on-hover').on('mouseover',function(e){
+            $(this).children('.mask').eq(0).css('top','0');
+        });
+        $('.show-mask-on-hover').on('mouseout',function(e){
+            $(this).children('.mask').eq(0).css('top','-201px');
+        });
+    }
 });

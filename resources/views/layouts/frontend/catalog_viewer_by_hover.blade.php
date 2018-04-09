@@ -21,6 +21,7 @@
                 :show-now="false"
                 trigger-id="#product-category-root"
                 show-by="click"
+                categories-list-bg-color="{{ $siteConfig->menu_bar_color }}"
         >
         </catalog-viewer>
     </div>

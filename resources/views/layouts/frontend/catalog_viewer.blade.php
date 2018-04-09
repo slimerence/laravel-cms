@@ -18,5 +18,6 @@ foreach ($categoriesTree as $item) {
     :height="600"
     :left-width="{{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}"
     :show-now="true"
+    categories-list-bg-color="{{ $siteConfig->menu_bar_color }}"
     >
 </catalog-viewer>
