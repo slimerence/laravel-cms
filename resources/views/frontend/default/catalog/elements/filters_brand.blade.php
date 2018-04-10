@@ -15,17 +15,17 @@
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-            <a href="{{ $priceLowToHigh ? '#' : url('catalog/brand/load?name='.$brand.'&orderBy=default_price&dir=asc') }}" class="dropdown-item {{ $priceLowToHigh ? 'is-active' : null }}">
+            <a href="{{ $priceLowToHigh ? '#' : url('catalog/brand/load?name='.$brand->name.'&orderBy=default_price&dir=asc') }}" class="dropdown-item {{ $priceLowToHigh ? 'is-active' : null }}">
                 Price low to high
             </a>
-            <a href="{{ $priceHighToLow ? '#' : url('catalog/brand/load?name='.$brand.'&orderBy=default_price&dir=desc') }}" class="dropdown-item {{ $priceHighToLow ? 'is-active' : null }}">
+            <a href="{{ $priceHighToLow ? '#' : url('catalog/brand/load?name='.$brand->name.'&orderBy=default_price&dir=desc') }}" class="dropdown-item {{ $priceHighToLow ? 'is-active' : null }}">
                 Price high to low
             </a>
             <hr class="dropdown-divider">
-            <a href="{{ $nameLowToHigh ? '#' : url('catalog/brand/load?name='.$brand.'&orderBy=name&dir=asc') }}" class="dropdown-item {{ $nameLowToHigh ? 'is-active' : null }}">
+            <a href="{{ $nameLowToHigh ? '#' : url('catalog/brand/load?name='.$brand->name.'&orderBy=name&dir=asc') }}" class="dropdown-item {{ $nameLowToHigh ? 'is-active' : null }}">
                 Product Name A->Z
             </a>
-            <a href="{{ $nameHighToLow ? '#' : url('catalog/brand/load?name='.$brand.'&orderBy=name&dir=desc') }}" class="dropdown-item {{ $nameHighToLow ? 'is-active' : null }}">
+            <a href="{{ $nameHighToLow ? '#' : url('catalog/brand/load?name='.$brand->name.'&orderBy=name&dir=desc') }}" class="dropdown-item {{ $nameHighToLow ? 'is-active' : null }}">
                 Product Name Z->A
             </a>
         </div>

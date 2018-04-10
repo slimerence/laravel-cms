@@ -112,9 +112,7 @@
                 }
                 ?>
                 <div class="content">
-                    <div class="is-pulled-right">
-                        {{ $products->appends($paginationAppendParams)->links() }}
-                    </div>
+                    @include(_get_frontend_theme_path('catalog.elements.simple_paginate_brand'))
                 </div>
             </div>
         </div>
