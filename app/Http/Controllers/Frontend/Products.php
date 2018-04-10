@@ -114,6 +114,9 @@ class Products extends Controller
 
         $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
 
+        // Add vuejs functions
+        $this->dataForView['vuejs_libs_required'] = ['category_view_manager'];
+
         // 总是加载Features product and promotion
         return view('frontend.default.catalog.brand',$this->dataForView);
     }

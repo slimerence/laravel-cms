@@ -142,6 +142,16 @@ class Product extends Model
     }
 
     /**
+     * 该产品是否有 options
+     * @return bool
+     */
+    public function hasOptions(){
+        return ProductOption::select('id')
+            ->where('product_id',$this->id)
+            ->count() > 0;
+    }
+
+    /**
      * 从数据库中删除产品的所有信息
      * @param $uuid
      * @return bool

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\Contact\LeadReceived;
 use App\Events\Page\Content\StartLoading;
 use App\Models\Configuration;
 use App\Models\Lead;
@@ -99,8 +100,9 @@ class Pages extends Controller
      */
     public function contact_us_handler(Request $request){
         $leadData = $request->get('lead');
-
-        if(Lead::create($leadData)){
+        if($lead = Lead::Persistent($leadData)){
+            // 通知网站管理员和用户
+            event(new LeadReceived($lead, $this->siteConfig->contact_email));
             return JsonBuilder::Success();
         }
         return JsonBuilder::Error();

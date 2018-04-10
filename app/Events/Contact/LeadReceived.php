@@ -2,6 +2,7 @@
 
 namespace App\Events\Contact;
 
+use App\Models\Lead;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,23 +15,26 @@ class LeadReceived
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $lead;
+    public $adminEmail;
+
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * @param Lead $lead
+     * @param String $adminEmail
      */
-    public function __construct()
+    public function __construct(Lead $lead, $adminEmail)
     {
-        //
+        $this->lead = $lead;
+        $this->adminEmail = $adminEmail;
     }
 
     /**
      * Get the channels the event should broadcast on.
-     *
      * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return false;
+//        return new PrivateChannel('channel-name');
     }
 }

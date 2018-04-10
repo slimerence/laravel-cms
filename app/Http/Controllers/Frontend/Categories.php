@@ -87,6 +87,9 @@ class Categories extends Controller
         $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
         $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
+        // Add vuejs functions
+        $this->dataForView['vuejs_libs_required'] = ['category_view_manager'];
+
         return view('frontend.default.catalog.category',$this->dataForView);
     }
 

@@ -30,8 +30,15 @@ class Controller extends BaseController
         'metaDescription'=>null,
         'footer'=>null,             // 页脚的Block
         'floatingBox'=>null,        // 页面浮动的Block
-        'the_referer'=>null         // 跟踪客户的referer
+        'the_referer'=>null,        // 跟踪客户的referer
+        // 和电商相关的部分
+        'categoriesTree'=>[],
+        'categoriesNav'=>[],
+        'cart'=>null
     ];
+
+    // 网站的配置信息对象
+    public $siteConfig = null;
 
     /**
      * 构造函数
@@ -41,18 +48,20 @@ class Controller extends BaseController
     {
         $this->dataForView['agentObject'] = new Agent();
         $this->dataForView['rootMenus'] = Menu::getRootMenus();
-        $categoriesTree = Category::LoadFirstLevelCategoriesInMenu();
-        $this->dataForView['categoriesTree'] = $categoriesTree;
+        $this->siteConfig = Configuration::find(1);
+        $this->dataForView['siteConfig'] = $this->siteConfig;
 
-        $data = [];
-        foreach ($categoriesTree as $category) {
-            $data[] = $category->loadForNav();
+        // 和电商相关
+        if(env('activate_ecommerce',false)){
+            $categoriesTree = Category::LoadFirstLevelCategoriesInMenu();
+            $this->dataForView['categoriesTree'] = $categoriesTree;
+            $data = [];
+            foreach ($categoriesTree as $category) {
+                $data[] = $category->loadForNav();
+            }
+            $this->dataForView['categoriesNav'] = $data;
+            $this->_createCart();
         }
-        $this->dataForView['categoriesNav'] = $data;
-        $siteConfig = Configuration::find(1);
-        $this->dataForView['siteConfig'] = $siteConfig;
-
-        $this->dataForView['cart'] = $this->_createCart();
     }
 
     /**

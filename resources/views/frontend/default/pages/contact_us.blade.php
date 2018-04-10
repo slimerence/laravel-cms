@@ -11,6 +11,7 @@
                 <hr>
                 <form action="{{ url('contact-us') }}" method="post" id="contact-us-form">
                     {{ csrf_field() }}
+                    <input type="hidden" name="user" value="{{ session('user_data.uuid') }}">
                     <div class="field">
                         <label class="label">Name</label>
                         <div class="control has-icons-left">

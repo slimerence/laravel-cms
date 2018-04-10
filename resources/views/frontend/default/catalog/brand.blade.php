@@ -1,6 +1,6 @@
 @extends(_get_frontend_layout_path('catalog'))
 @section('content')
-    <div class="content pl-20 pr-20 page-content-wrap">
+    <div class="content pl-20 pr-20 page-content-wrap" id="category-view-manager">
         @if(isset($featureProducts) && count($featureProducts)>0)
             <hr>
             <div class="columns">
@@ -93,13 +93,13 @@
                                         @endif
                                     </div>
                                     <div class="is-clearfix"></div>
-                                    <p class="is-size-6 has-text-grey mb-10">{{ $product->name }}</p>
+                                    <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->name }}</p>
                                 </a>
-
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
-                                        <a class="tag" href="#variables"><i class="far fa-comment"></i>&nbsp;Send Enquiry</a>
-                                        <a class="tag is-success" href="#variables"><i class="fas fa-cart-arrow-down"></i>&nbsp;Add to Cart</a>
+                                        <a class="tag" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
+                                            <i class="far fa-comment"></i>&nbsp;Send Enquiry
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="is-clearfix"></div>
@@ -116,5 +116,28 @@
                 </div>
             </div>
         </div>
+        <el-dialog title="Enquiry" :visible.sync="showSendEnquiryForm">
+            <el-form :model="enquiryForm" :rules="rules" ref="enquiryDataForm">
+                <el-form-item label="Product" :label-width="formLabelWidth">
+                    <el-input v-model="enquiryForm.selectedProductName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Your Name" v-show="!userIsLocated" :label-width="formLabelWidth" prop="name">
+                    <el-input v-model="enquiryForm.name" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Email" v-show="!userIsLocated" :label-width="formLabelWidth" prop="email">
+                    <el-input v-model="enquiryForm.email" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Phone" :label-width="formLabelWidth" prop="phone">
+                    <el-input v-model="enquiryForm.phone" placeholder="Your phone #"></el-input>
+                </el-form-item>
+                <el-form-item label="Message" :label-width="formLabelWidth">
+                    <el-input type="textarea" v-model="enquiryForm.message" placeholder="Say Something ..."></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="cancelEnquiry">Cancel</el-button>
+                <el-button type="primary" @click="sendEnquiryAction('enquiryDataForm')">Submit</el-button>
+            </div>
+        </el-dialog>
     </div>
 @endsection
