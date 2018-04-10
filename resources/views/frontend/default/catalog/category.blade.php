@@ -13,15 +13,15 @@
                 <div class="columns">
                     @foreach($featureProducts as $featureProduct)
                     <div class="column">
-                        <div class="show-mask-on-hover">
-                            <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10">
-                            <div class="mask">
-                                <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
+                        <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
+                            <div class="show-mask-on-hover">
+                                <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10">
+                                <div class="mask">
                                     <p class="name is-size-4">{{ $featureProduct->name }}</p>
                                     <p class="price is-size-5">${{ $featureProduct->getFinalPriceGst() }}</p>
-                                </a>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     @endforeach
                 </div>
