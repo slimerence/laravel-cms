@@ -19,6 +19,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>Product</th>
                     <th>Message</th>
                     <th>Actions</th>
                 </tr>
@@ -36,7 +37,10 @@
                             <a href="mailto:{{ $value->email }}">{{ $value->email }}</a>
                         </td>
                         <td>
-                            {{ $value->message }}
+                            {{ $value->product ? $value->product->name : null }}
+                        </td>
+                        <td>
+                            {!! $value->message !!}
                         </td>
                         <td>
                             <a class="button is-danger is-small btn-delete" href="{{ url('backend/leads/delete/'.$value->id) }}">

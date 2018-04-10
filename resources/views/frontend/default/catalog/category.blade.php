@@ -179,10 +179,10 @@
                     <el-input v-model="enquiryForm.selectedProductName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="Your Name" v-show="!userIsLocated" :label-width="formLabelWidth" prop="name">
-                    <el-input v-model="enquiryForm.name" auto-complete="off"></el-input>
+                    <el-input v-model="enquiryForm.name" placeholder="Your Name"></el-input>
                 </el-form-item>
                 <el-form-item label="Email" v-show="!userIsLocated" :label-width="formLabelWidth" prop="email">
-                    <el-input v-model="enquiryForm.email" auto-complete="off"></el-input>
+                    <el-input v-model="enquiryForm.email" placeholder="Your Email"></el-input>
                 </el-form-item>
                 <el-form-item label="Phone" :label-width="formLabelWidth" prop="phone">
                     <el-input v-model="enquiryForm.phone" placeholder="Your phone #"></el-input>
