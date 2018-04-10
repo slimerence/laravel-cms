@@ -50,7 +50,7 @@
                             <div class="tags has-addons">
                                 @foreach($price_ranges as $key=>$priceNumber)
                                     @if($key < count($price_ranges) - 1)
-                                        <a class="tag is-size-7 mr-10" href="{{ url('catalog/brand/load?name='.$brand->name.'?fr='.$priceNumber.'&to='.$price_ranges[$key+1]) }}">
+                                        <a class="tag is-size-7 mr-10" href="{{ url('catalog/brand/load?name='.$brand->name.'&fr='.$priceNumber.'&to='.$price_ranges[$key+1]) }}">
                                             ${{ $priceNumber }} - ${{ $price_ranges[$key+1] }}
                                         </a>
                                     @endif
