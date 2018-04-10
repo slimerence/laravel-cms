@@ -57,7 +57,9 @@ class Categories extends Controller
         foreach ($cps as $cp) {
             $productsId[] = $cp->product_id;
         }
-        $products = Product::whereIn('id',$productsId)->get();
+        $products = Product::whereIn('id',$productsId)
+            ->orderBy($orderBy=='price'?'default_price':$orderBy, $direction)
+            ->get();
 
         $this->dataForView['products'] = $products;
         $this->dataForView['category'] = $category;
