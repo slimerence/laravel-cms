@@ -14,7 +14,7 @@
                     @foreach($featureProducts as $featureProduct)
                     <div class="column">
                         <div class="show-mask-on-hover">
-                            <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10">
+                            <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10" style="height: 201px;">
                             <div class="mask">
                                 <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
                                     <p class="name is-size-4">{{ $featureProduct->name }}</p>
