@@ -82,7 +82,25 @@ class Products extends Controller
         ];
         $this->dataForView['paginationAppendParams'] = $paginationAppendParams;
 
-        $products = Product::where('brand',$request->get('name'))
+        $whereArray = [
+            ['brand','=',$request->get('name')]
+        ];
+
+        /**
+         * 检查是否按照价格区间加载某品牌的产品
+         */
+        if($orderBy == 'default_price' && $request->has('fr')){
+            $whereArray[] = [
+                'default_price','>=',$request->get('fr')
+            ];
+            $whereArray[] = [
+                'default_price','<=',$request->get('to')
+            ];
+        }
+        /**
+         * 加载某品牌的产品
+         */
+        $products = Product::where($whereArray)
             ->orderBy($orderBy, $direction)
             ->paginate(config('system.PAGE_SIZE'));
 
