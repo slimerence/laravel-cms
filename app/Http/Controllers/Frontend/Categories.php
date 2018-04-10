@@ -43,7 +43,21 @@ class Categories extends Controller
         ];
         $this->dataForView['paginationAppendParams'] = $paginationAppendParams;
 
-        $cps = CategoryProduct::select('product_id',$orderBy)->where('category_id',$category->id)
+        $whereArray = [
+            ['category_id','=',$category->id]
+        ];
+        if($orderBy == 'price' && $request->has('fr')){
+            $whereArray[] = [
+                'price','>=',$request->get('fr')
+            ];
+            if($request->has('to')){
+                $whereArray[] = [
+                    'price','<=',$request->get('to')
+                ];
+            }
+        }
+
+        $cps = CategoryProduct::select('product_id',$orderBy)->where($whereArray)
             ->orderBy($orderBy, $direction)
             ->paginate(config('system.PAGE_SIZE'));
 

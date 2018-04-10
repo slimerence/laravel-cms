@@ -93,9 +93,11 @@ class Products extends Controller
             $whereArray[] = [
                 'default_price','>=',$request->get('fr')
             ];
-            $whereArray[] = [
-                'default_price','<=',$request->get('to')
-            ];
+            if($request->has('to')){
+                $whereArray[] = [
+                    'default_price','<=',$request->get('to')
+                ];
+            }
         }
         /**
          * 加载某品牌的产品
