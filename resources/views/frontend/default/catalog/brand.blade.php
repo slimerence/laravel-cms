@@ -81,13 +81,6 @@
                     @foreach($row as $key=>$product)
                         <div class="column is-3-desktop is-12-mobile">
                             <div class="content box">
-                                <p class="is-pulled-left has-text-left">Brand: <a href="{{ url('catalog/load-brand?name='.$product->brand) }}">{{ $product->brand }}</a></p>
-                                @if($product->group_id)
-                                    <p class="is-pulled-right"><span class="tag is-danger">{{ $product->group->name }}</span></p>
-                                @else
-                                    <p class="is-pulled-right"><span class="tag is-info">ICKE</span></p>
-                                @endif
-                                <div class="is-clearfix"></div>
                                 <a href="{{ url('catalog/product/'.$product->uri) }}">
                                     <p>
                                         <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">

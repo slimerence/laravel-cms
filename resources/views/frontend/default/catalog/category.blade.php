@@ -134,7 +134,7 @@
                         @foreach($row as $key=>$product)
                         <div class="column is-3-desktop is-12-mobile">
                             <div class="content box">
-                                <p class="is-pulled-left has-text-left">Brand: <a href="{{ url('catalog/load-brand?name='.$product->brand) }}">{{ $product->brand }}</a></p>
+                                <p class="is-pulled-left has-text-left">Brand: <a href="{{ url('catalog/brand/load?name='.$product->brand) }}">{{ $product->brand }}</a></p>
                                 @if($product->group_id)
                                     <p class="is-pulled-right"><span class="tag is-danger">{{ $product->group->name }}</span></p>
                                 @else
