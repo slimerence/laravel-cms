@@ -76,6 +76,7 @@ class Products extends Controller
         $this->dataForView['orderBy'] = $orderBy;
         $this->dataForView['direction'] = $direction;
         $paginationAppendParams = [
+            'name'=>$request->get('name'),
             'orderBy'=>$orderBy,
             'dir'=>$direction
         ];

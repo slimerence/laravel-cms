@@ -113,7 +113,7 @@
                 ?>
                 <div class="content">
                     <div class="is-pulled-right">
-                        {{ $products->links() }}
+                        {{ $products->appends($paginationAppendParams)->links() }}
                     </div>
                 </div>
             </div>
