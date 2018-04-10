@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            @if(isset($price_ranges) && $price_ranges)
+            @if(isset($price_ranges) && count($price_ranges)>0)
             <div class="columns border-dotted-top">
                 <div class="column is-2">
                     <p class="is-size-6">
@@ -82,6 +82,11 @@
                                 </a>
                                 @endif
                             @endforeach
+                            @if(count($price_ranges)==1)
+                                <a class="tag is-link is-size-7 mr-10" href="{{ url('category/view/'.$category->uri) }}">
+                                    Reset Price Range
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
