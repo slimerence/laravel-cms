@@ -1,4 +1,6 @@
 @extends(_get_frontend_layout_path('frontend'))
 @section('content')
-    {!! $page ? $page->rebuildContent() : null !!}
+    <div class="content pt-40">
+        {!! $page ? $page->rebuildContent() : null !!}
+    </div>
 @endsection
