@@ -1,6 +1,6 @@
 @extends(_get_frontend_layout_path('frontend'))
 @section('content')
-<div class="columns">
+<div class="columns mt-20">
         <div class="column is-1"></div>
         <div class="column">
                 <div class="content pt-40">
