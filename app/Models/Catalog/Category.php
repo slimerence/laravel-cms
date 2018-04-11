@@ -199,7 +199,7 @@ class Category extends Model
         }
 
         if(count($productsId)>0){
-            return Product::select('uuid','name','uri')->whereIn('id',$productsId)->orderBy('position','ASC')->orderBy('id','DESC')->get();
+            return Product::select('uuid','name','uri','image_path')->whereIn('id',$productsId)->orderBy('position','ASC')->orderBy('id','DESC')->get();
         }else{
             return [];
         }
@@ -214,7 +214,8 @@ class Category extends Model
         $data = [
             'subs' => [],
             'brands' => Brand::whereIn('id',$this->brands)->get()->toArray(),
-            'images'=>[]
+            'images'=>[],
+            'products'=>$this->productCategoriesSimple()
         ];
         foreach ($children as $child) {
             $data['subs'][] = [
