@@ -4,8 +4,9 @@
         $categories = [];
         foreach ($categoriesTree as $item) {
             $data = [
-                    'id' => $item->uuid,
-                    'name' => app()->getLocale()=='cn' ? $item->name_cn : $item->name,
+                'id'    => $item->uuid,
+                'uri'   => $item->uri,
+                'name'  => app()->getLocale()=='cn' ? $item->name_cn : $item->name,
             ];
             $data = array_merge($data, $item->loadForNav());
             $categories[] = $data;

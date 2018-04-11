@@ -239,7 +239,9 @@
                                 }
                             }
                             .my-products-wrap{
-
+                                .image{
+                                    max-height: 200px;
+                                }
                             }
                             .sub-cats-wrap{
                                 display: flex;
