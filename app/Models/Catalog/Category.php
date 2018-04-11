@@ -186,7 +186,7 @@ class Category extends Model
      * @param int $max
      * @return null
      */
-    public function productCategoriesSimple($max = 5){
+    public function productCategoriesSimple($max = 8){
         $cps = CategoryProduct::select('product_id')->where('category_id',$this->id)->get();
         $productsId = [];
         if(count($cps)>0){
