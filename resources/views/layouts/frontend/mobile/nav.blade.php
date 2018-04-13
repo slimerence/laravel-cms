@@ -6,6 +6,15 @@
             <img src="{{ asset($siteConfig->logo_dark ? $siteConfig->logo_dark : $siteConfig->logo) }}" alt="Logo" class="logo-img-mobile">
         @endif
     </section>
+    <!-- e-commerce -->
+    @if(isset($categoriesTree) && count($categoriesTree) > 0)
+        <section class="menu-section mb-10 mt-10">
+        <a class="has-text-white navbar-item" href="#">
+            Catalog
+        </a>
+        </section>
+    @endif
+    <!-- e-commerce end -->
     @foreach($rootMenus as $key=>$rootMenu)
         <section class="menu-section mb-10 mt-10">
         <?php

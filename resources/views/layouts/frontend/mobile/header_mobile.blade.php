@@ -1,4 +1,4 @@
-<nav class="navbar bg-dark-blud-gradient" role="navigation" aria-label="main navigation" id="navigation"  style="z-index: 9999;">
+<nav class="navbar bg-dark-gradient" role="navigation" aria-label="main navigation" id="navigation"  style="z-index: 9999;">
     <div class="navbar-brand">
         <button class="button toggle-button mobile-drawer-trigger">
             <i class="fa fa-bars"></i>
