@@ -10,12 +10,12 @@
             switch ($productAttribute->type){
                 case \App\Models\Utils\OptionTool::$TYPE_TEXT:
                     ?>
-    @include('frontend.default.catalog.elements.sections._attributes.text')
+    @include(_get_frontend_theme_path('catalog.elements.sections._attributes.text'))
                     <?php
                     break;
                     case \App\Models\Utils\OptionTool::$TYPE_RICH_TEXT:
                     ?>
-    @include('frontend.default.catalog.elements.sections._attributes.rich_text')
+    @include(_get_frontend_theme_path('catalog.elements.sections._attributes.rich_text'))
                     <?php
                         break;
                 default:
