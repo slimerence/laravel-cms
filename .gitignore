@@ -2,7 +2,6 @@
 /public/hot
 /public/uploads
 /public/storage
-/public/demos
 /storage/app/public/uploads/*
 /vendor
 /.idea
