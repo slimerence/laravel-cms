@@ -12,6 +12,7 @@ use App\Models\Utils\MediaTool;
 use App\Models\Utils\ProductType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Null_;
 use Ramsey\Uuid\Uuid;
 use DB;
 use App\Models\Media;
@@ -629,5 +630,22 @@ class Product extends Model
      */
     public function relatedProduct(){
         return $this->hasMany(RelatedProduct::class);
+    }
+
+    /**
+     * 获取产品的重量
+     * @return int
+     */
+    public function getWeight(){
+        $weightAttribute = ProductAttribute::where('product_attribute_set_id',$this->attribute_set_id)
+            ->where('name','Weight')
+            ->first();
+        if($weightAttribute){
+            $aValue = AttributeValue::where('product_attribute_id',$weightAttribute->id)
+                ->where('product_id',$this->id)
+                ->first();
+            return $aValue ? $aValue->value : null;
+        }
+        return null;
     }
 }

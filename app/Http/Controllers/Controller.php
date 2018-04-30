@@ -92,6 +92,19 @@ class Controller extends BaseController
     }
 
     /**
+     * 计算购物车中所有货品的重量
+     * @return float|int
+     */
+    public function getTotalWeightInCart(){
+        $content = $this->getCart()->content();
+        $totalWeight = 0;
+        foreach ($content as $item) {
+            $totalWeight += isset($item->options['weight']) ? floatval($item->options['weight'])*$item->qty : 0;
+        }
+        return $totalWeight;
+    }
+
+    /**
      * Get an instance of the cart.
      *
      * @return \Gloudemans\Shoppingcart\Cart

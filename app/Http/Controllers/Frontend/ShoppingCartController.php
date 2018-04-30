@@ -148,6 +148,7 @@ class ShoppingCartController extends Controller
             $data['name'] = $product->name.(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
 
             $data['options']['thumbnail'] = $product->getProductDefaultImageUrl();
+            $data['options']['weight'] = $product->getWeight();
             $data['options']['colour'] = null;
 
             $data['price'] = $product->getSpecialPriceGST() ? $product->getSpecialPriceGST() : $product->getDefaultPriceGST();

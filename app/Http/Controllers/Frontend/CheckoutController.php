@@ -8,6 +8,7 @@ use App\Events\Order\Created as OrderCreated;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
+use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order\Order;
@@ -106,7 +107,9 @@ class CheckoutController extends Controller
 
 //        dump(\GuzzleHttp\json_encode($this->dataForView['shoppingCartTool']->getTransactionsForPayPal(), JSON_PRETTY_PRINT));
 
-        $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge($customer,$cart->total());
+        $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
+            $customer,$cart->total(),$this->getTotalWeightInCart()
+        );
 
         $this->dataForView['vuejs_libs_required'] = [
 //            'paypal_button',
