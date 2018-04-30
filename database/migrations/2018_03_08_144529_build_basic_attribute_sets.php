@@ -38,6 +38,16 @@ class BuildBasicAttributeSets extends Migration
                 'location'=>1
             ]
         );
+
+        ProductAttribute::create(
+            [
+                'name'=>'Weight',
+                'product_attribute_set_id'=>1,
+                'type'=>1,
+                'position'=>20,
+                'location'=>1
+            ]
+        );
     }
 
     /**

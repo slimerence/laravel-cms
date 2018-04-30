@@ -2,6 +2,7 @@
 
 namespace App\Models\Shipment;
 
+use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class DeliveryFee extends Model
@@ -23,6 +24,46 @@ class DeliveryFee extends Model
         'min_order_total',  // 此记录生效的最少订单金额 default(0)
         'status',   // 此记录生效与否 default(true)
     ];
+
+    /**
+     * 计算运费的方法
+     * @param $customerGroup
+     * @param $orderTotal
+     * @param $country
+     * @param null $state
+     * @param null $postcode
+     * @param null $weight
+     * @return int
+     */
+    public static function CalculateFee($customerGroup, $orderTotal, $country, $state=null, $postcode=null, $weight=null){
+        $fee = self::where('country',$country)
+            ->where('target_customer_group',$customerGroup)
+            ->where('state',$state)
+            ->where('postcode',$postcode)
+            ->where('min_order_total','<',$orderTotal)
+            ->first();
+        if($fee){
+            return $fee->basic + $weight * $fee->price_per_kg;
+        }else{
+            $fee = self::where('country',$country)
+                ->where('target_customer_group',$customerGroup)
+                ->where('postcode',$postcode)
+                ->where('min_order_total','<',$orderTotal)
+                ->first();
+            if($fee){
+                return $fee->basic + $weight * $fee->price_per_kg;
+            }else{
+                $fee = self::where('country',$country)
+                    ->where('target_customer_group',$customerGroup)
+                    ->where('min_order_total','<',$orderTotal)
+                    ->first();
+                if($fee){
+                    return $fee->basic + $weight * $fee->price_per_kg;
+                }
+            }
+        }
+        return env('DOMESTIC_DELIVERY_FEE',0);
+    }
 
     /**
      * 获取所有的目标国家
