@@ -5,7 +5,7 @@
             <div class="panel">
                 <br>
                 <h4 class="is-size-3 has-text-link">
-                    Summary:
+                    {{ trans('cart.Summary') }}:
                 </h4>
             </div>
             <div class="panel">
@@ -24,7 +24,7 @@
 
                     <el-table-column
                             property="name"
-                            label="Product" width="300">
+                            label="{{ trans('cart.Product') }}" width="300">
                         <template slot-scope="scope">
                             <a :href="'frontend/product/'+scope.row.id" class="product-name">
                                 @{{ scope.row.name }}
@@ -45,7 +45,7 @@
 
                     <el-table-column
                             property="price"
-                            label="Price (GST Incl.)">
+                            label="{{ trans('cart.Price') }}">
                         <template slot-scope="scope">
                             <span>{{config('system.CURRENCY')}} @{{ scope.row.price.toFixed(2) }}</span>
                         </template>
@@ -53,14 +53,14 @@
 
                     <el-table-column
                             property="qty"
-                            label="Quantity">
+                            label="{{ trans('cart.Quantity') }}">
                         <template slot-scope="scope">
                             <el-input-number v-bind:min="1" size="small" v-model="qtys[scope.$index]" v-on:input="updateQuantity(scope.$index)"></el-input-number>
                         </template>
                     </el-table-column>
 
                     <el-table-column
-                            label="Subtotal (GST Incl.)">
+                            label="{{ trans('cart.Subtotal') }}">
                         <template slot-scope="scope">
                             <span>{{config('system.CURRENCY')}} @{{ _calcSubTotal(scope.row).toFixed(2) }}</span>
                         </template>
@@ -83,12 +83,12 @@
         <div class="columns checkout-bar">
             <div class="column">
                 <p class="total-txt has-text-right">
-                    Total (GST Incl.): @{{ cartTotalText }}
+                    {{ trans('cart.Total') }}: @{{ cartTotalText }}
                 </p>
             </div>
             <div class="column">
                 <el-button type="primary" size="large" v-on:click="checkout">
-                    <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;Checkout <i class="el-icon-arrow-right el-icon--right"></i>
+                    <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;{{ trans('cart.Checkout') }} <i class="el-icon-arrow-right el-icon--right"></i>
                 </el-button>
             </div>
         </div>

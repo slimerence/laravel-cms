@@ -97,7 +97,7 @@
         },
         created: function(){
             if(this.product.id){
-                // 表示是编辑一个已经存在的产品
+                // 表示是编辑一个已经存在的产品 icarautomotive.com.au
                 this._loadProductImages();
                 this._loadProductExistOptionsAndColours();
                 this._loadCurrentBrandData(this.product.brand);

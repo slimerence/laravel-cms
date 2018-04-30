@@ -97,7 +97,8 @@ class ShoppingCartController extends Controller
                             return JsonBuilder::Success(url('frontend/place_order_checkout'));
                         }else{
                             // 用户还没有登录或者session过期, 显示登录界面
-                            return JsonBuilder::Success(url('frontend/customers/login'));
+//                            return JsonBuilder::Success(url('frontend/customers/login'));
+                            return JsonBuilder::Success(url('frontend/place_order_checkout'));
                         }
                     }
                 }

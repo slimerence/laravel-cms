@@ -18,6 +18,7 @@ return [
         'galleries'=>'Galleries',
         'groups'=>'Dealers',
         'brands'=>'Brands',
+        'shipment'=>'Shipment',
     ],
     'new'=>[
         'menu'=>'Create Menu',
@@ -33,6 +34,8 @@ return [
         'galleries'=>'New Gallery',
         'groups'=>'New Dealer',
         'brands'=>'New Brand',
+        'group_product'=>'Create Group Product',
+        'shipment_rule'=>'Add Shipment Rule',
     ],
     'mgr'=>'Management',
     'edit'=>[
@@ -49,5 +52,6 @@ return [
         'galleries'=>'Modify Gallery',
         'groups'=>'Modify Dealer',
         'brands'=>'Modify Brand',
+        'shipment_rule'=>'Edit Shipment Rule',
     ]
 ];

@@ -19,6 +19,7 @@ return [
         'blocks'=>'创建内容块',
         'products'=>'创建产品',
         'groups'=>'创建经销商',
+        'group_product'=>'创建组合产品',
     ],
     'mgr'=>'管理',
     'edit'=>[

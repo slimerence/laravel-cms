@@ -46,6 +46,7 @@ Route::prefix('frontend')->group(function () {
     Route::get('customers/forget-password', 'Frontend\CustomersController@forget_password');
     Route::get('customers/register', 'Frontend\CustomersController@register');
     Route::post('customer/register', 'Frontend\CustomersController@save');
+    Route::post('customer/quick-checkout-register', 'Frontend\CustomersController@quick_checkout_register');
     Route::get('wholesalers/register', 'Frontend\CustomersController@register_wholesale');
     Route::post('wholesalers/register', 'Frontend\CustomersController@save_wholesale');
 
@@ -119,6 +120,13 @@ Route::prefix('backend')->middleware('auth')->group(function(){
      */
     // 网站的产品目录管理
     Route::get('categories', 'Backend\Categories@index')->name('categories');
+    // 运费管理
+    Route::get('shipment', 'Backend\Shipment@index')->name('shipment_manager');
+    Route::get('shipment/add', 'Backend\Shipment@add');
+    Route::post('shipment/save', 'Backend\Shipment@save');
+    Route::get('shipment/edit/{id}', 'Backend\Shipment@edit');
+    Route::get('shipment/delete/{uuid}', 'Backend\Shipment@delete');
+
     // 网站的产品管理
     Route::get('products', 'Backend\Products@index')->name('products');
     Route::get('products/add', 'Backend\Products@add');
@@ -126,6 +134,9 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('products/delete/{uuid}', 'Backend\Products@delete');
     Route::get('products/related/{uuid}', 'Backend\Products@related');
     Route::post('products/save-related-products', 'Backend\Products@save_related_products');
+
+    // 网站组合产品
+    Route::get('group-products/add', 'Backend\GroupProducts@add');
 
     /**
      * 管理某个属性集的路由
