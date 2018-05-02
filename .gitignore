@@ -16,3 +16,4 @@ yarn-error.log
 /resources/views/frontend/custom/*
 /resources/views/layouts/custom/*
 /resources/assets/sass/frontend/_custom.scss
+/resources/assets/sass/frontend/custom/*
