@@ -14,5 +14,5 @@ npm-debug.log
 yarn-error.log
 .env
 /resources/views/frontend/custom/*
-/resources/layouts/custom/*
+/resources/views/layouts/custom/*
 /resources/assets/sass/frontend/_custom.scss

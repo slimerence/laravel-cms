@@ -22,8 +22,11 @@ Route::prefix('page')->group(function(){
     Route::get('/blog/{uri}', 'Frontend\Pages@blog_view');
     Route::get('/news', 'Frontend\Pages@news');
     Route::get('/news/{uri}', 'Frontend\Pages@news_view');
+
+    // 查看某个独立页面内容的路由
+    Route::get('/{uri}', 'Frontend\Pages@view');
 });
-Route::get('/page/{uri}', 'Frontend\Pages@view');
+
 
 // 加载产品目录的内容
 Route::get('/category/view/{uri}', 'Frontend\Categories@view');
