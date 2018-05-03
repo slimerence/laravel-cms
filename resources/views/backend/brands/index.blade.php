@@ -21,7 +21,6 @@
                     <th>状态</th>
                     <th>Logo图片</th>
                     <th>品牌子序列</th>
-                    <th>SEO</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -47,10 +46,6 @@
                                 <span class="tag" v-on:click="editSerialForm({{ $brandSerial->id }})">{{ $brandSerial->name }}</span>
                                 @endforeach
                             </div>
-                        </td>
-                        <td>
-                            <p>{{ $value->keywords }}</p>
-                            <p>{{ $value->seo_description }}</p>
                         </td>
                         <td>
                             <a class="button is-small" v-on:click="showSerialForm({{ $value->id }},'{{ $value->name }}',$event)" href="#">
