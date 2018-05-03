@@ -113,4 +113,7 @@ Route::prefix('payment')->group(function(){
 // Brand的功能接口
 Route::prefix('brands')->group(function(){
     Route::post('load-by-name','Api\Brands@load_by_name');
+    Route::post('save-serial','Api\Brands@save_serial');
+    Route::get('get-serial','Api\Brands@get_serial');
+    Route::get('delete-serial','Api\Brands@delete_serial');
 });
