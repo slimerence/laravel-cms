@@ -80,7 +80,7 @@ if(!function_exists('_get_frontend_theme_prefix')){
      * @return string
      */
     function _get_frontend_layout_path($path){
-        $filename = resource_path('views/layouts').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+        $filename = resource_path('views/layouts/').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
         if(file_exists($filename)){
             if(strlen(_get_frontend_layout_prefix()) > 0){
                 return 'layouts.'._get_frontend_layout_prefix().'.'.$path;

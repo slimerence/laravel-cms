@@ -2,6 +2,7 @@
 /public/hot
 /public/uploads
 /public/storage
+/public/demos/*
 /storage/app/public/uploads/*
 /vendor
 /.idea
@@ -13,5 +14,6 @@ npm-debug.log
 yarn-error.log
 .env
 /resources/views/frontend/custom/*
-/resources/layouts/custom/*
+/resources/views/layouts/custom/*
 /resources/assets/sass/frontend/_custom.scss
+/resources/assets/sass/frontend/custom/*

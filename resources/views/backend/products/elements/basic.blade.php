@@ -46,6 +46,22 @@
     </div>
 </el-form-item>
 
+<el-form-item label="Brand Serial">
+    <el-select v-model="selectedBrandSerialId"
+               :disabled="!brandSerials || brandSerials.length==0"
+               placeholder="产品所属品牌的系列名"
+               v-on:change="brandSerialChanged"
+            >
+        <el-option
+                v-for="item in brandSerials"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+                >
+        </el-option>
+    </el-select>
+</el-form-item>
+
 <el-form-item label="Short Description">
     <vuejs-editor
             ref="productShortDescriptionEditor"

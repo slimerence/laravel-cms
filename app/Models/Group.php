@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Shipment\DeliveryFee;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
@@ -28,26 +29,26 @@ class Group extends Model
     }
 
     /**
-     * 计算额外的邮寄费用
+     * 计算额外的邮寄费用. 如果没有给定用户, 那么运费返回无效的 -1
      * @param User $customer
-     * @param $orderAmount
+     * @param int $orderAmount
+     * @param float $totalWeight
      * @return int
      */
-    public static function CalculateDeliveryCharge(User $customer, $orderAmount){
+    public static function CalculateDeliveryCharge(User $customer=null, $orderAmount, $totalWeight = 0.0){
         if($customer){
-            if($customer->country == 'Australia'){
-                // 如果是澳洲境内
-                if($customer->state !== 'VIC'){
-                    // 如果不是新洲的并且订单总额没有超过最低限制, 那么就要额外付运费了
-                    return 0;
-                }else{
-                    // VIC 的不付钱
-                    return 0;
-                }
-            }else{
-                // 不是澳洲境内的, 海外最低运费收取金额
-                return 55;
-            }
+            // 登录用户
+            return DeliveryFee::CalculateFee(
+                $customer->group_id,
+                $orderAmount,
+                $customer->country,
+                $customer->state,
+                $customer->postcode,
+                $totalWeight
+            );
+        }else{
+            // 未登陆用户, 返回 -1
+            return -1;
         }
     }
 

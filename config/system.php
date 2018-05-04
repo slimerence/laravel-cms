@@ -26,5 +26,10 @@ return [
                 ]
             ]
         ]
-    ]
+    ],
+    // 在订单超过这个金额的时候, 免运费
+    'ORDER_MIN_TOTAL_FOR_FREE_DELIVERY' => 200,
+    // 国内订单运费
+    'DOMESTIC_DELIVERY_FEE'=>10,
+    'OVERSEA_DELIVERY_FEE=55'=>55,
 ];

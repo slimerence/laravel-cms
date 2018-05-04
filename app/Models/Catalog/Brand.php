@@ -30,4 +30,12 @@ class Brand extends Model
     public function getImageUrl(){
         return $this->image_url ? asset('storage/'.$this->image_url) : false;
     }
+
+    /**
+     * 品牌产品的子系列
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function serials(){
+        return $this->hasMany(BrandSerial::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Events\Order\Created as OrderCreated;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
+use Gloudemans\Shoppingcart\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order\Order;
@@ -30,15 +31,23 @@ class CheckoutController extends Controller
     public function place_order_checkout(Request $request){
         // 检查用户是否登录了, 如果没有登录,那么去登录页
         if(!session()->has('user_data.id')){
-            return redirect('/frontend/customers/login');
+//            return redirect('/frontend/customers/login');
+            $customer = null;
+        }else{
+            $customer = User::find(session('user_data.id'));
         }
 
         $cart = $this->getCart();
         $this->dataForView['cart'] = $cart;
-        $customer = User::find(session('user_data.id'));
 
         // 首先确认是post方式并且检查用户选择的支付方式
         if($request->isMethod('post')){
+            // 先尝试获取Customer的数据
+            if(is_null($customer)){
+                $customer = User::GetByUuid($request->get('customerUuid'));
+                $this->_saveUserInSession($customer);
+            }
+
             $paymentMethodFound = $request->has('payment_method') && PaymentTool::SupportThis($request->get('payment_method'));
             if(!$paymentMethodFound){
                 // 客户没有选择支付方式, 那么就继续留在当前页面
@@ -98,11 +107,14 @@ class CheckoutController extends Controller
 
 //        dump(\GuzzleHttp\json_encode($this->dataForView['shoppingCartTool']->getTransactionsForPayPal(), JSON_PRETTY_PRINT));
 
-        $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge($customer,$cart->total());
+        $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
+            $customer,$cart->total(),$this->getTotalWeightInCart()
+        );
 
         $this->dataForView['vuejs_libs_required'] = [
 //            'paypal_button',
-            'payment_accordion'
+            'payment_accordion',
+            'guest_checkout'
         ];
 
         return view(

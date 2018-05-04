@@ -186,7 +186,7 @@ class Category extends Model
      * @param int $max
      * @return null
      */
-    public function productCategoriesSimple($max = 5){
+    public function productCategoriesSimple($max = 8){
         $cps = CategoryProduct::select('product_id')->where('category_id',$this->id)->get();
         $productsId = [];
         if(count($cps)>0){
@@ -199,7 +199,7 @@ class Category extends Model
         }
 
         if(count($productsId)>0){
-            return Product::select('uuid','name','uri')->whereIn('id',$productsId)->orderBy('position','ASC')->orderBy('id','DESC')->get();
+            return Product::select('uuid','name','uri','image_path')->whereIn('id',$productsId)->orderBy('position','ASC')->orderBy('id','DESC')->get();
         }else{
             return [];
         }
@@ -214,7 +214,8 @@ class Category extends Model
         $data = [
             'subs' => [],
             'brands' => Brand::whereIn('id',$this->brands)->get()->toArray(),
-            'images'=>[]
+            'images'=>[],
+            'products'=>$this->productCategoriesSimple()
         ];
         foreach ($children as $child) {
             $data['subs'][] = [

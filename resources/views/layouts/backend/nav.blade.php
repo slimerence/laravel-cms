@@ -26,6 +26,13 @@
                     </a>
                 </li>
             @endif
+            @if(env('activate_shipment_manager', false))
+                <li>
+                    <a class="{{ $menuName=='shipment' ? 'is-active' : null }}" href="{{ url('/backend/shipment') }}">
+                        <i class="fas fa-truck"></i>运费管理
+                    </a>
+                </li>
+            @endif
         </ul>
     </section>
 

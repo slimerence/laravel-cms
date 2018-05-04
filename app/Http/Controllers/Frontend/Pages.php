@@ -30,10 +30,6 @@ class Pages extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-//        $path = 'page.404';
-//        $filename = resource_path('frontend/').str_replace('.','/',_get_frontend_theme_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
-//        dd(_get_frontend_theme_path('pages.404'));
-
         $page = Page::where('uri','/')->first();
         $this->dataForView['page'] = $page;
 

@@ -78,7 +78,7 @@
                         {cart: this.cartData}
                     ).then(function(res){
                         if(res.data.error_no == 100){
-                            // 成功从服务器删除, 那么开始本地删除
+                            // 成功提交, 跳转至结账页
                             window.location.href = res.data.msg;
                         }else{
                             // 失败

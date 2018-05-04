@@ -69,7 +69,9 @@
                 manage_stock: '{{ $product->manage_stock ? 1 : 0 }}',
                 stock: '<?php echo $product->stock ? $product->stock : 0; ?>',
                 unit_text: '<?php echo $product->unit_text; ?>',
-                brand: '<?php echo $product->brand; ?>'
+                brand: '<?php echo $product->brand; ?>',
+                brand_serial_id: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,
+                serial_name: '<?php echo $product->serial_name; ?>'
             },
             rules: {
                 name: [
@@ -92,12 +94,14 @@
                 ]
             },
             brands: {!! json_encode($brands) !!},
+            brandSerials: [],   // 所属品牌的Serial列表
+            selectedBrandSerialId: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,   // 当前选择的 serial id
             currentBrandImage: null,
             currentBrand: null
         },
         created: function(){
             if(this.product.id){
-                // 表示是编辑一个已经存在的产品
+                // 表示是编辑一个已经存在的产品 icarautomotive.com.au
                 this._loadProductImages();
                 this._loadProductExistOptionsAndColours();
                 this._loadCurrentBrandData(this.product.brand);
@@ -152,11 +156,24 @@
                         if(res.data.error_no === 100){
                             that.currentBrandImage = res.data.data.brandImage;
                             that.currentBrand = res.data.data.brand;
+                            that.brandSerials = res.data.data.brandSerials;
                         }
                     });
                 }
             },
             // 产品品牌结束
+            // 产品品牌Serial 选择的回调开始
+            brandSerialChanged: function(selectedId){
+                // 根据选定的 id, 填充进产品对象
+                var that = this;
+                _.each(this.brandSerials, function(item){
+                    if(item.id == selectedId){
+                        that.product.brand_serial_id = item.id;
+                        that.product.serial_name = item.name;
+                    }
+                });
+            },
+            // 产品品牌Serial 选择的回调结束
             // 产品的颜色相关
             addNewProductColour: function(){
                 this._resetProductColourForm();

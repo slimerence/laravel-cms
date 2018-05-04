@@ -12,7 +12,7 @@
                              :class="{'hidden': !showCurrentCategoryDetailFlag}"
                         >
                             <div class="columns">
-                                <div class="column is-9">
+                                <div class="column" :class="{'is-9':currentCategory.images&&currentCategory.images.length>0}">
                                     <div class="brands-wrap" v-if="currentCategory.brands">
                                         <div class="brand" v-for="(brand, idx) in currentCategory.brands" :key="idx">
                                             <a :href="buildBrandViewLink(brand.name)">{{ brand.name }}</a>
@@ -28,14 +28,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="column is-9 products">
-                                                        <div class="product" v-for="(p,pidx) in subCat.products" :key="pidx"><a :href="buildProductViewLink(p.uri)">{{ p.name }}</a></div>
+                                                        <div class="product" v-for="(p,pidx) in subCat.products" :key="pidx">
+                                                            <a :href="buildProductViewLink(p.uri)">{{ p.name }}</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
+                                    <div class="columns is-multiline my-products-wrap" v-if="currentCategory.products && currentCategory.products.length>0">
+                                        <div class="column is-3" v-for="(myProduct, idx) in currentCategory.products" :key="idx" v-show="myProduct.image_path">
+                                            <div class="box">
+                                                <a :href="buildProductViewLink(myProduct.uri)">
+                                                    <img class="image" :src="myProduct.image_path">
+                                                    {{ myProduct.name }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="column is-3" v-if="currentCategory.images">
+                                <div class="column" :class="{'is-3':currentCategory.images&&currentCategory.images.length>0}" v-if="currentCategory.images&&currentCategory.images.length>0">
                                     <div class="img-wrap" v-for="(image, idx) in currentCategory.images">
                                         <a href="image.link">
                                             <img :src="image.url" alt="Image">
@@ -206,6 +218,7 @@
                             padding: 14px;
                             height: 600px;
                             background-color: white;
+                            border: solid 1px #ccc;
                             .brands-wrap{
                                 display: flex;
                                 margin-bottom: 20px;
@@ -223,6 +236,11 @@
                                         background-color: #999395;
                                         color: #b92e2d;
                                     }
+                                }
+                            }
+                            .my-products-wrap{
+                                .image{
+                                    max-height: 200px;
                                 }
                             }
                             .sub-cats-wrap{

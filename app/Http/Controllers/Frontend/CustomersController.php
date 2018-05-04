@@ -215,31 +215,51 @@ class CustomersController extends Controller
             }
         }else{
             // 这个是注册用户的位置
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:30',
-                'email' => 'required|string|email|max:50|unique:users',
-                'password' => 'required|string|min:6|confirmed',
-                'address'=>'required|string|max:80',
-                'city'=>'required|string|max:40',
-                'state'=>'required|string|max:20',
-                'postcode'=>'required|numeric'
-            ]);
-            $validator->validate();
-
-            $initPassword = $data['password'];
-            $userData = [
-                'uuid'=>Uuid::uuid4()->toString(),
-                'password'=>Hash::make($data['password']),
-            ];
-            $data['uuid'] = $userData['uuid'];
-            $data['password'] = $userData['password'];
-//            $data['group_id'] = UserGroupTool::$GENERAL_CUSTOMER;
-            $data['role'] = UserGroup::$GENERAL_CUSTOMER;
-
+//            $validator = Validator::make($request->all(), [
+//                'name' => 'required|string|max:30',
+//                'email' => 'required|string|email|max:50|unique:users',
+//                'password' => 'required|string|min:6|confirmed',
+//                'address'=>'required|string|max:80',
+//                'city'=>'required|string|max:40',
+//                'state'=>'required|string|max:20',
+//                'postcode'=>'required|numeric'
+//            ]);
+//            $validator->validate();
+//
+//            $initPassword = $data['password'];
+//            $userData = [
+//                'uuid'=>Uuid::uuid4()->toString(),
+//                'password'=>Hash::make($data['password']),
+//            ];
+//            $data['uuid'] = $userData['uuid'];
+//            $data['password'] = $userData['password'];
+////            $data['group_id'] = UserGroupTool::$GENERAL_CUSTOMER;
+//            $data['role'] = UserGroup::$GENERAL_CUSTOMER;
+//
+//            // 添加操作
+//            if($user = User::create($data)){
+//                // 发布事件
+//                event(new UserCreated($user,$initPassword));
+//
+//                // 记录用户的订阅记录: 如果用户选择了订阅且是有效的邮件地址
+//                if($subscribe_me && filter_var($user->email, FILTER_VALIDATE_EMAIL)){
+//                    UserSubscribe::create([
+//                        'user_id'=>$user->id,
+//                        'type'=>UserGroupTool::$GENERAL_CUSTOMER,
+//                        'email'=>$user->email
+//                    ]);
+//                }
+//
+//                session()->flash('msg', ['content'=>'Account: "'.$data['name'].'" has been created successfully!','status'=>'success']);
+//            }else{
+//                session()->flash('msg', ['content'=>'Account: "'.$data['name'].'" can not be created, please try again!','status'=>'danger']);
+//            }
+            $result = $this->_saveNewCustomer($request->all());
+            $user = isset($result['userObject']) ? $result['userObject'] : null;
             // 添加操作
-            if($user = User::create($data)){
+            if($user){
                 // 发布事件
-                event(new UserCreated($user,$initPassword));
+                event(new UserCreated($user,$result['initPassword']));
 
                 // 记录用户的订阅记录: 如果用户选择了订阅且是有效的邮件地址
                 if($subscribe_me && filter_var($user->email, FILTER_VALIDATE_EMAIL)){
@@ -249,7 +269,6 @@ class CustomersController extends Controller
                         'email'=>$user->email
                     ]);
                 }
-
                 session()->flash('msg', ['content'=>'Account: "'.$data['name'].'" has been created successfully!','status'=>'success']);
             }else{
                 session()->flash('msg', ['content'=>'Account: "'.$data['name'].'" can not be created, please try again!','status'=>'danger']);
@@ -266,6 +285,94 @@ class CustomersController extends Controller
             // 重定向到结账页面
             return redirect('frontend/place_order_checkout');
         }
+    }
+
+    /**
+     * 用户在快速结账的时候提交的数据的保存操作
+     * @param Request $request
+     * @return string
+     */
+    public function quick_checkout_register(Request $request){
+        // 要检查用户提交的email是否已经被系统保存过了
+        $data = $request->get('shippingForm');
+        if(isset($data['email'])){
+            $email = $data['email'];
+            $user = User::GetByEmail($email);
+            if($user){
+                // 这个邮件已经被使用了
+                return JsonBuilder::Error(
+                    [
+                        'errorMsg'=>trans('validation_rules.email_is_unique'),
+                        'errorCode'=>User::ERROR_CODE_EMAIL_UNIQUE,
+                    ]
+                );
+            }else{
+                // 这个邮件没有别人使用过, 可以生成新的用户
+                $result = $this->_saveNewCustomer($data, false);
+                $user = $result['userObject'];
+                if($user){
+                    // 保存成功了, 说明可以进行下一步
+                    return JsonBuilder::Success(['uuid'=>$user->uuid]);
+                }else{
+                    // 保存失败, 可能系统繁忙, 提醒用户从新提交一次
+                    return JsonBuilder::Error(
+                        [
+                            'errorMsg'=>trans('general.system_busy'),
+                            'errorCode'=>User::ERROR_CODE_CREATE_NEW_FAILED
+                        ]
+                    );
+                }
+            }
+        }else{
+            return JsonBuilder::Error(
+                [
+                    'errorMsg'=>trans('validation_rules.email_is_required'),
+                    'errorCode'=>User::ERROR_CODE_EMAIL_REQUIRED,
+                ]
+            );
+        }
+    }
+
+    /**
+     * 保存用户提交的request数据的私有方法
+     * @param $data
+     * @param bool $passwordIsRequired  // 是否需要用户提交密码
+     * @return array
+     */
+    private function _saveNewCustomer($data,$passwordIsRequired = true){
+        // 这个是注册用户的位置
+        $rules = [
+            'name' => 'required|string|max:30',
+            'email' => 'required|string|email|max:50|unique:users',
+            'address'=>'required|string|max:80',
+            'city'=>'required|string|max:40',
+            'state'=>'required|string|max:20',
+            'postcode'=>'required|numeric'
+        ];
+        if($passwordIsRequired){
+            $rules['password'] = 'required|string|min:6|confirmed';
+        }
+        $validator = Validator::make($data, $rules);
+        $validator->validate();
+
+        // 用户有一个默认的密码
+        $initPassword = '123456';
+        if(isset($data['password'])){
+            $initPassword = $data['password'];
+        }
+
+        $userData = [
+            'uuid'=>Uuid::uuid4()->toString(),
+            'password'=>Hash::make($initPassword),
+        ];
+        $data['uuid'] = $userData['uuid'];
+        $data['password'] = $userData['password'];
+        $data['role'] = UserGroup::$GENERAL_CUSTOMER;
+
+        return [
+            'userObject'=>User::create($data),
+            'initPassword' => $initPassword
+        ];
     }
 
     /**

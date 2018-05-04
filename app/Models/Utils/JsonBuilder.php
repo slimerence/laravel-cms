@@ -11,6 +11,8 @@ namespace App\Models\Utils;
 
 class JsonBuilder
 {
+    const CODE_SUCCESS = 100;
+    const CODE_ERROR = 99;
     /**
      * 返回成功JSON消息
      * @param  array|String $dataOrMessage
@@ -19,12 +21,12 @@ class JsonBuilder
     public static function Success($dataOrMessage = 'OK'){
         if(is_array($dataOrMessage)){
             return json_encode([
-                'error_no' => 100,
+                'error_no' => self::CODE_SUCCESS,
                 'data' => $dataOrMessage
             ]);
         }else{
             return json_encode([
-                'error_no' => 100,
+                'error_no' => self::CODE_SUCCESS,
                 'msg' => $dataOrMessage
             ]);
         }
@@ -38,12 +40,12 @@ class JsonBuilder
     public static function Error($dataOrMessage = 'Err'){
         if(is_array($dataOrMessage)){
             return json_encode([
-                'error_no' => 99,
+                'error_no' => self::CODE_ERROR,
                 'data' => $dataOrMessage
             ]);
         }else{
             return json_encode([
-                'error_no' => 99,
+                'error_no' => self::CODE_ERROR,
                 'msg' => $dataOrMessage
             ]);
         }

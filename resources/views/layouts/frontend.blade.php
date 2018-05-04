@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" ⚡>
+<html lang="{{ app()->getLocale() }}">
     @include('layouts.frontend.head')
 <body>
 @if($agentObject->isPhone())

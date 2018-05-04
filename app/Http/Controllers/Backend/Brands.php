@@ -21,6 +21,11 @@ class Brands extends Controller
      */
     public function index(Request $request){
         $this->dataForView['brands'] = Brand::orderBy('name','asc')->paginate(config('system.PAGE_SIZE'));
+
+        $this->dataForView['vuejs_libs_required'] = [
+            'brands_manager'
+        ];
+
         return view('backend.brands.index', $this->dataForView);
     }
 

@@ -97,7 +97,8 @@ class ShoppingCartController extends Controller
                             return JsonBuilder::Success(url('frontend/place_order_checkout'));
                         }else{
                             // 用户还没有登录或者session过期, 显示登录界面
-                            return JsonBuilder::Success(url('frontend/customers/login'));
+//                            return JsonBuilder::Success(url('frontend/customers/login'));
+                            return JsonBuilder::Success(url('frontend/place_order_checkout'));
                         }
                     }
                 }
@@ -147,6 +148,7 @@ class ShoppingCartController extends Controller
             $data['name'] = $product->name.(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
 
             $data['options']['thumbnail'] = $product->getProductDefaultImageUrl();
+            $data['options']['weight'] = $product->getWeight();
             $data['options']['colour'] = null;
 
             $data['price'] = $product->getSpecialPriceGST() ? $product->getSpecialPriceGST() : $product->getDefaultPriceGST();

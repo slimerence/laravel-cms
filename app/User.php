@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    const ERROR_CODE_EMAIL_UNIQUE       = 70;       // Email字段为unique
+    const ERROR_CODE_EMAIL_REQUIRED     = 71;       // Email字段为必须
+    const ERROR_CODE_CREATE_NEW_FAILED  = 72;       // 创建新用户记录失败
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +37,10 @@ class User extends Authenticatable
 
     public static function GetByUuid($uuid){
         return self::where('uuid',$uuid)->first();
+    }
+
+    public static function GetByEmail($email){
+        return self::where('email',$email)->first();
     }
 
     /**
