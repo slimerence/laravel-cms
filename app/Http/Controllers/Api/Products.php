@@ -153,6 +153,11 @@ class Products extends Controller
         return JsonBuilder::Success($data);
     }
 
+    /**
+     * 搜索产品
+     * @param Request $request
+     * @return string
+     */
     public function ajax_search(Request $request){
         $queryKeyword = strtolower($request->get('key'));
         $products = Product::select('name','uri','default_price','special_price','tax')
@@ -165,7 +170,40 @@ class Products extends Controller
         foreach ($products as $key => $product){
             $data[$key] = [
                 'value'=>$product->name.' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
-                'id'=>$product->uri
+                'id'=>$product->uri,
+            ];
+        }
+
+        return JsonBuilder::Success($data);
+    }
+
+    /**
+     * 搜索产品
+     * @param Request $request
+     * @return string
+     */
+    public function ajax_search_for_group(Request $request){
+        $queryKeyword = strtolower($request->get('key'));
+        $excludes = [];
+        if($request->has('excludes')){
+            // 移除在搜索范围之外的
+            $excludes = $request->get('excludes');
+        }
+        $products = Product::select('name','uri','default_price','special_price','tax','id','is_group_product','is_configurable_product')
+            ->where('name','like','%'.$queryKeyword.'%')
+            ->whereNotIn('id',$excludes)
+            ->where('is_group_product',false)           // 非Group Product
+            ->where('is_configurable_product',false)    // 非Configurable Product
+            ->orderBy('name','asc')
+            ->take(10)
+            ->get();
+
+        $data = [];
+        foreach ($products as $key => $product){
+            $data[$key] = [
+                'value'=>$product->name.' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
+                'id'=>$product->uri,
+                'productId'=>$product->id
             ];
         }
 

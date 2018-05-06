@@ -20,7 +20,6 @@
                         </a>
                     </div>
                 </div>
-
                 <table class="table full-width is-hoverable">
                     <thead>
                     <tr>

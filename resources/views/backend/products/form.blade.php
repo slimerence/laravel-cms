@@ -51,6 +51,12 @@
                         </div>
                         <small>供Google阅读的内容</small>
                     </a>
+                    <a href="#" class="box" v-on:click="changeTab('group_product')" v-bind:class="{ 'active': currentTab=='group_product' }">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><i class="far fa-object-group"></i></i>&nbsp;创建组合产品 <small>(可选)</small></h5>
+                        </div>
+                        <small>组合产品选项</small>
+                    </a>
                 </div>
             </div>
             <div class="column is-three-quarter">
@@ -106,6 +112,9 @@
 
                     <div v-show="currentTab=='seo'">
                         @include('backend.products.elements.seo')
+                    </div>
+                    <div v-show="currentTab=='group_product'">
+                        @include('backend.products.elements.group_product')
                     </div>
                 </el-form>
             </div>

@@ -45,6 +45,13 @@ class Product extends Model
         'brand',
         'brand_serial_id',  // 产品所属的序列
         'serial_name',      // 产品所属的序列名称
+        'is_group_product',             // 组合产品, 比如一套家具
+        'is_configurable_product',      // 可配置产品, 比如 DIY 电脑
+    ];
+
+    protected $casts = [
+        'is_group_product' => 'boolean',
+        'is_configurable_product' => 'boolean'
     ];
 
     /**

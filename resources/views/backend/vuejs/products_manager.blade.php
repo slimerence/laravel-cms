@@ -71,7 +71,9 @@
                 unit_text: '<?php echo $product->unit_text; ?>',
                 brand: '<?php echo $product->brand; ?>',
                 brand_serial_id: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,
-                serial_name: '<?php echo $product->serial_name; ?>'
+                serial_name: '<?php echo $product->serial_name; ?>',
+                is_group_product: <?php echo $product->is_group_product ? 'true' : 'false'; ?>,
+                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>
             },
             rules: {
                 name: [
@@ -97,7 +99,11 @@
             brandSerials: [],   // 所属品牌的Serial列表
             selectedBrandSerialId: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,   // 当前选择的 serial id
             currentBrandImage: null,
-            currentBrand: null
+            currentBrand: null,
+            // 搜索GroupProduct的关键字
+            groupProductSearchKeyword: '',
+            groupProductsCandidates: [],
+            existedGroupProducts:[]     // 已经被确定成为一组的products
         },
         created: function(){
             if(this.product.id){
@@ -129,6 +135,35 @@
             }
         },
         methods: {
+            // 组合产品相关的方法
+            _loadGroupedProducts: function(){
+                // 加载本产品的产品组合
+                if(this.product.is_group_product){
+                    // 如果是组合产品
+                }
+            },
+            switchOnAddGroupProductForm: function(){
+                // 打开组合产品输入表单
+                if(!this.product.id && this.product.is_group_product === true){
+                    this.product.is_group_product = false;
+                    this.$message.error('请您先保存当前的产品, 然后才能继续添加产品组合!');
+                }
+            },
+            fetchRemoteProducts: function(queryString, cb){
+                if(queryString.trim().length > 2){
+                    var that = this;
+                    axios.post(
+                        '/api/products/ajax_search_for_group',
+                        {key: queryString.trim(), excludes:[this.product.id]}
+                    ).then(function(res){
+                        console.log(res)
+                    });
+                }
+            },
+            handleGroupProductSelected: function(item){
+
+            },
+            // 组合产品相关的方法 结束
             // 产品品牌相关
             brandSearch: function(queryString, cb){
                 var brandsArray = this.brands;
