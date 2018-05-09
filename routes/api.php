@@ -95,6 +95,10 @@ Route::prefix('products')->group(function(){
     Route::post('colour/delete','Api\Products@delete_colour_ajax');
     Route::post('option_item/delete','Api\Products@delete_option_item_ajax');
     Route::post('ajax_search','Api\Products@ajax_search');
+    Route::post('ajax_search_for_group','Api\Products@ajax_search_for_group');
+    Route::post('confirm-to-add-new-product','Api\Products@save_group_product');
+    Route::post('rm-group-product','Api\Products@delete_group_product');
+    Route::get('get-group-products','Api\Products@get_group_products');
 });
 
 // 加载产品属性的记录
@@ -116,4 +120,10 @@ Route::prefix('brands')->group(function(){
     Route::post('save-serial','Api\Brands@save_serial');
     Route::get('get-serial','Api\Brands@get_serial');
     Route::get('delete-serial','Api\Brands@delete_serial');
+});
+Route::prefix('group-products')->group(function(){
+//    Route::post('search-name','Api\Brands@load_by_name');
+//    Route::post('save-serial','Api\Brands@save_serial');
+//    Route::get('get-serial','Api\Brands@get_serial');
+//    Route::get('delete-serial','Api\Brands@delete_serial');
 });

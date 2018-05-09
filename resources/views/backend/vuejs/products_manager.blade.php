@@ -71,7 +71,9 @@
                 unit_text: '<?php echo $product->unit_text; ?>',
                 brand: '<?php echo $product->brand; ?>',
                 brand_serial_id: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,
-                serial_name: '<?php echo $product->serial_name; ?>'
+                serial_name: '<?php echo $product->serial_name; ?>',
+                is_group_product: <?php echo $product->is_group_product ? 'true' : 'false'; ?>,
+                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>
             },
             rules: {
                 name: [
@@ -97,7 +99,15 @@
             brandSerials: [],   // 所属品牌的Serial列表
             selectedBrandSerialId: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,   // 当前选择的 serial id
             currentBrandImage: null,
-            currentBrand: null
+            currentBrand: null,
+            // 搜索GroupProduct的关键字
+            groupProductSearchKeyword: '',
+            tempGroupProductItem: null,
+            tempGroupProductQuantity: 1,
+            tempGroupProductNotes: '',
+            tempGroupProductOptions: '',
+            tempGroupProductColor: '',
+            existedGroupProducts:[]     // 已经被确定成为一组的products
         },
         created: function(){
             if(this.product.id){
@@ -105,10 +115,13 @@
                 this._loadProductImages();
                 this._loadProductExistOptionsAndColours();
                 this._loadCurrentBrandData(this.product.brand);
+                // 如果是组合产品, 加载 group products 列表
+                this._loadGroupedProducts();
             }
             $('#products-manager-app').removeClass('invisible');
             // 加载当前属性集的属性
             this._loadProductAttributes();
+
         },
         watch: {
             currentAttributeSetId: function (val) {
@@ -129,6 +142,95 @@
             }
         },
         methods: {
+            // 组合产品相关的方法
+            _loadGroupedProducts: function(){
+                // 加载本产品的产品组合
+                if(this.product.is_group_product){
+                    // 如果是组合产品
+                    var that = this;
+                    axios.get(
+                            '/api/products/get-group-products?pid=' + this.product.id
+                    ).then(function(res){
+                        if(res.data.error_no === 100){
+                            that.existedGroupProducts = res.data.data;
+                        }
+                    });
+                }
+            },
+            switchOnAddGroupProductForm: function(){
+                // 打开组合产品输入表单
+                if(!this.product.id && this.product.is_group_product === true){
+                    this.product.is_group_product = false;
+                    this.$message.error('请您先保存当前的产品, 然后才能继续添加产品组合!');
+                }
+            },
+            fetchRemoteProducts: function(queryString, callback){
+                if(queryString.trim().length > 2){
+                    var that = this;
+                    axios.post(
+                        '/api/products/ajax_search_for_group',
+                        {key: queryString.trim(), excludes:[this.product.id]}
+                    ).then(function(res){
+                        if(res.data.error_no === 100){
+                            callback(res.data.data);
+                        }else{
+                            that._notify('error','Error','系统繁忙,请稍候再试!');
+                        }
+                    });
+                }
+            },
+            _createProductNameFilter: function(queryString){
+                return function(productItem){
+                    return (productItem.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+                }
+            },
+            handleGroupProductSelected: function(item){
+                // 把选定的产品临时保存起来
+                this.tempGroupProductItem = item;
+            },
+            confirmToAddThisGroupProduct: function(){
+                // 确认进行添加
+                if(this.tempGroupProductQuantity < 1){
+                    // 提示, 产品数量至少为1
+                    this._notify('error','Error','组合产品中的子产品数量至少为1个!');
+                }else{
+                    var that = this;
+                    var p = {
+                        product_id: this.product.id,
+                        grouped_product_id: this.tempGroupProductItem.productId,
+                        quantity: this.tempGroupProductQuantity,
+                        options: this.tempGroupProductOptions,
+                        color: this.tempGroupProductColor,
+                        notes: this.tempGroupProductNotes
+                    };
+                    axios.post(
+                        '/api/products/confirm-to-add-new-product',
+                        {gp: p}
+                    ).then(function(res){
+                        if(res.data.error_no === 100){
+                            // 添加成功, 可以刷新已存在的产品列表
+                            that.existedGroupProducts = res.data.data;
+                        }else{
+                            // 添加失败
+                            that._notify('error','Error','系统繁忙,请稍候再试!');
+                        }
+                    });
+                }
+            },
+            removeExistGroupProduct: function(itemId, groupProductId){
+                var that = this;
+                axios.post('/api/products/rm-group-product',{gpid:groupProductId})
+                    .then(function(res){
+                        if(res.data.error_no === 100){
+                            that.existedGroupProducts.splice(itemId,1);
+                            that._notify('success', 'Done', '您所选择的子产品已经被删除!');
+                        }else{
+                            // 添加失败
+                            that._notify('error','Error','系统繁忙,请稍候再试!');
+                        }
+                    });
+            },
+            // 组合产品相关的方法 结束
             // 产品品牌相关
             brandSearch: function(queryString, cb){
                 var brandsArray = this.brands;
