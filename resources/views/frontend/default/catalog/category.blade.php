@@ -178,7 +178,11 @@
                                     <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->name }}</p>
                                 </a>
                                 @if($product->serial_name)
-                                <div class="control is-pulled-left"><div class="tags has-addons">{{ $product->serial_name }}</div></div>
+                                <div class="control is-pulled-left"><div class="tags has-addons">
+                                        <a class="tag" href="#">
+                                            Serial: {{ $product->serial_name }}
+                                        </a>
+                                </div></div>
                                 @endif
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
