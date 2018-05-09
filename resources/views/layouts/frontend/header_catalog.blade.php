@@ -97,7 +97,6 @@
                             ];
                             // 目录必须至少包含一个产品或者一个子目录才可以被加载到导航栏
                             $sub = $item->loadForNav();
-                            dump($sub);
                             if(count($sub['subs'])>0 || count($sub['products']) > 0){
                                 $data = array_merge($data, $sub);
                                 $categories[] = $data;
