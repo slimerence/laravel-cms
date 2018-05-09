@@ -653,7 +653,7 @@ class Product extends Model
      * @return mixed
      */
     public function getBrand(){
-        return Brand::where($this->brand)->orderBy('name','asc')->first();
+        return Brand::where('name',$this->brand)->orderBy('name','asc')->first();
     }
 
     /**
