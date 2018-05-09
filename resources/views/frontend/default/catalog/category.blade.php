@@ -186,7 +186,7 @@
                                 @endif
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
-                                        <a class="tag" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
+                                        <a class="tag is-success" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
                                             <i class="far fa-comment"></i>&nbsp;Send Enquiry
                                         </a>
                                     </div>
