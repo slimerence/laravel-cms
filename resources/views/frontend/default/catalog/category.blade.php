@@ -36,7 +36,7 @@
                         <div class="control">
                             <div class="tags">
                                 <h1 class="is-size-6 tag is-link">
-                                    {{ $category->name }}&nbsp;({{ $cps->total() }})&nbsp;>
+                                    {{ $category->name }}&nbsp;&gt;
                                 </h1>
                             </div>
                         </div>
