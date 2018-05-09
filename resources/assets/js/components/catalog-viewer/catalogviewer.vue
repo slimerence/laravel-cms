@@ -123,7 +123,8 @@
                 inCategoryItemSection: false,               // 鼠标在目录项的范围内
                 inCategoryDetail: false,                    // 鼠标在目录详情的范围内
                 showCurrentCategoryDetailFlag: false,       // 是否显示当前hover的目录的详情
-                isShowSubsNow: false                        // 是否显示子菜单
+                isShowSubsNow: false,                       // 是否显示子菜单
+                numberOf2Lines: 0                           // 目录字数超过两行的时候
             }
         },
         watch: {
@@ -180,7 +181,6 @@
     }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
-    // css rule here
     #catalog-viewer-wrap{
         position: relative;
         width: 100%;
@@ -205,6 +205,8 @@
                         color: #fff;
                         padding: 8px 0px 8px 18px;
                         font-weight: 100;
+                        max-height: 46px;
+                        overflow: hidden;
                         &:hover{
                             background-color: #999395;
                             color: #b92e2d;
