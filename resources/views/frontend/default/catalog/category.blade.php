@@ -41,13 +41,20 @@
                             </div>
                         </div>
                         @foreach($category->children as $subCategory)
-                        <div class="control">
-                            <div class="tags has-addons">
-                                <h2 class="is-size-6 tag is-white">
-                                    <a href="{{ url('category/view/'.$subCategory->uri) }}">{{ $subCategory->name }}&nbsp;({{ $subCategory->productsCount() }})</a>
-                                </h2>
+                            <?php
+                            $count = $subCategory->productsCount();
+                            if($count>0){
+                            ?>
+                            <div class="control">
+                                <div class="tags has-addons">
+                                    <h2 class="is-size-6 tag is-white">
+                                        <a href="{{ url('category/view/'.$subCategory->uri) }}">{{ $subCategory->name }}&nbsp;({{ $subCategory->productsCount() }})</a>
+                                    </h2>
+                                </div>
                             </div>
-                        </div>
+                            <?php
+                            }
+                            ?>
                         @endforeach
                     </div>
                 </div>
