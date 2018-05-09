@@ -8,15 +8,12 @@
                 <div class="columns">
                     <div class="column">
                         <h2 class="is-size-4">
-                            {{ trans('admin.menu.products') }} {{ trans('admin.mgr') }}
+                            {{ trans('admin.menu.products') }} {{ trans('admin.mgr') }} ({{ $products->total() }})
                         </h2>
                     </div>
                     <div class="column">
                         <a class="button is-primary pull-right ml-10" href="{{ url('/backend/products/add') }}">
                             <i class="fa fa-plus"></i>&nbsp;{{ trans('admin.new.products') }}
-                        </a>
-                        <a class="button is-success pull-right ml-10" href="{{ url('/backend/group-products/add') }}">
-                            <i class="far fa-object-group"></i>&nbsp;{{ trans('admin.new.group_product') }}
                         </a>
                     </div>
                 </div>

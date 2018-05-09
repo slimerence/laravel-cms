@@ -4,7 +4,7 @@
         <br>
             <div class="columns">
                 <div class="column">
-                    <h2 class="is-size-4">{{ trans('admin.menu.orders') }} {{ trans('admin.mgr') }}</h2>
+                    <h2 class="is-size-4">{{ trans('admin.menu.orders') }} {{ trans('admin.mgr') }} ({{ $orders->total() }})</h2>
                 </div>
                 <div class="column">
                     <el-form ref="form" label-width="80px">

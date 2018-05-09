@@ -14,7 +14,8 @@ class Press extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-        $this->dataForView['pages'] = Page::where('type',Page::$TYPE_NEWS)->orderBy('title','asc')->get();
+        $this->dataForView['pages'] = Page::where('type',Page::$TYPE_NEWS)
+            ->orderBy('title','asc')->paginate(config('system.PAGE_SIZE'));
         $this->dataForView['menuName'] = 'news';
         return view('backend.pages.index_news', $this->dataForView);
     }

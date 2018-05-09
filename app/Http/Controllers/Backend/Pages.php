@@ -15,7 +15,8 @@ class Pages extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-        $this->dataForView['pages'] = Page::where('type',Page::$TYPE_STATIC_PAGE)->orderBy('title','asc')->get();
+        $this->dataForView['pages'] = Page::where('type',Page::$TYPE_STATIC_PAGE)
+            ->orderBy('title','asc')->paginate(config('system.PAGE_SIZE'));
         $this->dataForView['menuName'] = 'pages';
         return view('backend.pages.index', $this->dataForView);
     }
@@ -70,7 +71,8 @@ class Pages extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function leads(Request $request){
-        $this->dataForView['leads'] = Lead::orderBy('id','desc')->paginate(20);
+        $this->dataForView['leads'] = Lead::orderBy('id','desc')
+            ->paginate(config('system.PAGE_SIZE'));
         $this->dataForView['menuName'] = 'leads';
         return view('backend.pages.leads', $this->dataForView);
     }
