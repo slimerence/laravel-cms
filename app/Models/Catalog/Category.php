@@ -231,12 +231,16 @@ class Category extends Model
         foreach ($children as $child) {
             // 只包含 include_in_menu 为 true 的子目录
             if($child->include_in_menu){
-                $data['subs'][] = [
-                    'id'=>$child->uuid,
-                    'name'=>$child->name,
-                    'uri'=>$child->uri,
-                    'products'=>$child->productCategoriesSimple(3)
-                ];
+                $products = $child->productCategoriesSimple(3);
+                // 子目录必须要有至少一个产品才能出现在子菜单中
+                if(count($products)>0){
+                    $data['subs'][] = [
+                        'id'=>$child->uuid,
+                        'name'=>$child->name,
+                        'uri'=>$child->uri,
+                        'products'=>$child->productCategoriesSimple(3)
+                    ];
+                }
             }
         }
         return $data;
