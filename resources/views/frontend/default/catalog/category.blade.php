@@ -143,7 +143,7 @@
                                     }
                                     if($imageLogoBuffer[$product->brand]){
                                     ?>
-                                    <p class="is-pulled-left has-text-left">
+                                    <p class="cp-brand-wrap">
                                         <a href="{{ url('catalog/brand/load?name='.$product->brand) }}">
                                             <img src="{{ $imageLogoBuffer[$product->brand] }}" alt="{{ $product->brand }}" class="cp-brand">
                                         </a>
