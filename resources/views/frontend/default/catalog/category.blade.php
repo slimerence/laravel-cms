@@ -130,6 +130,7 @@
                     $productsChunk = $products->chunk(4);
                     // 尝试加载产品的 Brand 的 Logo, 为了减少数据库的查询, 在这里做一个缓存
                     $imageLogoBuffer = [];
+                    $brandSerialBuffer = [];
 
                 foreach ($productsChunk as $row) {
                     ?>
@@ -171,6 +172,16 @@
                                     <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->name }}</p>
                                 </a>
 
+                                <?php
+                                    // 显示产品所属的 serial
+                                    if(!isset($brandSerialBuffer[$product->brand_serial_id])){
+                                        $brandSerialBuffer[$product->brand_serial_id] = $product->serial;
+                                    }
+                                    if($brandSerialBuffer[$product->brand_serial_id]){
+                                        $brandSerial = $brandSerialBuffer[$product->brand_serial_id];
+                                        ?><div class="control is-pulled-left"><div class="tags has-addons">{{ $brandSerial->name }}</div></div><?php
+                                    }
+                                ?>
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
                                         <a class="tag" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
