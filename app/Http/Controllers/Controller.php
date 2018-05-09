@@ -57,7 +57,10 @@ class Controller extends BaseController
             $this->dataForView['categoriesTree'] = $categoriesTree;
             $data = [];
             foreach ($categoriesTree as $category) {
-                $data[] = $category->loadForNav();
+                $subs = $category->loadForNav();
+                if(count($subs)>0){
+                    $data[] = $subs;
+                }
             }
             $this->dataForView['categoriesNav'] = $data;
             $this->_createCart();
