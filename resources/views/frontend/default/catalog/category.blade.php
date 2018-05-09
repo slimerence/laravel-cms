@@ -130,7 +130,7 @@
                 $productsChunk = $products->chunk(4);
                 foreach ($productsChunk as $row) {
                     ?>
-                    <div class="columns">
+                    <div class="columns is-multiline">
                         @foreach($row as $key=>$product)
                         <div class="column is-3-desktop is-12-mobile">
                             <div class="content box">
@@ -142,8 +142,8 @@
                                 @endif
                                 <div class="is-clearfix"></div>
                                     <a href="{{ url('catalog/product/'.$product->uri) }}">
-                                    <p>
-                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">
+                                    <p class="has-text-centered">
+                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image" style="max-height: 150px;">
                                     </p>
                                     <div class="price-box">
                                         <p class="is-pulled-left {{ $product->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $product->getDefaultPriceGST() }}</p>
