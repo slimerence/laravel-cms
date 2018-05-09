@@ -283,7 +283,6 @@
                                             }
                                         }
                                         .products{
-                                            display: flex;
                                             padding-bottom: 10px;
                                             margin-bottom: 10px;
                                             border-bottom: solid 1px #e0e0e0;
