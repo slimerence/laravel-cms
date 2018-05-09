@@ -13,7 +13,7 @@
                         >
                             <div class="columns">
                                 <div class="column" :class="{'is-9':currentCategory.images&&currentCategory.images.length>0}">
-                                    <div class="brands-wrap" v-if="currentCategory.brands">
+                                    <div class="brands-wrap" v-if="needShowBrand&&currentCategory.brands">
                                         <div class="brand" v-for="(brand, idx) in currentCategory.brands" :key="idx">
                                             <a :href="buildBrandViewLink(brand.name)">{{ brand.name }}</a>
                                         </div>
@@ -28,8 +28,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="column is-9 products">
-                                                        <div class="product" v-for="(p,pidx) in subCat.products" :key="pidx">
-                                                            <a :href="buildProductViewLink(p.uri)">{{ p.name }}</a>
+                                                        <div class="columns is-multiline">
+                                                            <div class="column is-4 product" v-for="(p,pidx) in subCat.products" :key="pidx">
+                                                                <a :href="buildProductViewLink(p.uri)">{{ p.name }}</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -37,10 +39,9 @@
                                         </li>
                                     </ul>
                                     <div class="columns is-multiline my-products-wrap" v-if="currentCategory.products && currentCategory.products.length>0">
-                                        <div class="column is-3" v-for="(myProduct, idx) in currentCategory.products" :key="idx" v-show="myProduct.image_path">
+                                        <div class="column is-4" v-for="(myProduct, idx) in currentCategory.products" :key="idx" v-show="myProduct.image_path">
                                             <div class="box">
                                                 <a :href="buildProductViewLink(myProduct.uri)">
-                                                    <img class="image" :src="myProduct.image_path">
                                                     {{ myProduct.name }}
                                                 </a>
                                             </div>
@@ -109,8 +110,14 @@
                 type: String,
                 required: false
             },
+            // Categories 的背景颜色
             categoriesListBgColor: {
                 type: String,
+                required: false
+            },
+            // 是否显示 brand 的内容
+            needShowBrand: {
+                type: Boolean,
                 required: false
             }
         },
@@ -130,7 +137,7 @@
         watch: {
         },
         created() {
-            // 下拉的子目录北京颜色
+            // 下拉的子目录背景颜色
             if(this.categoriesListBgColor){
                 this.categoriesListWrapperBackgroundColor = this.categoriesListBgColor;
             }
@@ -218,7 +225,10 @@
                             position: absolute;
                             margin: 0;
                             padding: 14px;
-                            height: 600px;
+                            height: auto;
+                            /*height: 100px;*/
+                            overflow: hidden;
+                            /*height: 600px;*/
                             background-color: white;
                             border: solid 1px #ccc;
                             .brands-wrap{
@@ -241,8 +251,10 @@
                                 }
                             }
                             .my-products-wrap{
-                                .image{
-                                    max-height: 200px;
+                                .box{
+                                    .image{
+                                        max-height: 200px;
+                                    }
                                 }
                             }
                             .sub-cats-wrap{

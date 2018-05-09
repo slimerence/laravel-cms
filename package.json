@@ -26,6 +26,7 @@
     "dependencies": {
         "@fancyapps/fancybox": "^3.3.0",
         "ajv": "^6.4.0",
+        "better-scroll": "^1.10.3",
         "bulma": "^0.6.2",
         "bulma-accordion": "^1.0.1",
         "bulma-carousel": "^1.0.12",
