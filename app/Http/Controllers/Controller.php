@@ -58,6 +58,7 @@ class Controller extends BaseController
             $data = [];
             foreach ($categoriesTree as $category) {
                 $sub = $category->loadForNav();
+                dump($sub);
                 // 目录必须至少包含一个产品或者一个子目录才可以被加载到导航栏
                 if(count($sub['subs'])>0 || count($sub['products']) > 0){
                     $data[] = $sub;
