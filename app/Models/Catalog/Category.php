@@ -218,7 +218,10 @@ class Category extends Model
      * @return array
      */
     public function loadForNav(){
-        $children = $this->children;
+//        $children = $this->children;
+        $children = self::where('parent_id', $this->id)->where('include_in_menu',true)
+            ->orderBy('position','asc')
+            ->get();
         $data = [
             'subs' => [],
             'brands' => Brand::whereIn('id',$this->brands)->get()->toArray(),
@@ -226,12 +229,15 @@ class Category extends Model
             'products'=>$this->productCategoriesSimple()
         ];
         foreach ($children as $child) {
-            $data['subs'][] = [
-                'id'=>$child->uuid,
-                'name'=>$child->name,
-                'uri'=>$child->uri,
-                'products'=>$child->productCategoriesSimple(3)
-            ];
+            // 只包含 include_in_menu 为 true 的子目录
+            if($child->include_in_menu){
+                $data['subs'][] = [
+                    'id'=>$child->uuid,
+                    'name'=>$child->name,
+                    'uri'=>$child->uri,
+                    'products'=>$child->productCategoriesSimple(3)
+                ];
+            }
         }
         return $data;
     }
