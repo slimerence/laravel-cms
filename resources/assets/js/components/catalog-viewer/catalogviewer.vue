@@ -290,8 +290,6 @@
                                                 line-height: 30px;
                                                 font-size: 14px;
                                                 padding-right: 16px;
-                                                margin-right: 16px;
-                                                border-right: solid 1px #e0e0e0;
                                                 a{
                                                     color: #666;
                                                     &:hover{
