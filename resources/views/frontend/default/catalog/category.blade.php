@@ -121,20 +121,36 @@
                 </div>
             </div>
             @endif
-            <div class="column">
+            <div class="column category-products-page-wrap">
                 @include(_get_frontend_theme_path('catalog.elements.filters'))
                 @include(_get_frontend_theme_path('catalog.elements.simple_paginate'))
                 <div class="is-clearfix"></div>
                 <br>
                 <?php
-                $productsChunk = $products->chunk(4);
+                    $productsChunk = $products->chunk(4);
+                    // 尝试加载产品的 Brand 的 Logo, 为了减少数据库的查询, 在这里做一个缓存
+                    $imageLogoBuffer = [];
+
                 foreach ($productsChunk as $row) {
                     ?>
                     <div class="columns is-multiline">
                         @foreach($row as $key=>$product)
-                        <div class="column is-3-desktop is-12-mobile">
+                        <div class="column is-3-desktop is-12-mobile category-product-wrap">
                             <div class="content box">
-                                <p class="is-pulled-left has-text-left">Brand: <a href="{{ url('catalog/brand/load?name='.$product->brand) }}">{{ $product->brand }}</a></p>
+                                <?php
+                                    if(!isset($imageLogoBuffer[$product->brand])){
+                                        $imageLogoBuffer[$product->brand] = $product->getBrandLogoUrl();
+                                    }
+                                    if($imageLogoBuffer[$product->brand]){
+                                    ?>
+                                    <p class="is-pulled-left has-text-left">
+                                        <a href="{{ url('catalog/brand/load?name='.$product->brand) }}">
+                                            <img src="{{ $imageLogoBuffer[$product->brand] }}" alt="{{ $product->brand }}" class="cp-brand">
+                                        </a>
+                                    </p>
+                                    <?php
+                                    }
+                                ?>
                                 @if($product->group_id)
                                     <p class="is-pulled-right"><span class="tag is-danger">{{ $product->group->name }}</span></p>
                                 @else
@@ -142,8 +158,8 @@
                                 @endif
                                 <div class="is-clearfix"></div>
                                     <a href="{{ url('catalog/product/'.$product->uri) }}">
-                                    <p class="has-text-centered">
-                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image" style="max-height: 150px;">
+                                    <p class="has-text-centered p-img">
+                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">
                                     </p>
                                     <div class="price-box">
                                         <p class="is-pulled-left {{ $product->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $product->getDefaultPriceGST() }}</p>

@@ -355,24 +355,7 @@ class Product extends Model
                     // 处理附加选项: 如果有id,就更新;
                     // 如果没ID, 就添加
                     foreach ($productOptionsData as $productOption) {
-
                         ProductOption::Persistent($product, $productOption);
-
-//                        $optionSaved = false;
-//                        if(empty($productOption['id'])){
-//                            $optionSaved = ProductOption::Persistent($product, $productOption);
-//                        }else{
-//                            $pOption = ProductOption::find($productOption['id']);
-//                            if($pOption){
-//                                // 更新 Product option的记录
-//                                $pOption->name = $productOption['name'];
-//                                $pOption->type = $productOption['type'];
-//                                $optionSaved = $pOption->save();
-//                            }
-//                        }
-//                        if($optionSaved){
-//                            // 选项被保存了。 可能是新增, 可能是更新, 但是无所谓
-//                        }
                     }
                 }
                 // 处理产品的属性数据集合
@@ -612,7 +595,6 @@ class Product extends Model
      */
     public function getProductDefaultImageUrl(){
         $defaultImage = $this->getProductDefaultImage();
-
         return $defaultImage ? $defaultImage->url : Storage::url('/uploads/default.png');
     }
 
@@ -662,6 +644,26 @@ class Product extends Model
                 ->where('product_id',$this->id)
                 ->first();
             return $aValue ? $aValue->value : null;
+        }
+        return null;
+    }
+
+    /**
+     * 后获取产品的 brand
+     * @return mixed
+     */
+    public function getBrand(){
+        return Brand::where($this->brand)->orderBy('name','asc')->first();
+    }
+
+    /**
+     * 后获取产品的 brand 的 Logo 的 URL
+     * @return mixed
+     */
+    public function getBrandLogoUrl(){
+        $brand = $this->getBrand();
+        if($brand){
+            return $brand->getImageUrl();
         }
         return null;
     }
