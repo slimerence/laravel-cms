@@ -21,6 +21,7 @@
     </main>
 @else
     <!-- Desktop Version -->
+    @include('layouts.frontend.top_bar')
     <section class="section is-paddingless">
         @include('layouts.frontend.header_catalog')
         <div class="container">

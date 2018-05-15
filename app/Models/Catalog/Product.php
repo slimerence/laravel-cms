@@ -139,6 +139,14 @@ class Product extends Model
     }
 
     /**
+     * 关联的组合产品
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupProducts(){
+        return $this->hasMany(GroupProduct::class);
+    }
+
+    /**
      * 获取当前产品的属性列表
      * @return mixed
      */
@@ -628,7 +636,7 @@ class Product extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function relatedProduct(){
-        return $this->hasMany(RelatedProduct::class);
+        return $this->hasOne(RelatedProduct::class);
     }
 
     /**

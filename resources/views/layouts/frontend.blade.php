@@ -21,6 +21,7 @@
     </main>
 @else
     <!-- Desktop Version -->
+    @include('layouts.frontend.top_bar')
     <section class="section is-paddingless">
         @if( \Illuminate\Support\Facades\URL::current() == url('/') )
             <!-- 首页 -->

@@ -4,7 +4,7 @@
             @if(empty($siteConfig->logo))
                 {{ str_replace('_',' ',env('APP_NAME','Home')) }}
                 @else
-                {!! \App\Models\Utils\AMP\MediaUtil::NormalImage(asset($siteConfig->logo),'Logo', 80, 80, 'logo-img') !!}
+                {!! \App\Models\Utils\AMP\MediaUtil::NormalImage(asset($siteConfig->logo),'Logo', null, 80, 'logo-img') !!}
             @endif
         </a>
     </div>
@@ -82,7 +82,7 @@
         <div class="navbar-start">
             @if(isset($categoriesTree) && count($categoriesTree) > 0)
                 <a id="product-category-root" class="navbar-item" href="#"
-                   style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: {{ $siteConfig->theme_main_color?$siteConfig->theme_main_color:'#000' }};">
+                   style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: {{ $siteConfig->theme_main_color?$siteConfig->theme_main_color:'#ffffff' }};">
                     <i class="fas fa-cube"></i>&nbsp;&nbsp;Catalog
                 </a>
             @endif
