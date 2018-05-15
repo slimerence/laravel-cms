@@ -61,7 +61,11 @@ class OrderItem extends Model
                 }
             }
 
-            $priceFinal = ($product->getSpecialPriceGST()?$product->getSpecialPriceGST():$product->getDefaultPriceGST()) + $priceExtra;
+            $theProductPrice = $product->getSpecialPriceGST() ? $product->getSpecialPriceGST() : $product->getDefaultPriceGST();
+            if(is_string($theProductPrice)){
+                $theProductPrice = floatval(str_replace(',','',$theProductPrice));
+            }
+            $priceFinal = $theProductPrice + $priceExtra;
 
             $dataOrderItem = [
                 'order_id'=>$order->id,

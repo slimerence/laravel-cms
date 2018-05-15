@@ -48,7 +48,7 @@
             </el-upload>
             <div class="exist-attachment-wrap">
                 <div class="exist-attachment-item" v-for="(item, theIndex) in productAttributesValues[idx]" v-if="item.idx">
-                    <a v-bind:href="'/storage/'+item.url" target="_blank">@{{ item.name }}</a>
+                    <a v-bind:href="item.url" target="_blank">@{{ item.name }}</a>
                     <el-button v-on:click="removeAttachmentExist(item.idx, theIndex)" type="danger" size="mini" icon="el-icon-delete"></el-button>
                 </div>
             </div>

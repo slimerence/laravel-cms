@@ -400,7 +400,7 @@
             },
             handleColourPictureSuccess: function(res, file){
                 // 用户选择了图片来代表颜色, 那么图片上传成功之后的回调
-                this.productColourForm.imageUrl = res;
+                this.productColourForm.imageUrl = res.url;
             },
             beforeColourPictureUpload: function(file){
                 // 用户选择了图片来代表颜色, 那么图片上传之前的处理

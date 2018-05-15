@@ -34,7 +34,7 @@
                                     <span class="label">@{{ item.name }}: </span>
                                     <span class="price">@{{ _convertToCurrency(item.extra_money) }}</span>
                                     <div v-if="item.type==={{ \App\Models\Utils\ColourTool::$TYPE_HEX_CODE }}" class="color-box" :style="{background:item.value}">&nbsp;</div>
-                                    <img v-if="item.type==={{ \App\Models\Utils\ColourTool::$TYPE_IMAGE }}" class="color-thumb" :src="'/storage/'+item.imageUrl">
+                                    <img v-if="item.type==={{ \App\Models\Utils\ColourTool::$TYPE_IMAGE }}" class="color-thumb" :src="item.imageUrl">
                                 </div>
                                 <p v-if="idx!=='colour'&&idx!=='thumbnail'&&(item !==null)">
                                     <span class="label">@{{ item.name }}:</span> @{{ item.value }}

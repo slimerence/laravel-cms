@@ -118,7 +118,10 @@
                         </p>
                         <p class="columns is-marginless">
                             <span class="column">Total (GST Incl.):</span>
-                            <span class="column"><b>{{ config('system.CURRENCY').' '.(number_format($cart->total()+$delivery_charge,2)) }}</b></span>
+                            <?php
+                                $cartTotal = str_replace(',','',$cart->total());
+                            ?>
+                            <span class="column"><b>{{ config('system.CURRENCY').' '.(number_format($cartTotal + $delivery_charge,2)) }}</b></span>
                         </p>
                         <a href="{{ url('/view_cart') }}" class="button is-info is-pulled-right"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Details</a>
                         <div class="is-clearfix"></div>

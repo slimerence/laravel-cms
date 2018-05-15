@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Catalog\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
@@ -53,12 +54,28 @@ class Pages extends Controller
         $q = $request->get('q');
         $result = [];
         // 搜索Page的title
-        $pages = Page::select('uri','title')->where('seo_keyword','like','%'.$q.'%')->limit(20)->get();
+        $pages = Page::select('uri','title')->where('seo_keyword','like','%'.$q.'%')->limit(10)->get();
         if (count($pages)){
             foreach ($pages as $page){
                 $result[] = [
                     'value' =>$page->title,
                     'uri'   =>$page->uri=='/' ? $page->uri : '/page'.$page->uri
+                ];
+            }
+        }
+
+        // 也搜索产品
+        $products = Product::select('name','uri','default_price','special_price','tax')
+            ->where('name','like','%'.$q.'%')
+            ->orderBy('name','asc')
+            ->take(10)
+            ->get();
+
+        if (count($products)){
+            foreach ($products as $product){
+                $result[] = [
+                    'value' =>$product->name.' $'. $product->getFinalPriceGst(),
+                    'uri'   => url('/catalog/product/'.$product->uri)
                 ];
             }
         }

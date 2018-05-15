@@ -152,6 +152,7 @@ class ShoppingCartController extends Controller
             $data['options']['colour'] = null;
 
             $data['price'] = $product->getSpecialPriceGST() ? $product->getSpecialPriceGST() : $product->getDefaultPriceGST();
+            $data['price'] = floatval(str_replace(',','',$data['price']));
 
             /**
              * 如果选定了颜色, 那么就处理颜色及其价格增量

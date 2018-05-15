@@ -59,35 +59,37 @@ window._notify = function(vm, type, title, msg){
 }
 
 // 导航菜单的应用
-let NavigationApp = new Vue({
-    el: '#navigation-app',
-    data(){
-        return {
-            searchKeyword: '',
-            result:[]
-        }
-    },
-    methods:{
-        handleSelect(item){
-            window.location.href = item.uri;
-        },
-        querySearchAsync(queryString, cb){
-            if(queryString.length < 2){
-                return;
+let naviAppEl = document.getElementById('navigation-app');
+if(naviAppEl){
+    let NavigationApp = new Vue({
+        el: '#navigation-app',
+        data(){
+            return {
+                searchKeyword: '',
+                result:[]
             }
-            axios.post(
-                '/api/page/search_ajax',
-                {q:queryString}
-            ).then(res=>{
-                console.log(res);
-                if(res.status==200 && res.data.error_no == 100){
-                    // 表示找到了结果
-                    cb(res.data.data.result)
+        },
+        methods:{
+            handleSelect(item){
+                window.location.href = item.uri;
+            },
+            querySearchAsync(queryString, cb){
+                if(queryString.length < 2){
+                    return;
                 }
-            });
+                axios.post(
+                    '/api/page/search_ajax',
+                    {q:queryString}
+                ).then(res=>{
+                    if(res.status==200 && res.data.error_no == 100){
+                        // 表示找到了结果
+                        cb(res.data.data.result)
+                    }
+                });
+            }
         }
-    }
-})
+    });
+}
 
 if(document.getElementById('menu')){
     var slideout = new Slideout({
