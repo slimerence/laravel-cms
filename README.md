@@ -10,7 +10,6 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - php artisan key:generate
 - php artisan migrate
 - Setup symlink for storage: php artisan storage:link
-- npm run prod
 
 # Customization And Develop
 1: Setup your own theme folder
@@ -38,7 +37,9 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 # Deployment
 - composer install
+- npm install ( You might need install autoconf first, run "sudo apt-get install autoconf" in Ubuntu for instance)
 - Edit .env file
 - php artisan key:generate
 - php artisan migrate
 - php artisan storage:link
+- npm run prod
