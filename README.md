@@ -14,13 +14,13 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 # Customization And Develop
 1: Setup your own theme folder
-I have provide a default theme for you, but you might need something special. Please create your own theme root folder in resources/frontend/custom/{your_theme_name}.
-Please don't change the framework source code, but only coding inside of your theme folder. ( You can change the framework source code, for sure, but you might have trouble when you want to pull the updates. )
-In your theme root folder, init a new git repo and start building something awesome.
-In Chinese:
-在 resources/frontend/custom/{your_theme_name} 目录下创建你自己的主题目录文件夹, 当然在 .env 文件里给 frontend_theme 项设定相同的值 custom.{your_theme_name}. 请参考 .env.example 文件.
-请不要修改框架的任何文件中的代码 (当然你可以自己修改, 只是在以后pull更新的时候, 恐怕会很麻烦). 
-请在您自己的文件夹中创建自己的主题即可.
+- I have provide a default theme for you, but you might need something special. Please create your own theme root folder in resources/frontend/custom/{your_theme_name}.
+- Please don't change the framework source code, but only coding inside of your theme folder. ( You can change the framework source code, for sure, but you might have trouble when you want to pull the updates. )
+- In your theme root folder, init a new git repo and start building something awesome.
+- In Chinese:
+- 在 resources/frontend/custom/{your_theme_name} 目录下创建你自己的主题目录文件夹, 当然在 .env 文件里给 frontend_theme 项设定相同的值 custom.{your_theme_name}. 请参考 .env.example 文件.
+- 请不要修改框架的任何文件中的代码 (当然你可以自己修改, 只是在以后pull更新的时候, 恐怕会很麻烦). 
+- 请在您自己的文件夹中创建自己的主题即可.
 
 2: Frontend Development
 - Define your own frontend theme path in .env:
@@ -33,7 +33,8 @@ In Chinese:
 - Backend styles: resources/assets/sass/backend/_styles.scss ( Please scss )
 - Backend javascript: resources/assets/js/backend.js
 
-npm run watch or npm run dev
+4: npm run watch
+5: Happy coding ...
 
 # Deployment
 - composer install
