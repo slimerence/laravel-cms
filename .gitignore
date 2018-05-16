@@ -3,6 +3,8 @@
 /public/uploads
 /public/storage
 /public/demos/*
+/public/css_custom.css
+/public/js/_custom.js
 /storage/app/public/uploads/*
 /vendor
 /.idea

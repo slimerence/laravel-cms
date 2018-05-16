@@ -60,10 +60,18 @@ if(!function_exists('_get_frontend_theme_prefix')){
     function _get_frontend_theme_path($path){
         // 检查文件是否存在
         $filename = resource_path('views/frontend/').str_replace('.','/',_get_frontend_theme_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+
+        $finalPath = 'frontend.'.config('system.frontend_theme').'.'.$path;
         if(file_exists($filename)){
-            return 'frontend.'._get_frontend_theme_prefix().'.'.$path;
+            $finalPath = 'frontend.'._get_frontend_theme_prefix().'.'.$path;
         }
-        return 'frontend.'.config('system.frontend_theme').'.'.$path;
+
+        if(env('APP_DEBUG', false)){
+            // Log layout path file if in APP_DEBUG mode
+            \Illuminate\Support\Facades\Log::info('Theme: '.$path, ['location'=>$finalPath]);
+        }
+
+        return $finalPath;
     }
 
     /**
@@ -80,12 +88,21 @@ if(!function_exists('_get_frontend_theme_prefix')){
      * @return string
      */
     function _get_frontend_layout_path($path){
-        $filename = resource_path('views/layouts/').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+//        $filename = resource_path('views/layouts/').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+        $filename = resource_path('views/frontend/').str_replace('.','/',_get_frontend_layout_prefix()).'/layouts/'.str_replace('.','/',$path).'.blade.php';
+
+        $finalPath = 'layouts.'.$path;
         if(file_exists($filename)){
             if(strlen(_get_frontend_layout_prefix()) > 0){
-                return 'layouts.'._get_frontend_layout_prefix().'.'.$path;
+                $finalPath = 'frontend.'._get_frontend_layout_prefix().'.layouts.'.$path;
             }
         }
-        return 'layouts.'.$path;
+
+        if(env('APP_DEBUG', false)){
+            // Log layout path file if in APP_DEBUG mode
+            \Illuminate\Support\Facades\Log::info('Layout: '.$path, ['location'=>$finalPath]);
+        }
+
+        return $finalPath;
     }
 }

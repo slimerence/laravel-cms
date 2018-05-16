@@ -255,6 +255,10 @@
                                     .image{
                                         max-height: 200px;
                                     }
+                                    a{
+                                        font-size: 16px;
+                                        font-weight: 400;
+                                    }
                                 }
                             }
                             .sub-cats-wrap{

@@ -17,5 +17,7 @@
         </div>
     </div>
 @elseif(isset($homeSlider) && $homeSlider)
+    <div class="container">
     {!! $homeSlider->outputHtml() !!}
+    </div>
 @endif

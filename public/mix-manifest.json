@@ -1,6 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/_custom.css": "/css/_custom.css",
     "/css/backend.css": "/css/backend.css",
-    "/js/backend.js": "/js/backend.js"
+    "/js/backend.js": "/js/backend.js",
+    "/js/_custom.js": "/js/_custom.js",
+    "/css/all.css": "/css/all.css",
+    "/js/all.js": "/js/all.js"
 }
