@@ -23,3 +23,6 @@ yarn-error.log
 /resources/views/layouts/custom/*
 /resources/assets/sass/frontend/_custom.scss
 /resources/assets/sass/frontend/custom/*
+/resources/assets/images/frontend/custom/*
+/package-lock.json
+/composer.lock
