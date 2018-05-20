@@ -18,6 +18,7 @@ class CreateConfigurationsTable extends Migration
             $table->increments('id');
             $table->string('site_name')->nullable();
             $table->string('contact_email')->nullable();
+            $table->string('contact_phone')->nullable();
             $table->string('contact_fax')->nullable();
             $table->string('contact_address')->nullable();
             $table->string('contact_person')->nullable();
