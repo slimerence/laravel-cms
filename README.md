@@ -23,8 +23,8 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 2: Frontend Development
 - Define your own frontend theme path in .env:
-- Frontend css file: resources/frontend/custom/{your_theme_name}/_custom.scss ( Or less/stylus but you need to update webpack.mix.js )
-- Frontend javascript: resources/frontend/custom/{your_theme_name}/_custom.js
+- Frontend css file: resources/frontend/custom/_custom.scss ( Or less/stylus but you need to update webpack.mix.js )
+- Frontend javascript: resources/frontend/custom/_custom.js
 - Customized Frontend layout files root folder: resources/frontend/custom/{your_theme_name}/layouts/frontend
 - Customized view files root folder: resources/frontend/custom/{your_theme_name}
 
