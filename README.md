@@ -10,6 +10,8 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - php artisan key:generate
 - php artisan migrate
 - Setup symlink for storage: php artisan storage:link
+- Copy webpack.mix.js.example as webpack.mix.js
+- 创建 webpack.mix.js.example 的拷贝并重命名为 webpack.mix.js, 该文件根据您的需求自行修改, 以便通过 npm 来生成所需的前端 CSS/JS 文件
 
 # Customization And Develop
 1: Setup your own theme folder
