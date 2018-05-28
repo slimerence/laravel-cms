@@ -3,7 +3,7 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 # Installation
 - composer install
-- npm install
+- npm install ( For instance, in Ubuntu, if this command failed, please try sudo apt-get install autoconf libtool pkg-config nasm build-essential )
 - Copy .env.example as .env
 - Setup database config
 - Setup APP_URL
