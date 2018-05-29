@@ -44,7 +44,11 @@ class Pages extends Controller
         $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
         $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
+        $posts = Page::where('type',Page::$TYPE_BLOG)->orderBy('id','asc')->paginate(20);
+        $this->dataForView['posts'] = $posts;
+
         event(new StartLoading($page,$this->dataForView));
+
         return view($this->_getPageViewTemplate($page),$this->dataForView);
     }
 
@@ -134,6 +138,38 @@ class Pages extends Controller
      */
     public function blog(Request $request){
         $posts = Page::where('type',Page::$TYPE_BLOG)->orderBy('id','asc')->paginate(20);
+        $this->dataForView['posts'] = $posts;
+        $this->dataForView['pageTitle'] = 'Blog';
+        $this->dataForView['metaKeywords'] = 'Blog';
+        $this->dataForView['metaDescription'] = 'Blog';
+        return view(_get_frontend_theme_path('templates.blog_list'), $this->dataForView);
+    }
+
+    /**
+     * 博客页面
+     * @param $uri
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function blog_view($uri, Request $request){
+        $blog = Page::where('type',Page::$TYPE_BLOG)
+            ->where('uri','/blog/'.$uri)
+            ->orderBy('id','asc')
+            ->first();
+
+        $this->dataForView['blog'] = $blog;
+        $this->dataForView['pageTitle'] = $blog->title;
+        $this->dataForView['metaKeywords'] = $blog->seo_keyword;
+        $this->dataForView['metaDescription'] = $blog->seo_description;
+        return view(_get_frontend_theme_path('templates.blog_view'), $this->dataForView);
+    }
+
+    public function blog_search(Request $request){
+        $q = $request->get('name');
+        $posts = Page::where('type',Page::$TYPE_BLOG)
+            ->where('seo_keyword','like','%'.$q.'%')
+            ->orderBy('id','asc')
+            ->paginate(20);
         $this->dataForView['posts'] = $posts;
         $this->dataForView['pageTitle'] = 'Blog';
         $this->dataForView['metaKeywords'] = 'Blog';

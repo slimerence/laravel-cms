@@ -30,6 +30,7 @@ class CreatePagesTable extends Migration
             $table->text('seo_description')->nullable();
             $table->text('teasing')->nullable();
 
+            $table->timestamps();
             $table->softDeletes();
         });
 
