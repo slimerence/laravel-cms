@@ -3,13 +3,15 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 # Installation
 - composer install
-- npm install
+- npm install ( For instance, in Ubuntu, if this command failed, please try sudo apt-get install autoconf libtool pkg-config nasm build-essential )
 - Copy .env.example as .env
 - Setup database config
 - Setup APP_URL
 - php artisan key:generate
 - php artisan migrate
 - Setup symlink for storage: php artisan storage:link
+- Copy webpack.mix.js.example as webpack.mix.js
+- 创建 webpack.mix.js.example 的拷贝并重命名为 webpack.mix.js, 该文件根据您的需求自行修改, 以便通过 npm 来生成所需的前端 CSS/JS 文件
 
 # Customization And Develop
 1: Setup your own theme folder
@@ -23,8 +25,8 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 
 2: Frontend Development
 - Define your own frontend theme path in .env:
-- Frontend css file: resources/frontend/custom/{your_theme_name}/_custom.scss ( Or less/stylus but you need to update webpack.mix.js )
-- Frontend javascript: resources/frontend/custom/{your_theme_name}/_custom.js
+- Frontend css file: resources/frontend/custom/_custom.scss ( Or less/stylus but you need to update webpack.mix.js )
+- Frontend javascript: resources/frontend/custom/_custom.js
 - Customized Frontend layout files root folder: resources/frontend/custom/{your_theme_name}/layouts/frontend
 - Customized view files root folder: resources/frontend/custom/{your_theme_name}
 

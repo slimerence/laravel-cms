@@ -20,6 +20,7 @@ Route::get('/terms', 'Frontend\Pages@terms')->name('terms');
 Route::prefix('page')->group(function(){
     Route::get('/blog', 'Frontend\Pages@blog');
     Route::get('/blog/{uri}', 'Frontend\Pages@blog_view');
+    Route::post('/blog-search', 'Frontend\Pages@blog_search');
     Route::get('/news', 'Frontend\Pages@news');
     Route::get('/news/{uri}', 'Frontend\Pages@news_view');
 
