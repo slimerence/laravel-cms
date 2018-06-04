@@ -32,6 +32,13 @@ Route::prefix('images')->group(function(){
     Route::post('delete','Api\Medias@delete_ajax');
 });
 
+Route::prefix('files')->group(function(){
+    // 保存图片
+    Route::post('upload','Api\Medias@upload_file_ajax');
+    // 加载所有的图片
+    Route::get('load-all','Api\Medias@load_all_files');
+});
+
 /**
  * Slider 相关的接口
  */
@@ -110,8 +117,8 @@ Route::prefix('product-attributes')->group(function(){
 
 // 支付API的回调接口
 Route::prefix('payment')->group(function(){
-    Route::get('weixin/notify','Api\Payment@weixin_notify');
-    Route::get('weixin/success','Api\Payment@weixin_success');
+//    Route::get('weixin/notify','Api\Payment@weixin_notify');
+//    Route::get('weixin/success','Api\Payment@weixin_success');
 });
 
 // Brand的功能接口

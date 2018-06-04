@@ -68,9 +68,6 @@
             class="rich-text-editor"
             text-area-id="product-short-description-editor"
             :original-content="product.short_description"
-            image-upload-url="/api/images/upload"
-            existed-images="/api/images/load-all"
-            short-codes-load-url="/api/widgets/load-short-codes"
             placeholder="(必填) Product Short Description"
     ></vuejs-editor>
 </el-form-item>
@@ -81,9 +78,6 @@
             class="rich-text-editor"
             text-area-id="product-description-editor"
             :original-content="product.description"
-            image-upload-url="/api/images/upload"
-            existed-images="/api/images/load-all"
-            short-codes-load-url="/api/widgets/load-short-codes"
             placeholder="(必填) Product Description"
     ></vuejs-editor>
 </el-form-item>

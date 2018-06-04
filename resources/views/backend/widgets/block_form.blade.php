@@ -81,9 +81,6 @@
                             class="rich-text-editor"
                             text-area-id="block-content-editor"
                             :original-content="block.content"
-                            image-upload-url="/api/images/upload"
-                            existed-images="/api/images/load-all"
-                            short-codes-load-url="/api/widgets/load-short-codes"
                             placeholder="(必填) Block Content"
                         ></vuejs-editor>
                     </div>

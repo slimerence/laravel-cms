@@ -65,10 +65,7 @@
                             class="rich-text-editor"
                             placeholder="Put content here"
                             text-area-id="page-content-editor"
-                            image-upload-url="/api/images/upload"
-                            existed-images="/api/images/load-all"
                             :original-content="currentPage.content"
-                            short-codes-load-url="/api/widgets/load-short-codes"
                     ></vuejs-editor>
                 </el-form-item>
                 <el-button type="primary" :loading="savingPage" v-on:click="savePage('currentPage')">
