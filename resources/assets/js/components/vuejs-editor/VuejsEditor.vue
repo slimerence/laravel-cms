@@ -22,23 +22,54 @@
     require('./lib3/plugins/properties')
     require('./lib3/plugins/widget')
     require('./lib3/plugins/imagecontrol')
+
+    const DEFAULT_IMAGE_UPLOAD_URL  = '/api/images/upload';     // 默认的上传图片保存路由
+    const DEFAULT_IMAGE_MANAGER_URL = '/api/images/load-all';   // 默认的加载已存在图片路由
+    const DEFAULT_FILE_UPLOAD_URL   = '/api/files/upload';      // 默认的上传文件保存路由
+    const DEFAULT_FILE_MANAGER_URL  = '/api/files/load-all';    // 默认的加载已存在文件路由
+    const DEFAULT_SHORT_CODES_URL   = '/api/widgets/load-short-codes';    // 默认的加载已存在短码的URL
+    const DEFAULT_IMAGE_FLOAT_MARGIN  = 20;                     // 默认的加载已存在文件路由
+
     export default {
         name:'VuejsEditor',
         props:{
-            textAreaId: String,
+            textAreaId: {
+                type: String,
+                required: true
+            },
             originalContent: String,
             placeholder: String,
-            imageUploadUrl: String, // 保存图片的url
-            existedImages: String,  // 加载已经存在的图片的资源url
-            shortCodesLoadUrl: String, // 加载Variables的url
-            options: Array
+            options: Array,
+            shortCodesLoadUrl: {    // 加载Variables的url
+                type: String,
+                required: false
+            },
+            imageUploadUrl: {     // 保存图片的url
+                type: String,
+                required: false
+            },
+            existedImages: {     // 加载已经存在的图片的资源url
+                type: String,
+                required: false
+            },
+            fileUploadUrl: {     // 保存图片的url
+                type: String,
+                required: false
+            },
+            existedFiles: {
+                type: String,
+                required: false
+            }
         },
         data: function(){
             return {
                 content: '',
                 editor:null,
                 buttons:[
-                  'table','alignment','fontcolor','source','imagemanager','video','filemanager','variable','counter','definedlinks','fontfamily','fontsize','properties','widget','imagecontrol'
+                    'table','alignment','fontcolor','source','imagemanager',
+                    'video','filemanager','variable','counter',
+                    'definedlinks','fontfamily','fontsize','properties',
+                    'widget','imagecontrol'
                 ],
                 images: [],
                 shortCodes:[],
@@ -66,7 +97,8 @@
             });
         },
         mounted() {
-            axios.get(this.shortCodesLoadUrl)
+            let _shortCodesLoadingUrl = this.shortCodesLoadUrl ? this.shortCodesLoadUrl : DEFAULT_SHORT_CODES_URL;
+            axios.get(_shortCodesLoadingUrl)
                 .then(res => {
                     if(res.data.error_no == 100){
                         this.shortCodes = res.data.data;
@@ -88,14 +120,16 @@
             _editorInit: function(){
                 $R('#' + this.textAreaId,
                     {
-                        plugins: this.buttons,
-                        imageUpload: this.imageUploadUrl,
-                        fileUpload: this.imageUploadUrl,
-                        variables:this.shortCodes,
-                        definedlinks:this.definedLinks,
-                        imageResizable: true,
-                        imagePosition: true,
-                        imageFloatMargin: '20px'
+                        plugins:            this.buttons,
+                        imageUpload:        this.imageUploadUrl ? this.imageUploadUrl : DEFAULT_IMAGE_UPLOAD_URL,
+                        imageManagerJson:   this.existedImages ? this.existedImages : DEFAULT_IMAGE_MANAGER_URL,   // 加载已经被添加的图片, 并进行选择
+                        fileUpload:         this.fileUploadUrl ? this.fileUploadUrl : DEFAULT_FILE_UPLOAD_URL,
+                        fileManagerJson:    this.existedFiles ? this.existedFiles : DEFAULT_FILE_MANAGER_URL,     // 加载已经被添加的附件文件， 并进行选择
+                        variables:          this.shortCodes,
+                        definedLinks:       this.definedLinks,
+                        imageResizable:     true,
+                        imagePosition:      true,
+                        imageFloatMargin:   DEFAULT_IMAGE_FLOAT_MARGIN + 'px'
                     }
                 );
             }

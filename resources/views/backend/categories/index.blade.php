@@ -76,10 +76,7 @@
                                     class="rich-text-editor"
                                     placeholder="(必填) 填入目录的简要描述"
                                     text-area-id="category-short-description-editor"
-                                    image-upload-url="/api/images/upload"
-                                    existed-images="/api/images/load-all"
                                     :original-content="currentCategory.short_description"
-                                    short-codes-load-url="/api/widgets/load-short-codes"
                             ></vuejs-editor>
                         </el-form-item>
                         <hr>

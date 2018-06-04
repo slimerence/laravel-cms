@@ -2,7 +2,6 @@
 
 namespace App\Models\Utils\AMP;
 
-use Spatie\SchemaOrg\Schema;
 use Spatie\SchemaOrg\Thing;
 
 class HeadUtil

@@ -8,6 +8,9 @@ use DB;
 
 class Menu extends Model
 {
+    const TYPE_STATIC_CONTENT  = 1; // 指向静态内容页, 此种类型的menu的link，会被添加 /page , 然后路由定向到 Pages 控制器的view方法
+    const TYPE_DYNAMIC_CONTENT = 2; // 指向动态内容页, 不会添加任何前缀，可能需要开发人员自己去创建路由和控制器等
+
     protected $fillable = [
         'name',
         'name_cn',
@@ -22,6 +25,16 @@ class Menu extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * 获取Menu的链接
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getMenuUrl(){
+        return $this->link_type == self::TYPE_STATIC_CONTENT
+            ? url('/page'.$this->link_to)
+            : url($this->link_to);
+    }
 
     /**
      * 获取主菜单

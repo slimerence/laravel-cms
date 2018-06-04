@@ -158,4 +158,20 @@ class Page extends Model implements ISupportWidget
         }
         return $this->content;
     }
+
+    /**
+     * 获取页面的代表图片url
+     * @return string
+     */
+    public function getFeatureImageUrl(){
+        return asset($this->feature_image);
+    }
+
+    /**
+     * 获取页面对应的菜单
+     * @return mixed
+     */
+    public function getMenuObject(){
+        return Menu::where('link_to',$this->uri)->orderBy('id','asc')->first();
+    }
 }

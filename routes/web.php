@@ -73,6 +73,7 @@ Route::prefix('frontend')->group(function () {
 });
 
 Auth::routes();
+//Route::get('admin_admin','');
 
 Route::prefix('backend')->middleware('auth')->group(function(){
     // 联系的 Leads 列表
