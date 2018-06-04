@@ -32,3 +32,4 @@ yarn-error.log
 /public/js/backend.js
 /public/mix-manifest.json
 webpack.mix.js
+package-lock.json
