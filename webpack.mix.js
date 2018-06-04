@@ -12,18 +12,39 @@ let mix = require('laravel-mix');
  */
 
 // 前端
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/views/frontend/custom/blog_zoi/theme/js/jquery.animsition.min.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/jquery.fullPage.min.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/royal_preloader.min.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/jquery.fancybox.pack.js', 'public/js')
+    // .js('resources/views/frontend/custom/blog_zoi/theme/js/form.js', 'public/js')
+    // .js('resources/views/frontend/custom/blog_zoi/theme/js/wow.min.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/tweecoolmi.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/jquery.mb-comingsoon.min.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/typed.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/plugins.js', 'public/js')
+    .js('resources/views/frontend/custom/blog_zoi/theme/js/scripts.js', 'public/js')
     .js('resources/views/frontend/custom/_custom.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .sass('resources/views/frontend/custom/_custom.scss', 'public/css');
 
 // combine all css/js into a single css/js
 mix.styles([
-    'public/css/app.css',
     'public/css/_custom.css'
 ], 'public/css/all.css');
 mix.scripts([
-    'public/js/app.js',
+    // 'public/js/isotope.pkgd.min.js',
+    // 'public/js/imagesloaded.pkgd.min.js',
+    'public/js/jquery.animsition.min.js',
+    // 'public/js/jquery.fullPage.min.js',
+    // 'public/js/royal_preloader.min.js',
+    'public/js/jquery.fancybox.pack.js',
+    // 'public/js/form.js',
+    // 'public/js/wow.min.js',
+    // 'public/js/tweecoolmi.js',
+    'public/js/jquery.mb-comingsoon.min.js',
+    'public/js/typed.js',
+    'public/js/plugins.js',
+    'public/js/scripts.js',
     'public/js/_custom.js'
 ], 'public/js/all.js');
 // 最终加载两个文件， all.css 和 all.js
