@@ -87,15 +87,32 @@
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Link</label>
-                    <div class="control">
-                        <input type="text" class="input{{ $errors->has('link_to') ? ' is-invalid' : '' }}" name="link_to" value="{{ $menu->link_to }}" placeholder="Optional: URL to link">
-                        @if ($errors->has('link_to'))
-                            <span class="invalid-feedback">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Link</label>
+                            <div class="control">
+                                <input type="text" class="input{{ $errors->has('link_to') ? ' is-invalid' : '' }}" name="link_to" value="{{ $menu->link_to }}" placeholder="Optional: URL to link">
+                                @if ($errors->has('link_to'))
+                                    <span class="invalid-feedback">
                                 <strong>{{ $errors->first('link_to') }}</strong>
                             </span>
-                        @endif
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Link Type</label>
+                            <div class="control">
+                                <div class="select full-width">
+                                    <select class="full-width" name="link_type">
+                                        <option value="{{ \App\Models\Menu::TYPE_STATIC_CONTENT }}" {{ \App\Models\Menu::TYPE_STATIC_CONTENT == $menu->link_type ? 'selected' : null }}>Link to static content page</option>
+                                        <option value="{{ \App\Models\Menu::TYPE_DYNAMIC_CONTENT }}" {{ \App\Models\Menu::TYPE_DYNAMIC_CONTENT == $menu->link_type ? 'selected' : null }}>Link to dynamic content</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
