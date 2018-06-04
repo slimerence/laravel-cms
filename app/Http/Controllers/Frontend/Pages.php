@@ -44,8 +44,13 @@ class Pages extends Controller
         $this->dataForView['featureProducts'] = Category::LoadFeatureProducts();
         $this->dataForView['promotionProducts'] = Category::LoadPromotionProducts();
 
+        // Blog
         $posts = Page::where('type',Page::$TYPE_BLOG)->orderBy('id','asc')->paginate(20);
         $this->dataForView['posts'] = $posts;
+
+        // 新闻
+        $news = Page::where('type',Page::$TYPE_NEWS)->orderBy('id','asc')->paginate(20);
+        $this->dataForView['news'] = $news;
 
         event(new StartLoading($page,$this->dataForView));
 
