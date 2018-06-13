@@ -73,7 +73,13 @@
                 brand_serial_id: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,
                 serial_name: '<?php echo $product->serial_name; ?>',
                 is_group_product: <?php echo $product->is_group_product ? 'true' : 'false'; ?>,
-                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>
+                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>,
+                // 课程中文
+                name_cn: '<?php echo $product->name_cn; ?>',
+                short_description_cn: '<?php echo str_replace(PHP_EOL,'', $product->short_description_cn); ?>',
+                description_cn: '<?php echo str_replace(PHP_EOL,'', $product->description_cn); ?>',
+                keywords_cn: '<?php echo $product->keywords_cn; ?>',
+                seo_description_cn: '<?php echo $product->seo_description_cn; ?>',
             },
             rules: {
                 name: [
@@ -539,6 +545,8 @@
                     // 由于使用了 vuejs-editor, 需要单独通过下面的方式获取产品的description最新值
                     this.product.description = this.$refs.productDescriptionEditor.getContent();
                     this.product.short_description = this.$refs.productShortDescriptionEditor.getContent();
+                    this.product.description_cn         = this.$refs.productDescriptionCNEditor.getContent();
+                    this.product.short_description_cn   = this.$refs.productShortDescriptionCNEditor.getContent();
 
                     axios.post(
                             '<?php echo url('api/products/clone') ?>',

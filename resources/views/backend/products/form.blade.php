@@ -15,6 +15,12 @@
                         </div>
                         <small>产品的基本信息</small>
                     </a>
+                    <a href="#" class="box" v-on:click="changeTab('basic_in_chinese')" v-bind:class="{ 'active': currentTab=='basic_in_chinese' }">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><i class="fas fa-language"></i>&nbsp;产品中文信息 <small>(可选)</small></h5>
+                        </div>
+                        <small>产品中文信息</small>
+                    </a>
                     <a href="#" class="box" v-on:click="changeTab('category')" v-bind:class="{ 'active': currentTab=='category' }">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1"><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;产品分类与属性 <small>(必填)</small></h5>
@@ -87,6 +93,10 @@
                 <el-form ref="currentProductForm" :rules="rules" :model="product" label-width="160px" style="margin-left: 1%; width: 96%;">
                     <div v-show="currentTab=='basic'">
                         @include('backend.products.elements.basic')
+                    </div>
+
+                    <div v-show="currentTab=='basic_in_chinese'">
+                        @include('backend.products.elements.basic_in_chinese')
                     </div>
 
                     <div v-show="currentTab=='category'">

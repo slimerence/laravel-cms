@@ -30,7 +30,7 @@ class ShoppingCartController extends Controller
         $this->dataForView['cartData'] = $cartData;
         $this->dataForView['vuejs_libs_required'] = ['cart_view'];
         return view(
-            'frontend.default.catalog.cart.view',
+             _get_frontend_theme_path('catalog.cart.view'),
             $this->dataForView
         );
     }

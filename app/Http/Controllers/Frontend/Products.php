@@ -50,7 +50,7 @@ class Products extends Controller
         $this->dataForView['productShortDescriptionTop'] = Block::where('short_code','like','product_short_description_block_top%')->get();
         $this->dataForView['productShortDescriptionBottom'] = Block::where('short_code','like','product_short_description_block_bottom%')->get();
 
-        return view('frontend.default.catalog.product',$this->dataForView);
+        return view(  _get_frontend_theme_path('catalog.product'),$this->dataForView);
     }
 
     /**
@@ -118,7 +118,7 @@ class Products extends Controller
         $this->dataForView['vuejs_libs_required'] = ['category_view_manager'];
 
         // 总是加载Features product and promotion
-        return view('frontend.default.catalog.brand',$this->dataForView);
+        return view(  _get_frontend_theme_path('catalog.brand'),$this->dataForView);
     }
 
     /**
