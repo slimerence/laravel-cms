@@ -90,7 +90,11 @@ class Categories extends Controller
         // Add vuejs functions
         $this->dataForView['vuejs_libs_required'] = ['category_view_manager'];
 
+<<<<<<< HEAD
         return view(_get_frontend_theme_path('catalog.category'),$this->dataForView);
+=======
+        return view( _get_frontend_theme_path('catalog.category'),$this->dataForView);
+>>>>>>> upstream/master
     }
 
     /**

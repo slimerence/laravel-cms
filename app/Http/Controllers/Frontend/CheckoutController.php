@@ -97,16 +97,6 @@ class CheckoutController extends Controller
 
         $this->dataForView['user'] = $customer;
 
-//        $this->dataForView['shoppingCartTool'] = new ShoppingCartTool(User::find(session('user_data.id')), $cart);
-
-//        $name = 'justin';
-
-//        $nameEncrypt = encrypt($name);
-//        dump($nameEncrypt);
-//        dump(decrypt($nameEncrypt));
-
-//        dump(\GuzzleHttp\json_encode($this->dataForView['shoppingCartTool']->getTransactionsForPayPal(), JSON_PRETTY_PRINT));
-
         $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
             $customer,$cart->total(),$this->getTotalWeightInCart()
         );
