@@ -118,7 +118,7 @@ class CheckoutController extends Controller
         ];
 
         return view(
-            'frontend.default.checkout.place_order_checkout',
+            _get_frontend_theme_path('checkout.place_order_checkout'),
             $this->dataForView
         );
     }
