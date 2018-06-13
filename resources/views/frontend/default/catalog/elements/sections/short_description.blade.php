@@ -4,7 +4,7 @@
         <div class="content">{!! $b->content !!}</div>
         @endforeach
     @endif
-    {!! $product->short_description !!}
+    {!! $product->getProductShortDescription() !!}
     @if(count($productShortDescriptionBottom) > 0)
         @foreach($productShortDescriptionBottom as $b)
             <div class="content">{!! $b->content !!}</div>

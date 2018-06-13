@@ -145,7 +145,7 @@ class ShoppingCartController extends Controller
                 'options'=>[]
             ];
             // 找到了产品
-            $data['name'] = $product->name.(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
+            $data['name'] = $product->getProductName().(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
 
             $data['options']['thumbnail'] = $product->getProductDefaultImageUrl();
             $data['options']['weight'] = $product->getWeight();

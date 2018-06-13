@@ -74,7 +74,7 @@ class OrderItem extends Model
                 'user_id'=>$order->user_id,
                 'product_id'=>$product->id,
                 'operator_name'=>$operatorName,
-                'product_name'=>$product->name,
+                'product_name'=>$product->getProductName(),
                 // Use special price if possible
                 'price'=>$priceFinal,
                 'quantity'=>$cartItem->qty,

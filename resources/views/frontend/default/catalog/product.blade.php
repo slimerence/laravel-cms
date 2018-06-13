@@ -15,7 +15,7 @@
             </div>
             <div class="column is-6 product-info-wrap">
                 <h2>
-                    {{ $product->name }}&nbsp;
+                    {{ $product->getProductName() }}&nbsp;
                     @if($product->manage_stock && $product->stock<$product->min_quantity)
                         <span class="badge badge-pill badge-danger">Out of Stock</span>
                     @endif

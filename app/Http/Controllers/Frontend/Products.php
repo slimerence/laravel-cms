@@ -22,10 +22,10 @@ class Products extends Controller
         $product = Product::GetByUri($uri);
 
         if(!$product){
-            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+            return response()->view(_get_frontend_theme_path('pages.404'), $this->dataForView, 404);
         }
 
-        $this->dataForView['pageTitle'] = $product->name;
+        $this->dataForView['pageTitle'] = $product->getProductName();
         $this->dataForView['metaKeywords'] = $product->keywords;
         $this->dataForView['metaDescription'] = $product->seo_description;
 
@@ -62,7 +62,7 @@ class Products extends Controller
         $brand = Brand::where('name',$request->get('name'))->first();
 
         if(!$brand){
-            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+            return response()->view(_get_frontend_theme_path('pages.404'), $this->dataForView, 404);
         }
 
         $this->dataForView['brand'] = $brand;
