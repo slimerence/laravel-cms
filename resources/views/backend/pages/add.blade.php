@@ -20,7 +20,7 @@
                     <el-input placeholder="Required: Page title" v-model="currentPage.title"></el-input>
                 </el-form-item>
                 <el-form-item label="中文Title" prop="title_cn">
-                    <el-input placeholder="中文名称: 必填" v-model="currentPage.title_cn"></el-input>
+                    <el-input placeholder="中文标题: 选填" v-model="currentPage.title_cn"></el-input>
                 </el-form-item>
                 <el-form-item label="URI" prop="uri" required>
                     <el-input placeholder="必填: 网址的URI" v-model="currentPage.uri"></el-input>

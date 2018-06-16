@@ -18,11 +18,8 @@
                 <thead>
                 <tr>
                     <th>Title</th>
-                    <th>页面中文Title</th>
-                    <th>URI</th>
                     <th>SEO Keywords</th>
                     <th>SEO Description</th>
-                    <th>Layout</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -30,13 +27,12 @@
                 @foreach($pages as $key=>$value)
                     <tr>
                         <td>
-                            {!! $value->title !!}
-                        </td>
-                        <td>
-                            {!! $value->title_cn !!}
-                        </td>
-                        <td>
-                            <a href="{{ url('/page'.$value->uri) }}" target="_blank">Preview</a>
+                            <a target="_blank" href="{{ url('/page'.$value->uri) }}">
+                                <p>{!! $value->title !!}</p>
+                                @if(!empty($value->title_cn))
+                                    <p>中文标题: {{ $value->title_cn }}</p>
+                                @endif
+                            </a>
                         </td>
                         <td>
                             {!! $value->seo_keyword !!}
@@ -44,7 +40,6 @@
                         <td>
                             {!! $value->seo_description !!}
                         </td>
-                        <td>{{ \App\Models\Utils\ContentTool::GetPageLayoutTypeByKey($value->layout) }}</td>
                         <td>
                             <a class="button is-small" href="{{ url('backend/news/edit/'.$value->id) }}">
                                 <i class="fa fa-edit"></i>&nbsp;Edit
