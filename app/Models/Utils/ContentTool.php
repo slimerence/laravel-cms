@@ -23,7 +23,9 @@ class ContentTool
     public static $ROOT_MENU_ID = 1;
     public static $ROOT_CONFIGURATION_ID = 1;
 
-    public static $newlineFilters = ['seo_keyword','keywords','seo_description','css_class','link_to','short_description','content','description'];
+    public static $newlineFilters = ['seo_keyword','keywords','seo_description','css_class','link_to',
+        'short_description','content','description','teasing','description_cn','short_description_cn',
+        'keywords_cn','seo_description_cn'];
 
     /**
      * 表示page的content中是否有动态内容, 主要就是是否嵌入了BLOCK

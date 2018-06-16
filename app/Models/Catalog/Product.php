@@ -47,6 +47,9 @@ class Product extends Model
         'serial_name',      // 产品所属的序列名称
         'is_group_product',             // 组合产品, 比如一套家具
         'is_configurable_product',      // 可配置产品, 比如 DIY 电脑
+        // 和中文相关
+        'name_cn','description_cn','short_description_cn',
+        'keywords_cn','seo_description_cn',
     ];
 
     protected $casts = [
@@ -256,6 +259,7 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
@@ -352,6 +356,7 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
@@ -412,6 +417,7 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
@@ -674,5 +680,31 @@ class Product extends Model
             return $brand->getImageUrl();
         }
         return null;
+    }
+
+    /**
+     * 获取产品的名称, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductName(){
+        return app()->getLocale() == 'cn' && $this->name_cn ? $this->name_cn : $this->name;
+    }
+
+    /**
+     * 获取产品的详情, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductDescription(){
+        return app()->getLocale() == 'cn' && $this->description_cn
+            ? $this->description_cn : $this->description;
+    }
+
+    /**
+     * 获取产品的详情简介, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductShortDescription(){
+        return app()->getLocale() == 'cn' && $this->short_description_cn
+            ? $this->short_description_cn : $this->short_description;
     }
 }

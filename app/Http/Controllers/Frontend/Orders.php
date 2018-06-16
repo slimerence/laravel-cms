@@ -39,7 +39,7 @@ class Orders extends Controller
         $this->dataForView['vuejs_libs_required'] = ['my_orders'];
 
         return view(
-            'frontend.default.order.my_orders',
+            _get_frontend_theme_path( 'order.my_orders' ),
             $this->dataForView
         );
     }
@@ -58,7 +58,7 @@ class Orders extends Controller
         $this->dataForView['vuejs_libs_required'] = ['view_order'];
 
         return view(
-            'frontend.default.order.view_order',
+            _get_frontend_theme_path('order.view_order'),
             $this->dataForView
         );
     }

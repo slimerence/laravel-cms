@@ -178,6 +178,9 @@ class Media extends Model
     public function toHtml($classNames = null){
         if($this->type == MediaTool::$TYPE_IMAGE){
             return '<img class="image '.$classNames.'" src="'.$this->url.'" alt="'.$this->alt.'">';
+        }else{
+            // 非图片类型
+            return '<a title="'.$this->alt.'" class="'.$classNames.'" href="'.$this->url.'">'.$this->alt.'</a>';
         }
     }
 }

@@ -30,7 +30,7 @@ class ShoppingCartController extends Controller
         $this->dataForView['cartData'] = $cartData;
         $this->dataForView['vuejs_libs_required'] = ['cart_view'];
         return view(
-            'frontend.default.catalog.cart.view',
+             _get_frontend_theme_path('catalog.cart.view'),
             $this->dataForView
         );
     }
@@ -145,7 +145,7 @@ class ShoppingCartController extends Controller
                 'options'=>[]
             ];
             // 找到了产品
-            $data['name'] = $product->name.(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
+            $data['name'] = $product->getProductName().(!empty($product->unit_text) ? ' ('.$product->unit_text.')' : '');
 
             $data['options']['thumbnail'] = $product->getProductDefaultImageUrl();
             $data['options']['weight'] = $product->getWeight();

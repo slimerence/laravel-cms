@@ -19,12 +19,13 @@ class Products extends Controller
      * @param $uuid
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function delete($uuid, Request $request){
         $product = Product::GetByUuid($uuid);
 
         if($product){
-            $productName = $product->name;
+            $productName = $product->getProductName();
             if($product->delete()){
                 session()->flash('msg', ['content' => 'Product: "' . $productName . '" has been removed successfully!', 'status' => 'success']);
             }else{
@@ -116,8 +117,9 @@ class Products extends Controller
     }
 
     /**
+     * 删除产品的指定颜色
      * @param Request $request
-     * @return stringdelete_colour_ajax
+     * @return string
      */
     public function delete_colour_ajax(Request $request){
         if(Colour::Terminate($request->get('id'))){
@@ -162,8 +164,9 @@ class Products extends Controller
      */
     public function ajax_search(Request $request){
         $queryKeyword = strtolower($request->get('key'));
-        $products = Product::select('name','uri','default_price','special_price','tax')
+        $products = Product::select('name','name_cn','uri','default_price','special_price','tax')
             ->where('name','like','%'.$queryKeyword.'%')
+            ->orWhere('name_cn','like','%'.$queryKeyword.'%')
             ->orderBy('name','asc')
             ->take(10)
             ->get();
@@ -171,7 +174,7 @@ class Products extends Controller
         $data = [];
         foreach ($products as $key => $product){
             $data[$key] = [
-                'value'=>$product->name.' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
+                'value'=>$product->getProductName().' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
                 'id'=>$product->uri,
             ];
         }
