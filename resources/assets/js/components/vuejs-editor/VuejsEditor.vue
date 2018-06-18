@@ -84,7 +84,10 @@
         },
         watch: {
             'originalContent': function(newContent, oldContent){
-                if(newContent != oldContent){
+                if(newContent == null){
+                    newContent = '';
+                }
+                if( newContent != oldContent){
                     this.setContent(newContent);
                 }
             }
