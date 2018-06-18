@@ -7,6 +7,7 @@ use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Product\ProductAttribute;
 use App\Models\Catalog\Product\ProductAttributeSet;
 use App\Models\Catalog\Product\ProductOption;
+use App\Models\Catalog\TagsProduct;
 use App\Models\Group;
 use App\Models\Utils\MediaTool;
 use App\Models\Utils\ProductType;
@@ -550,6 +551,21 @@ class Product extends Model
             }
         }
         return $categoriesId;
+    }
+
+    /**
+     * 获取所关联的tag的id数组
+     * @return array
+     */
+    public function getTagsId(){
+        $tags = TagsProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tagsId = [];
+        if(count($tags)>0){
+            foreach ($tags as $tag) {
+                $tagsId[] = $tag;
+            }
+        }
+        return $tagsId;
     }
 
     /**

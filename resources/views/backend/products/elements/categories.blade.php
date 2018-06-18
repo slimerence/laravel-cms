@@ -74,3 +74,21 @@
         </div>
     @endforeach
 </div>
+<h5 class="desc-text">Tags</h5>
+
+<div class="content">
+    <el-select
+            v-model="tags"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="请选择产品标签">
+        <el-option
+                v-for="item in tagsNamelist"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+        </el-option>
+    </el-select>
+</div>
