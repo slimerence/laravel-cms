@@ -14,7 +14,6 @@ use App\User;
 use App\Models\Catalog\Category;
 use Gloudemans\Shoppingcart\Cart;
 
-
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
