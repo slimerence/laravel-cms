@@ -273,15 +273,7 @@
                 "cron",
                 "schedule"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-06T15:51:55+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-06 15:51:55"
-=======
             "time": "2018-06-06T03:12:17+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "easywechat-composer/easywechat-composer",
@@ -842,15 +834,7 @@
                 "thumbnail",
                 "watermark"
             ],
-<<<<<<< HEAD
-            "time": "2017-09-21T16:29:17+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2017-09-21 16:29:17"
-=======
             "time": "2018-05-29T14:19:03+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "intervention/imagecache",
@@ -1039,15 +1023,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-27T18:25:43+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-27 18:25:43"
-=======
             "time": "2018-05-21T19:56:44+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "jenssegers/agent",
@@ -1310,15 +1286,7 @@
                 "framework",
                 "laravel"
             ],
-<<<<<<< HEAD
-            "time": "2018-05-15T13:34:20+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-05-15 13:34:20"
-=======
             "time": "2018-06-12T14:39:24+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "laravel/tinker",
@@ -1381,15 +1349,7 @@
                 "laravel",
                 "psysh"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-16T12:10:37+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-16 12:10:37"
-=======
             "time": "2018-05-17T13:42:07+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "league/flysystem",
@@ -1525,15 +1485,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-<<<<<<< HEAD
-            "time": "2018-02-26T19:39:55+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-02-26 19:39:55"
-=======
             "time": "2018-06-03T13:13:04+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "monolog/monolog",
@@ -1715,15 +1667,7 @@
                 "parser",
                 "php"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-25T17:35:16+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-25 17:35:16"
-=======
             "time": "2018-06-03T11:33:10+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "overtrue/laravel-wechat",
@@ -1776,15 +1720,7 @@
                 "wechat",
                 "weixin"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-29T02:51:52+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-29 02:51:52"
-=======
             "time": "2018-05-23T14:03:58+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "overtrue/socialite",
@@ -1897,15 +1833,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-16T12:08:52+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-16 12:08:52"
-=======
             "time": "2018-06-08T04:12:04+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "paquettg/php-html-parser",
@@ -2049,15 +1977,7 @@
                 "pseudorandom",
                 "random"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-04T21:24:14+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-04 21:24:14"
-=======
             "time": "2018-06-08T15:26:40+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "pimple/pimple",
@@ -2469,15 +2389,7 @@
                 "interactive",
                 "shell"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-18T12:32:50+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-18 12:32:50"
-=======
             "time": "2018-06-10T17:57:20+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "ramsey/uuid",
@@ -2610,15 +2522,7 @@
                 "schema-org",
                 "spatie"
             ],
-<<<<<<< HEAD
-            "time": "2018-05-03T15:47:43+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-05-03 15:47:43"
-=======
             "time": "2018-06-08T09:55:00+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2742,15 +2646,7 @@
                 "caching",
                 "psr6"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-30T01:05:59+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 01:05:59"
-=======
             "time": "2018-05-16T14:33:22+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/console",
@@ -2818,15 +2714,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-30T01:23:47+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 01:23:47"
-=======
             "time": "2018-05-30T07:26:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/css-selector",
@@ -2879,15 +2767,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-03-19T22:35:49+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-19 22:35:49"
-=======
             "time": "2018-05-30T07:26:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/debug",
@@ -2943,15 +2823,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-30T16:59:37+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 16:59:37"
-=======
             "time": "2018-05-16T14:33:22+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3014,15 +2886,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-06T07:35:43+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-06 07:35:43"
-=======
             "time": "2018-04-06T07:35:57+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/finder",
@@ -3071,15 +2935,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-04T05:10:37+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-04 05:10:37"
-=======
             "time": "2018-05-16T14:33:22+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/http-foundation",
@@ -3133,15 +2989,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-30T01:05:59+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 01:05:59"
-=======
             "time": "2018-05-25T14:55:38+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/http-kernel",
@@ -3228,12 +3076,6 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-30T19:45:57+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 19:45:57"
-=======
             "time": "2018-05-30T12:52:34+00:00"
         },
         {
@@ -3290,8 +3132,6 @@
                 "portable"
             ],
             "time": "2018-04-30T19:57:29+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3562,15 +3402,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-03T05:24:00+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-03 05:24:00"
-=======
             "time": "2018-05-30T07:26:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/psr-http-message-bridge",
@@ -3708,15 +3540,7 @@
                 "uri",
                 "url"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-20T06:20:23+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-20 06:20:23"
-=======
             "time": "2018-05-30T07:26:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/translation",
@@ -3785,15 +3609,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2018-04-30T01:23:47+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-30 01:23:47"
-=======
             "time": "2018-05-30T07:26:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "symfony/var-dumper",
@@ -3868,15 +3684,7 @@
                 "debug",
                 "dump"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-26T16:12:06+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-26 16:12:06"
-=======
             "time": "2018-04-29T07:56:09+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -4043,15 +3851,7 @@
                 "profiler",
                 "webprofiler"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-06T08:35:31+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-06 08:35:31"
-=======
             "time": "2018-05-03T18:27:04+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "doctrine/instantiator",
@@ -4166,15 +3966,7 @@
                 "throwable",
                 "whoops"
             ],
-<<<<<<< HEAD
-            "time": "2017-11-23T18:22:44+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2017-11-23 18:22:44"
-=======
             "time": "2018-03-03T17:56:25+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "fzaninotto/faker",
@@ -4447,15 +4239,7 @@
                 "object",
                 "object graph"
             ],
-<<<<<<< HEAD
-            "time": "2017-10-19T19:58:43+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2017-10-19 19:58:43"
-=======
             "time": "2018-06-11T23:09:50+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "nunomaduro/collision",
@@ -4518,15 +4302,7 @@
                 "php",
                 "symfony"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-21T20:11:24+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-03-21 20:11:24"
-=======
             "time": "2018-06-16T22:05:52+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "phar-io/manifest",
@@ -4906,15 +4682,7 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-29T14:59:09+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-29 14:59:09"
-=======
             "time": "2018-06-01T07:51:50+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4961,15 +4729,7 @@
                 "filesystem",
                 "iterator"
             ],
-<<<<<<< HEAD
-            "time": "2017-11-27T13:52:08+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2017-11-27 13:52:08"
-=======
             "time": "2018-06-11T11:44:00+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "phpunit/php-text-template",
@@ -5192,75 +4952,7 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-29T15:09:19+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-29 15:09:19"
->>>>>>> master
-        },
-        {
-            "name": "phpunit/phpunit-mock-objects",
-            "version": "6.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "70c740bde8fd9ea9ea295be1cd875dd7b267e157"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/70c740bde8fd9ea9ea295be1cd875dd7b267e157",
-                "reference": "70c740bde8fd9ea9ea295be1cd875dd7b267e157",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/instantiator": "^1.0.5",
-                "php": "^7.1",
-                "phpunit/php-text-template": "^1.2.1",
-                "sebastian/exporter": "^3.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0"
-            },
-            "suggest": {
-                "ext-soap": "*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "6.1-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "lead"
-                }
-            ],
-            "description": "Mock Object library for PHPUnit",
-            "homepage": "https://github.com/sebastianbergmann/phpunit-mock-objects/",
-            "keywords": [
-                "mock",
-                "xunit"
-            ],
-<<<<<<< HEAD
-            "time": "2018-04-11T04:50:36+00:00"
-=======
-            "time": "2018-04-11 04:50:36"
-=======
             "time": "2018-06-05T03:40:05+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -5369,15 +5061,7 @@
                 "compare",
                 "equality"
             ],
-<<<<<<< HEAD
-            "time": "2018-04-18T13:33:00+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-04-18 13:33:00"
-=======
             "time": "2018-06-14T15:05:28+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "sebastian/diff",
@@ -5433,15 +5117,7 @@
                 "unidiff",
                 "unified diff"
             ],
-<<<<<<< HEAD
-            "time": "2018-02-01T13:45:15+00:00"
-=======
-<<<<<<< HEAD
-            "time": "2018-02-01 13:45:15"
-=======
             "time": "2018-06-10T07:54:39+00:00"
->>>>>>> upstream/master
->>>>>>> master
         },
         {
             "name": "sebastian/environment",
