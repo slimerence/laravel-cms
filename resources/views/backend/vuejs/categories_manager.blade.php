@@ -92,7 +92,6 @@
                 return window.categoryNoteRender(h, { node, data, store });
             },
             handleEdit: function(cate, node, tree){
-                console.log(cate);
                 // 加载选定的目录树种的目录,放到待编辑表单中
                 this.currentParentCategoryId = cate.id;
                 this.currentSelectedCategoryName = cate.name;
@@ -176,6 +175,7 @@
                     if(res.data.error_no == 100){
                         // 成功
                         that._notify('success','DONE!','Category Saved!');
+                        that.currentCategory.id = res.data.data.msg;
                         that.loadCategoriesTree();
                     }else{
                         // 失败
