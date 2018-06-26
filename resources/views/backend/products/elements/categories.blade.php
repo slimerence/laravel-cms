@@ -59,15 +59,15 @@
 <h5 class="desc-text">Categories</h5>
 <div class="content">
     @foreach($categoriesTree['children'] as $key=>$levelOne)
-        <div class="card" style="margin-bottom: 15px;">
-            <div class="card-header" style="padding-left: 40px;">
+        <article class="message is-info" style="margin-bottom: 15px;">
+            <div class="message-header" style="padding-left: 40px;">
                 <label class="checkbox form-check-label">
                     <input v-model="categories" class="checkbox form-check-input"
                        type="checkbox" value="{{ $levelOne['id'] }}"> {{ $levelOne['name'] }}
                 </label>
             </div>
             @if(count($levelOne['children'])>0)
-                <div class="card-body"  style="margin-left: 20px;">
+                <div class="message-body"  style="margin-left: 20px;">
                     @foreach($levelOne['children'] as $key=>$levelTwo)
                         <p>
                             <label class="checkbox form-check-label">
@@ -88,6 +88,6 @@
                     @endforeach
                 </div>
             @endif
-        </div>
+        </article>
     @endforeach
 </div>
