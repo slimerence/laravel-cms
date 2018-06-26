@@ -99,8 +99,8 @@ class Category extends Model
             unset($data['id']);
             foreach ($data as $field_name=>$field_value) {
                 // uri中不能出现特殊的字符
-                if($field_name == 'uri'){
-                    $field_value = ContentTool::ConvertNameToUri($data['name']);
+                if($field_name == 'name'){
+                    $category->uri = ContentTool::ConvertNameToUri($field_value);
                 }
                 $category->$field_name = $field_value;
             }
