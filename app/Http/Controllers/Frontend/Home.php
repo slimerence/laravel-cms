@@ -79,10 +79,27 @@ class Home extends Controller
             // 静态页加载成功
             $this->dataForView['menuName'] = $page->title;
             $this->dataForView['page'] = $page;
-            return view(
-                _get_frontend_theme_prefix().'.pages.static',
-                $this->dataForView
-            );
+
+            // 添加一个判断，如果主题文件夹中有和uri同名的文件，就优先加载
+            $path2 = _get_frontend_theme_prefix().'.pages';
+            $filePath = resource_path()
+                .'/views/'
+                .str_replace('.','/',$path2)
+                .'/'.$uri.'.blade.php';
+
+            if(file_exists($filePath)){
+                // 文件存在，那么按照uri的名称加载
+                return view(
+                    _get_frontend_theme_prefix().'.pages.'.$uri,
+                    $this->dataForView
+                );
+            }else{
+                // 否则加载static
+                return view(
+                    _get_frontend_theme_prefix().'.pages.static',
+                    $this->dataForView
+                );
+            }
         }else{
             return view(
                 _get_frontend_theme_prefix().'.pages.404',
