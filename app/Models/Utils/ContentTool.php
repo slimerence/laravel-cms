@@ -140,4 +140,15 @@ class ContentTool
         $types = self::GetPageLayoutTypes();
         return isset($types[$key]) ? $types[$key] : '';
     }
+
+    /**
+     * 转换name字符串, 去掉可能造成干扰的字符, 以便当做URI
+     * @param string $name
+     * @return string
+     */
+    public static function ConvertNameToUri($name){
+        $name = str_replace('/','-and-',strtolower($name));
+        $name = str_replace('\\','-and-',$name);
+        return urlencode(str_replace(' ','-',$name));
+    }
 }

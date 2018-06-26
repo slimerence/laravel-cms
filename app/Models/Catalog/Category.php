@@ -2,6 +2,7 @@
 
 namespace App\Models\Catalog;
 
+use App\Models\Utils\ContentTool;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
@@ -82,7 +83,7 @@ class Category extends Model
         if(!isset($data['id']) || is_null($data['id']) || empty(trim($data['id']))){
             unset($data['id']);
             $data['uuid'] = Uuid::uuid4()->toString();
-            $data['uri'] = urlencode(str_replace(' ','-',$data['name']));
+            $data['uri'] = ContentTool::ConvertNameToUri($data['name']);
 
             $category = self::create(
                 $data
@@ -97,6 +98,10 @@ class Category extends Model
             $category = self::find($data['id']);
             unset($data['id']);
             foreach ($data as $field_name=>$field_value) {
+                // uri中不能出现特殊的字符
+                if($field_name == 'uri'){
+                    $field_value = ContentTool::ConvertNameToUri($data['name']);
+                }
                 $category->$field_name = $field_value;
             }
             if($category->save()){
