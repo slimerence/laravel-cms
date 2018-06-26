@@ -54,6 +54,7 @@ class Products extends Controller
         $this->dataForView['menuName'] = 'catalog';
         $this->dataForView['groups'] = Group::orderBy('name','asc')->get();
         $this->dataForView['categories'] = Category::NameList();
+        $this->dataForView['categoriesTree'] = Category::Tree()->toArray();
         $this->dataForView['product'] = new Product;
         $this->dataForView['attributesSet'] = ProductAttributeSet::orderBy('name','asc')->get();
         $this->dataForView['brands'] = Brand::select('name as value','image_url')->orderBy('name','asc')->get();
@@ -75,6 +76,7 @@ class Products extends Controller
         $this->dataForView['groups'] = Group::orderBy('name','asc')->get();
         $this->dataForView['brands'] = Brand::select('name as value','image_url')->orderBy('name','asc')->get();
         $this->dataForView['categories'] = Category::NameList();
+        $this->dataForView['categoriesTree'] = Category::Tree()->toArray();
         $this->dataForView['attributesSet'] = ProductAttributeSet::orderBy('name','asc')->get();
 
         $this->dataForView['vuejs_libs_required'] = [
