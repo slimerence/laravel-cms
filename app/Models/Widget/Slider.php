@@ -92,7 +92,7 @@ class Slider extends BaseWidget implements IWidget
 
         if($this->short_code == self::HOME_SLIDER_KEY){
             $data['sliders']['slider_home_page'] = $this;
-            $view = View::make('frontend.'.config('system.frontend_theme').'.templates.sliders.'.$this->lib.'.home_slider',$data);
+            $view = View::make('frontend.'.env('frontend_theme').'.templates.sliders.'.$this->lib.'.home_slider',$data);
         }else{
             $data['sliders'][$this->short_code] = $this;
             $view = View::make('frontend.'.config('system.frontend_theme').'.templates.sliders.'.$this->lib.'.general',$data);
