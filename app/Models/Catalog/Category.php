@@ -83,7 +83,18 @@ class Category extends Model
         if(!isset($data['id']) || is_null($data['id']) || empty(trim($data['id']))){
             unset($data['id']);
             $data['uuid'] = Uuid::uuid4()->toString();
-            $data['uri'] = ContentTool::ConvertNameToUri($data['name']);
+
+            // 避免不同更目录下的子目录的uri重名
+            if(intval($data['parent_id']) > 1){
+                $parent = self::find($data['parent_id']);
+                $name = $data['name'];
+                if($parent){
+                    $name = $parent->name.' '.$name;
+                }
+                $data['uri'] = ContentTool::ConvertNameToUri($name);
+            }else{
+                $data['uri'] = ContentTool::ConvertNameToUri($data['name']);
+            }
 
             $category = self::create(
                 $data
@@ -100,7 +111,13 @@ class Category extends Model
             foreach ($data as $field_name=>$field_value) {
                 // uri中不能出现特殊的字符
                 if($field_name == 'name'){
-                    $category->uri = ContentTool::ConvertNameToUri($field_value);
+                    // 避免不同更目录下的子目录的uri重名
+                    if($category->parent_id > 1){
+                        // 如果当前目录是某个目录的子目录, 那么URI应该包含父目录的名字
+                        $category->uri = ContentTool::ConvertNameToUri($category->parent->name.' '.$field_value);
+                    }else{
+                        $category->uri = ContentTool::ConvertNameToUri($field_value);
+                    }
                 }
                 $category->$field_name = $field_value;
             }
