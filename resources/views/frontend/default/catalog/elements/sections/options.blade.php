@@ -12,6 +12,9 @@
             case \App\Models\Utils\OptionTool::$TYPE_RADIO_BUTTON:
                 ?>@include(_get_frontend_theme_path('catalog.elements.sections._options.radio'))<?php
                 break;
+            case \App\Models\Utils\OptionTool::$TYPE_ATTACHMENT:
+                ?>@include(_get_frontend_theme_path('catalog.elements.sections._options.file'))<?php
+                break;
             default:
                 break;
         }

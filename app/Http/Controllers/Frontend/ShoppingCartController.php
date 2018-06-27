@@ -116,6 +116,8 @@ class ShoppingCartController extends Controller
      */
     public function add_to_cart(Request $request){
         $items = $request->get('items');
+        // 用来处理前端传来的attachment类型的option
+        $attachments = $request->get('attachments');
         $data = null;
         $product = null;
         if($items && is_array($items)){
@@ -174,6 +176,25 @@ class ShoppingCartController extends Controller
                 if(isset($item['type']) && $item['type'] == 'general' && $item['name'] == 'quantity'){
                     // 获取订购数量
                     $data['qty'] = intval($item['value']);
+                }elseif (isset($item['type']) && $item['type'] == 'attachment'){
+                    // 前端传来的提交的附件文档
+                    $productAttachmentOption = ProductOption::Exist($item['value'],$product->id);
+                    if($productAttachmentOption){
+                        // 由于前端传来的也是attachments数组, 所以通过 array_shift 从顶部弹出即可
+                        $type = 'image';
+                        $value = array_shift($attachments);
+                        if(strpos($value,'.pdf') !== false){
+                            // 表示为PDF 文件
+                            $type = 'pdf';
+                        }
+                        if(!empty($value)){
+                            $data['options'][] = [
+                                'name'=>$productAttachmentOption->name,
+                                'value'=>$value,
+                                'type'=>$type
+                            ];
+                        }
+                    }
                 }elseif (isset($item['type']) && $item['type'] == 'option' && !empty($item['index'])){
                     // 检查这个提交的产品选项是否存在
                     $po = ProductOption::Exist($item['index'], $product->id);

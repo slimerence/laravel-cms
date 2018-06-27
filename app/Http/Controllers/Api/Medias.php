@@ -213,7 +213,9 @@ class Medias extends Controller
         }
         return [
             'id'=>str_random(16),
-            'url'=>_buildFrontendAssertPath($path)
+            'url'=>_buildFrontendAssertPath($path),
+            // 查看是否有从客户端提交的数据并原样返回的, 如果没有, 返回-1
+            'directReturn'=>$request->has('directReturn')?$request->get('directReturn'):-1
         ];
     }
 
