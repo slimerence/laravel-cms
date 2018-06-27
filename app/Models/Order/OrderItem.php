@@ -55,7 +55,22 @@ class OrderItem extends Model
                         // 处理非 Colour 的选项
                         $name = '<span class="note-option-name">'.$option['name'].'</span>';
                         $value = '<span class="note-option-value">'.$option['value'].'</span>';
-                        $notes .= '<p class="note-option-item">'.$name.$value.'</p>';
+
+                        // todo 1: 查看是否为提交的文档类型option
+                        if(isset($option['type'])){
+                            if($option['type'] == 'image'){
+                                // 图片类型的
+                                $notes .= '<p class="note-option-item"><a target="_blank" href="'.
+                                    $value.'"><img src="'.$value.'"></a><span>'.$name.'</span></p>';
+                            }else{
+                                // 文档类型的
+                                $notes .= '<p class="note-option-item"><a target="_blank" class="btn btn-primary" href="'
+                                    .$value.'">&nbsp;'.$name.'</a></p>';
+                            }
+                        }else{
+                            // 非文档类型的
+                            $notes .= '<p class="note-option-item">'.$name.$value.'</p>';
+                        }
                     }
                     $priceExtra += self::ParseProductOptionDataInCart($option);
                 }

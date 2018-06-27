@@ -36,9 +36,17 @@
                                     <div v-if="item.type==={{ \App\Models\Utils\ColourTool::$TYPE_HEX_CODE }}" class="color-box" :style="{background:item.value}">&nbsp;</div>
                                     <img v-if="item.type==={{ \App\Models\Utils\ColourTool::$TYPE_IMAGE }}" class="color-thumb" :src="item.imageUrl">
                                 </div>
-                                <p v-if="idx!=='colour'&&idx!=='thumbnail'&&(item !==null)">
-                                    <span class="label">@{{ item.name }}:</span> @{{ item.value }}
-                                </p>
+                                <div v-if="idx!=='colour'&&idx!=='thumbnail'&&(item !==null)">
+                                    <div v-if="typeof item === 'object' && item.type=='image'">
+                                        <img :src="item.value" style="width: 100px; margin: 5px;">@{{ item.name }}
+                                    </div>
+                                    <div v-if="typeof item === 'object' && item.type=='pdf'">
+                                        <a :href="item.value" target="_blank" style="margin: 5px;" class="button is-link">@{{ item.name }}</a>
+                                    </div>
+                                    <div v-if="typeof item === 'object' && !item.type">
+                                        <span class="label">@{{ item.name }}:</span> @{{ item.value }}
+                                    </div>
+                                </div>
                             </div>
                         </template>
                     </el-table-column>
