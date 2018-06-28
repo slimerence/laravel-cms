@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\FourSeasonsWear;
+namespace App\Http\Controllers\Frontend;
 
 use App\Models\Configuration;
 use Illuminate\Http\Request;
@@ -83,26 +83,25 @@ class Home extends Controller
             // 添加一个判断，如果主题文件夹中有和uri同名的文件，就优先加载
             $path2 = _get_frontend_theme_prefix().'.pages';
             $filePath = resource_path()
-                .'/views/'
+                .'/views/frontend/'
                 .str_replace('.','/',$path2)
                 .'/'.$uri.'.blade.php';
-
             if(file_exists($filePath)){
                 // 文件存在，那么按照uri的名称加载
                 return view(
-                    _get_frontend_theme_prefix().'.pages.'.$uri,
+                    _get_frontend_theme_path('.pages.'.$uri),
                     $this->dataForView
                 );
             }else{
                 // 否则加载static
                 return view(
-                    _get_frontend_theme_prefix().'.pages.static',
+                    _get_frontend_theme_path('pages.static'),
                     $this->dataForView
                 );
             }
         }else{
             return view(
-                _get_frontend_theme_prefix().'.pages.404',
+                _get_frontend_theme_path('pages.404'),
                 $this->dataForView
             );
         }
