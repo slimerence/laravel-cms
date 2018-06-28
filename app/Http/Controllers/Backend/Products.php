@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product;
 use App\Models\Group;
 use App\Models\Catalog\Category;
+use App\Models\Catalog\Tags;
 use App\Models\Catalog\Product\ProductAttributeSet;
 use App\Models\Catalog\RelatedProduct;
 use App\Models\Utils\JsonBuilder;
@@ -76,12 +77,14 @@ class Products extends Controller
         $this->dataForView['groups'] = Group::orderBy('name','asc')->get();
         $this->dataForView['brands'] = Brand::select('name as value','image_url')->orderBy('name','asc')->get();
         $this->dataForView['categories'] = Category::NameList();
+        $this->dataForView['tagslist'] = Tags::GpList();
         $this->dataForView['categoriesTree'] = Category::Tree()->toArray();
         $this->dataForView['attributesSet'] = ProductAttributeSet::orderBy('name','asc')->get();
 
         $this->dataForView['vuejs_libs_required'] = [
             'products_manager'
         ];
+
         return view('backend.products.form',$this->dataForView);
     }
 

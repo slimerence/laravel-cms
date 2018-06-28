@@ -64,10 +64,21 @@ class Pages extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function view($pageUri, Request $request){
+        $page = Page::where('uri',$pageUri)->orWhere('uri', '/'.$pageUri)->first();
 
-        $this->dataForView['pageTitle'] = $pageUri;
-        $this->dataForView['menuName'] =$pageUri;
-        return view(_get_frontend_theme_path('pages.'.$pageUri),$this->dataForView);
+        if(!$page){
+            // 404 Error
+            return view('frontend.'.config('system.frontend_theme').'.pages.404', $this->dataForView);
+        }
+
+        $this->dataForView['page'] = $page;
+
+        $this->dataForView['pageTitle'] = app()->getLocale()=='cn' ? $page->title_cn : $page->title;
+        $this->dataForView['metaKeywords'] = $page->seo_keyword;
+        $this->dataForView['metaDescription'] = $page->seo_description;
+
+        event(new StartLoading($page,$this->dataForView));
+        return view($this->_getPageViewTemplate($page), $this->dataForView);
     }
 
     /**

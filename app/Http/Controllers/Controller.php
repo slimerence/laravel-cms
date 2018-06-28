@@ -35,7 +35,8 @@ class Controller extends BaseController
         // 和电商相关的部分
         'categoriesTree'=>[],
         'categoriesNav'=>[],
-        'cart'=>null
+        'cart'=>null,
+        'tags'=>[],
     ];
 
     // 网站的配置信息对象
