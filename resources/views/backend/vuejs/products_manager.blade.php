@@ -26,6 +26,7 @@
             productImageUrl: '',
             categories: {{ $product->id ? json_encode($product->getCategoriesId()) : '[]' }},
             tags:{{ $product->id ? json_encode($product->getTagsId()) : '[]' }},
+            tagsNamelist: {{ isset($tagslist) ? json_encode($tagslist):'[]'}},
             productImages: [],
             // 产品的额外信息
             editExistProductOption: false,  // 表示是否处于产品option编辑的模式
