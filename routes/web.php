@@ -16,6 +16,9 @@ Route::get('/contact-us', 'Frontend\Pages@contact_us')->name('contact_us');
 Route::post('/contact-us', 'Frontend\Pages@contact_us_handler');
 Route::get('/terms', 'Frontend\Pages@terms')->name('terms');
 
+// Switch to another language
+Route::get('/switch-language/{lang}', 'Frontend\Pages@switch_language')->name('switch_language');
+
 Route::get('/results', 'Frontend\Pages@news');
 
 // 特定的URI

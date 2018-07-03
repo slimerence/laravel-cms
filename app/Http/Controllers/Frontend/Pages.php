@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Widget\Block;
 use App\Models\Catalog\Category;
+use Illuminate\Support\Facades\URL;
 
 class Pages extends Controller
 {
@@ -55,6 +56,17 @@ class Pages extends Controller
         event(new StartLoading($page,$this->dataForView));
 
         return view($this->_getPageViewTemplate($page),$this->dataForView);
+    }
+
+    /**
+     * Switch language
+     * @param null $lang
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function switch_language($lang=null, Request $request){
+        $request->session()->put('prefer-lang', $lang ? $lang : 'en');
+        return redirect(URL::previous());
     }
 
     /**
