@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 use DB;
 use App\Models\Catalog\Product;
 
-class Tags extends Model
+class Tag extends Model
 {
     use SoftDeletes;
 
@@ -20,13 +20,14 @@ class Tags extends Model
 
     public static function GpList(){
         $tagdata =self::select('id','name')->orderBy('name','asc')->get();
-        $tagsGp = [];
+
+/*        $tagsGp = [];
         if(count($tagdata)>0){
             foreach ($tagdata as $tag) {
                 $tagsGp[] = [ 'id'=>$tag->id, 'name'=>$tag->name];
             }
-        }
-        return $tagsGp;
+        }*/
+        return $tagdata;
     }
 
     public static function GetByUuid($uuid){
@@ -99,7 +100,7 @@ class Tags extends Model
      * @return mixed
      */
     public function removeAllProductsRelation(){
-        return TagsProduct::where('tag_id',$this->id)->delete();
+        return TagProduct::where('tag_id',$this->id)->delete();
     }
 
     /**
@@ -127,7 +128,7 @@ class Tags extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function productTags(){
-        $cps = TagsProduct::select('product_id')->where('tag_id',$this->id)->get();
+        $cps = TagProduct::select('product_id')->where('tag_id',$this->id)->get();
         $productsId = [];
         if(count($cps)>0){
             foreach ($cps as $cp) {
@@ -147,7 +148,7 @@ class Tags extends Model
      * @return null
      */
     public function productTagsSimple($max = 6){
-        $cps = TagsProduct::select('product_id')
+        $cps = TagProduct::select('product_id')
             ->where('tag_id',$this->id)
             ->orderBy('position','asc')
             ->take($max)
@@ -204,7 +205,7 @@ class Tags extends Model
      * @return mixed
      */
     public function productsCount(){
-        return TagsProduct::where('tag_id',$this->id)->count();
+        return TagProduct::where('tag_id',$this->id)->count();
     }
 
 }

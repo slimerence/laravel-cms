@@ -19,7 +19,7 @@ class CreateTagsProductsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->unsignedSmallInteger('position')->default(0);
             $table->string('product_name',100);
-            $table->string('product_name_cn',100);
+            $table->string('product_name_cn',100)->nullable();
             $table->timestamps();
         });
 
