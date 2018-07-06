@@ -52,3 +52,12 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - Update config/seotools.php for your own purpose
 - 更新config/seotools.php文件做好你自己的SEO; 在自己开发的Theme中使用SEO工作做好SEO工作
 - 参考 https://github.com/artesaos/seotools
+
+# For Payment
+- Use Stripe as the default credit card payment gateway. Put the stripe api token in .env file, please refer to .env.example
+- 使用Stripe作为默认的信用卡支付网关. Stripe要求的token放到.env 文件中. 参照 .env.example文件
+- There are some switches in .env file, the system will render the payment options automatically, refer .env.example
+- 打开哪些支付方式， 取决于 .env 文件中的配置开关, 参照 .env.example
+- For Stripe frontend, use a new Vue component: <stripe-payment>. For props, please refer component source file.
+- Stripe的前端, 使用Vue组件<stripe-payment> 即可。 使用方式参照组件的源代码即可
+- 更多的Stripe的错误处理会逐步提交

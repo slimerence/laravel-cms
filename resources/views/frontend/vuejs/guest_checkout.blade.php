@@ -49,7 +49,6 @@
                             {shippingForm:that.shippingForm}
                         ).then(function(res){
                             that.submitFormInProgress = false;
-                            console.log(res.data);
                             if(res.data.error_no == {{ \App\Models\Utils\JsonBuilder::CODE_SUCCESS }}){
                                 that.customer = res.data.data.uuid;
                                 window._notify(that,'success','Done','All Good, please submit your order now!');

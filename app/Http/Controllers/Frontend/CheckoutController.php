@@ -5,6 +5,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Events\Order\Created as OrderCreated;
+use App\Jobs\Payment\StripePayment;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
@@ -29,8 +30,8 @@ class CheckoutController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function place_order_checkout(Request $request){
-        dd($request->all());
-        
+//        dd($request->all());
+
         // 检查用户是否登录了, 如果没有登录,那么去登录页
         if(!session()->has('user_data.id')){
 //            return redirect('/frontend/customers/login');
@@ -86,6 +87,17 @@ class CheckoutController extends Controller
                             // 微信支付
                             $royalPayTool = new RoyalPayTool();
                             return redirect($royalPayTool->purchase($order)->getQrRedirectUrl());
+                        }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_STRIPE){
+                            // Stripe 信用卡支付
+                            $job = new StripePayment($order, $request, $customer);
+                            if($job->handle()){
+                                // 一切顺利
+                                $cart->destroy();
+                                session()->flash('msg', ['content'=>'Order #'.$order->serial_number.' is in progress!','status'=>'success']);
+                                return redirect('/frontend/my_orders/'.session('user_data.uuid'));
+                            }else{
+                                session()->flash('msg', ['content'=>'System is Busy, Please try again!','status'=>'danger']);
+                            }
                         }else{
                             // 不是 place order 订单, 那么进行支付处理
                             event(new OrderPlaced($cart,$customer,$request,$order));

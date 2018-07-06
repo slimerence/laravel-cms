@@ -132,7 +132,11 @@
             <div class="column border-box">
                 <form method="post" action="{{ url('/frontend/place_order_checkout') }}" id="payment-form">
                     {{ csrf_field() }}
-                    <input type="hidden" name="payment_method" value="pm-place-order" id="payment-method-input">
+                    <?php
+                    $availableTypes = \App\Models\Utils\PaymentTool::GetAvailablePaymentTypes();
+                    $firstAvailablePaymentType = isset($availableTypes[0]) ? $availableTypes[0] : null;
+                    ?>
+                    <input type="hidden" name="payment_method" value="{{ $firstAvailablePaymentType ? $firstAvailablePaymentType['tag_id'] : 'pm-stripe' }}" id="payment-method-input">
                     @include(_get_frontend_theme_path('checkout.elements.payments'))
                     <input type="hidden" name="customerUuid" v-model="customer">
                     <div class="order-notes-wrap">
