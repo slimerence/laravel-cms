@@ -8,7 +8,7 @@
 return [
     'frontend_theme'=>'default',
     'MAX_UPLOAD_FILE_SIZE'=>1000000,
-    'PAGE_SIZE'=>20,
+    'PAGE_SIZE'=>18,
     'CURRENCY'=>'$',
     'layout'=>[
         'container'=>[

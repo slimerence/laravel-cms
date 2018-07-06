@@ -25,8 +25,8 @@
             productDialogVisible: false,
             productImageUrl: '',
             categories: {{ $product->id ? json_encode($product->getCategoriesId()) : '[]' }},
-            tags:{{ $product->id ? json_encode($product->getTagsId()) : '[]' }},
-            //tagsNamelist: {{ $tagslist ? json_encode($tagslist):'[]'}},
+            tags:{!!  $product->id ? json_encode($product->getTags()) : '[]' !!},
+            tagsNamelist: {!! $tagslist->toJson()!!},
             productImages: [],
             // 产品的额外信息
             editExistProductOption: false,  // 表示是否处于产品option编辑的模式
@@ -636,6 +636,7 @@
                             product:this.product,
                             images: this.productImages,
                             categories: this.categories,
+                            tags:this.tags,
                             productOptions: this.productOptions,
                             productColours: this.productColours,
                             productAttributeData: paData // 和产品属性相关的值
