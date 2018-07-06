@@ -99,13 +99,15 @@
             multiple
             filterable
             allow-create
+            :remove-tag="tagDelete"
             default-first-option
+            value-key="id"
             placeholder="请选择产品标签">
         <el-option
-                v-for="item in tagsNamelist"
-                :key="item.id"
+                v-for="(item, idx) in tagsNamelist"
+                :key="idx"
                 :label="item.name"
-                :value="item.id">
+                :value="item">
         </el-option>
     </el-select>
 </div>

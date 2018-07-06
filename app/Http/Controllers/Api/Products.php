@@ -11,6 +11,7 @@ use App\Models\Catalog\Product\OptionItem;
 use App\Models\Utils\JsonBuilder;
 use App\Models\Catalog\Product\Colour;
 use PHPUnit\Util\Json;
+use App\Models\Catalog\Tag;
 
 class Products extends Controller
 {
@@ -77,6 +78,17 @@ class Products extends Controller
         $productOptions = $request->get('productOptions');
         $productColours = $request->get('productColours');
         $productAttributeData = $request->get('productAttributeData');
+        $productTag=[];
+        $tags = $request->get('tags');
+        foreach ( $tags as $tag){
+            if(is_string($tag)){
+                $productTag[] = Tag::Persistent(['name'=>$tag]);
+            }
+            else{
+                $productTag[]= $tag['id'];
+            }
+
+        }
 
         if(!empty($productData['id'])){
             /**
@@ -84,7 +96,7 @@ class Products extends Controller
              * 由于产品更新界面前台的处理, 在更新产品的时候,对产品的图片, 产品的Option和 Option的Items
              * 采用的处理方式为: 检查,如果有id就更新,如果没有id就添加。 凡是在前端删除的, 已经在服务器删除了, 并且不会被传到这里
              */
-            $product = Product::Persistent($productData,$imagesData, $categoriesData, $productOptions,$productAttributeData,$productColours);
+            $product = Product::Persistent($productData,$imagesData,$productTag, $categoriesData, $productOptions,$productAttributeData,$productColours);
             if($product){
                 return JsonBuilder::Success($productData['id']);
             }else{
@@ -92,13 +104,14 @@ class Products extends Controller
             }
         }else{
             // 添加新产品
-            $product = Product::Persistent($productData,$imagesData, $categoriesData, $productOptions,$productAttributeData,$productColours);
+            $product = Product::Persistent($productData,$imagesData,$productTag, $categoriesData, $productOptions,$productAttributeData,$productColours);
             if($product){
                 return JsonBuilder::Success($product->id);
             }else{
                 return JsonBuilder::Error();
             }
         }
+
     }
 
     /**

@@ -7,7 +7,7 @@ use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Product\ProductAttribute;
 use App\Models\Catalog\Product\ProductAttributeSet;
 use App\Models\Catalog\Product\ProductOption;
-use App\Models\Catalog\TagsProduct;
+use App\Models\Catalog\TagProduct;
 use App\Models\Group;
 use App\Models\Utils\MediaTool;
 use App\Models\Utils\ProductType;
@@ -312,7 +312,7 @@ class Product extends Model
      * @param $productColours   // 产品的颜色数据集合
      * @return bool
      */
-    public static function Persistent($productData, $images, $categories, $productOptionsData, $productAttributeData, $productColours=[]){
+    public static function Persistent($productData, $images, $tags,$categories, $productOptionsData, $productAttributeData, $productColours=[]){
         $result = false;
         $productData = ContentTool::RemoveNewLine($productData);
 
@@ -364,6 +364,22 @@ class Product extends Model
                         );
                     }
                 }
+                if($tags && is_array($tags)){
+                    // 先把原有的删除
+                    TagProduct::where('product_id',$product->id)->delete();
+                    // 把提交的从新添加进去
+                    foreach ($tags as $tagId) {
+                        TagProduct::create(
+                            [
+                                'product_id'=>$product->id,
+                                'tag_id'=>$tagId,
+                                'tag_id'=>$tagId,
+                                'product_name'=>$product->name,
+                            ]
+                        );
+                    }
+                }
+
                 // 处理产品的附加选项
                 if($productOptionsData && is_array($productOptionsData)){
                     // 处理附加选项: 如果有id,就更新;
@@ -558,7 +574,7 @@ class Product extends Model
      * @return array
      */
     public function getTagsId(){
-        $tags = TagsProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tags = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
         $tagsId = [];
         if(count($tags)>0){
             foreach ($tags as $tag) {
@@ -566,6 +582,18 @@ class Product extends Model
             }
         }
         return $tagsId;
+    }
+
+    public function getTags(){
+        $tagsProducts = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tags=[];
+
+        if(count($tagsProducts)>0){
+            foreach ($tagsProducts as $tagsProduct) {
+                $tags[] = ['name'=>$tagsProduct->tag->name,'id'=>$tagsProduct->tag->id];
+            }
+        }
+        return $tags;
     }
 
     /**
