@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\UserGroup;
+use Stripe\Stripe;
+use Stripe\Customer;
 
 class User extends Authenticatable
 {
@@ -58,5 +60,34 @@ class User extends Authenticatable
     public function addressText(){
         return $this->address.', '.$this->city.' '.$this->postcode.
         ', '.$this->state. ', '.$this->country;
+    }
+
+    /**
+     * 获取客户关联的 stripe customer 信息
+     * @return null|\Stripe\StripeObject
+     */
+    public function getStripeCustomer(){
+        if(is_null($this->stripe_id)){
+            return null;
+        }else{
+            return Customer::retrieve($this->stripe_id);
+        }
+    }
+
+    /**
+     * 创建一个和当前 user 相关联的 stripe customer 对象
+     * @param $source
+     * @return \Stripe\ApiResource
+     */
+    public function createStripeCustomer($source){
+        $customer = Customer::create([
+            'source'=>$source,
+            'description'=>$this->name,
+            'email'=>$this->email
+        ]);
+        if($customer){
+            $this->stripe_id = $customer->id;
+        }
+        return $customer;
     }
 }

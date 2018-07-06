@@ -19,7 +19,8 @@
         "paquettg/php-html-parser": "^1.7",
         "predis/predis": "^1.1",
         "ramsey/uuid": "^3.7",
-        "spatie/schema-org": "^1.4"
+        "spatie/schema-org": "^1.4",
+        "stripe/stripe-php": "^6.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

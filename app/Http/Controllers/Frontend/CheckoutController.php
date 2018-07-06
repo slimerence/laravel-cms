@@ -29,6 +29,8 @@ class CheckoutController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function place_order_checkout(Request $request){
+        dd($request->all());
+        
         // 检查用户是否登录了, 如果没有登录,那么去登录页
         if(!session()->has('user_data.id')){
 //            return redirect('/frontend/customers/login');

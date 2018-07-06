@@ -126,4 +126,42 @@ class PaymentTool
         $types = self::AllTypes();
         return isset($types[$type]) ? $types[$type] : 'N.A';
     }
+
+    /**
+     * 根据 env 中的配置, 输出需要支持的支付方式.
+     * 返回的数组中, 每个元素规定了 使用的 html tag 的 ID, 和需要加载的模板文件名
+     * @return array
+     */
+    public static function GetAvailablePaymentTypes(){
+        $availableTypes = [];
+        if(env('payment_stripe', false)){
+            // 表示支持 Stripe
+            $availableTypes[] = [
+                'tag_id'=>self::$METHOD_ID_STRIPE,
+                'template'=>'stripe'
+            ];
+        }
+        if(env('payment_paypal', false)){
+            // 表示支持 Paypal
+            $availableTypes[] = [
+                'tag_id'=>self::$METHOD_ID_PAYPAL_EXPRESS,
+                'template'=>'paypal_express_off_site'
+            ];
+        }
+        if(env('payment_wechat', false)){
+            // 表示支持 微信支付
+            $availableTypes[] = [
+                'tag_id'=>self::$METHOD_ID_WECHAT,
+                'template'=>'wechat_off_site'
+            ];
+        }
+        if(env('payment_place_order', false)){
+            // 表示支持Place order
+            $availableTypes[] = [
+                'tag_id'=>self::$METHOD_ID_PLACE_ORDER,
+                'template'=>'place_order'
+            ];
+        }
+        return $availableTypes;
+    }
 }

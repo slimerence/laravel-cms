@@ -150,7 +150,7 @@
                         </label>
                     </div>
 
-                    <el-button type="primary" native-type="submit"
+                    <el-button type="primary" native-type="submit" id="order-form-submit-button"
                         :disabled="customer.length==0"
                     >Submit Order Now</el-button>
                 </form>
