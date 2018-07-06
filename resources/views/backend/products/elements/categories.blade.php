@@ -99,7 +99,6 @@
             multiple
             filterable
             allow-create
-            :remove-tag="tagDelete"
             default-first-option
             value-key="id"
             placeholder="请选择产品标签">
