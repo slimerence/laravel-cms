@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Events\Order\Created as OrderCreated;
 use App\Jobs\Payment\StripePayment;
+use App\Models\Settings\PaymentMethod;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
@@ -109,14 +110,18 @@ class CheckoutController extends Controller
             }
         }
 
+        // 获取当前用户
         $this->dataForView['user'] = $customer;
 
+        // 获取运费
         $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
             $customer,$cart->total(),$this->getTotalWeightInCart()
         );
 
+        // 获取系统支持的支付方式
+        $this->dataForView['paymentMethods'] = PaymentMethod::GetAllAvailable();
+
         $this->dataForView['vuejs_libs_required'] = [
-//            'paypal_button',
             'payment_accordion',
             'guest_checkout'
         ];

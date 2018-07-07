@@ -7,6 +7,7 @@
  */
 
 namespace App\Models\Utils;
+use App\Models\Settings\PaymentMethod;
 
 /**
  * 支付相关的工具类
@@ -117,7 +118,10 @@ class PaymentTool
             self::$TYPE_ALIPAY => '支付宝',
             self::$TYPE_MONEY_ORDER => 'Money Order',
             self::$TYPE_CHEQUE => 'Cheque',
-            self::$TYPE_APPLE_PAY => 'Apple Pay'
+            self::$TYPE_APPLE_PAY => 'Apple Pay',
+            self::$TYPE_STRIPE => 'Stripe',
+            self::$TYPE_PAYPAL => 'PayPal Express',
+            self::$TYPE_PAYPAL_PRO => 'PayPal PRO',
         ];
     }
 
@@ -132,40 +136,98 @@ class PaymentTool
     }
 
     /**
+     * 根据Method id的值, 获取对应的Tag id的值
+     * @param $methodId
+     * @return mixed
+     */
+    public static function GetMethodIdStringByMethodId($methodId){
+        $types = [
+            self::$TYPE_PLACE_ORDER => self::$METHOD_ID_PLACE_ORDER,
+            self::$TYPE_CASH => self::$METHOD_ID_CASH,
+            self::$TYPE_CREDIT_CARD => self::$METHOD_ID_CREDIT_CARD,
+            self::$TYPE_WECHAT => self::$METHOD_ID_WECHAT,
+            self::$TYPE_ALIPAY => self::$METHOD_ID_ALIPAY,
+            self::$TYPE_MONEY_ORDER => self::$METHOD_ID_MONEY_ORDER,
+            self::$TYPE_CHEQUE => self::$METHOD_ID_CHEQUE,
+            self::$TYPE_APPLE_PAY => self::$METHOD_ID_APPLE_PAY,
+            self::$TYPE_STRIPE => self::$METHOD_ID_STRIPE,
+            self::$TYPE_PAYPAL => self::$METHOD_ID_PAYPAL_EXPRESS,
+            self::$TYPE_PAYPAL_PRO => self::$METHOD_ID_PAYPAL_PRO,
+        ];
+        return $types[$methodId];
+    }
+
+    /**
+     * 根据Method id的值, 获取对应的模板文件名
+     * @param $methodId
+     * @return mixed
+     */
+    public static function GetTemplateNameByMethodId($methodId){
+        $types = [
+            self::$TYPE_PLACE_ORDER => 'place_order',
+            self::$TYPE_CASH => 'CASH',
+            self::$TYPE_CREDIT_CARD => 'bank_credit_card',
+            self::$TYPE_WECHAT => 'wechat_off_site',
+            self::$TYPE_ALIPAY => 'ali_off_site',
+            self::$TYPE_MONEY_ORDER => 'money_order',
+            self::$TYPE_CHEQUE => 'cheque',
+            self::$TYPE_APPLE_PAY => 'apple_pay',
+            self::$TYPE_STRIPE => 'stripe',
+            self::$TYPE_PAYPAL => 'paypal_express_off_site',
+            self::$TYPE_PAYPAL_PRO => 'paypal_pro',
+        ];
+        return $types[$methodId];
+    }
+
+    /**
      * 根据 env 中的配置, 输出需要支持的支付方式.
      * 返回的数组中, 每个元素规定了 使用的 html tag 的 ID, 和需要加载的模板文件名
      * @return array
      */
     public static function GetAvailablePaymentTypes(){
         $availableTypes = [];
-        if(env('payment_stripe', false)){
-            // 表示支持 Stripe
-            $availableTypes[] = [
-                'tag_id'=>self::$METHOD_ID_STRIPE,
-                'template'=>'stripe'
-            ];
-        }
-        if(env('payment_paypal', false)){
-            // 表示支持 Paypal
-            $availableTypes[] = [
-                'tag_id'=>self::$METHOD_ID_PAYPAL_EXPRESS,
-                'template'=>'paypal_express_off_site'
-            ];
-        }
-        if(env('payment_wechat', false)){
-            // 表示支持 微信支付
-            $availableTypes[] = [
-                'tag_id'=>self::$METHOD_ID_WECHAT,
-                'template'=>'wechat_off_site'
-            ];
-        }
-        if(env('payment_place_order', false)){
-            // 表示支持Place order
-            $availableTypes[] = [
-                'tag_id'=>self::$METHOD_ID_PLACE_ORDER,
-                'template'=>'place_order'
-            ];
-        }
-        return $availableTypes;
+
+        $methods = PaymentMethod::where('mode',PaymentMethod::MODE_LIVE)->get();
+
+//        foreach ($methods as $method) {
+//            $availableTypes[] = [
+//                'tag_id'=>self::_getMethodIdStringByMethodId($method->method_id),
+//                'template'=>self::_getTemplateNameByMethodId($method->method_id)
+//            ];
+//        }
+
+//        if(env('payment_stripe', false)){
+//            // 表示支持 Stripe
+//            $availableTypes[] = [
+//                'tag_id'=>self::$METHOD_ID_STRIPE,
+//                'template'=>'stripe'
+//            ];
+//        }
+//        if(env('payment_paypal', false)){
+//            // 表示支持 Paypal
+//            $availableTypes[] = [
+//                'tag_id'=>self::$METHOD_ID_PAYPAL_EXPRESS,
+//                'template'=>'paypal_express_off_site'
+//            ];
+//        }
+//        if(env('payment_wechat', false)){
+//            // 表示支持 微信支付
+//            $availableTypes[] = [
+//                'tag_id'=>self::$METHOD_ID_WECHAT,
+//                'template'=>'wechat_off_site'
+//            ];
+//        }
+//        if(env('payment_place_order', false)){
+//            // 表示支持Place order
+//            $availableTypes[] = [
+//                'tag_id'=>self::$METHOD_ID_PLACE_ORDER,
+//                'template'=>'place_order'
+//            ];
+//        }
+
+        return [
+            'availableTypes'=>$availableTypes,
+            'methods'=>$methods
+        ];
     }
 }

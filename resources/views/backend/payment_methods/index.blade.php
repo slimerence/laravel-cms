@@ -25,7 +25,7 @@
                     <div class="column">
                         <div class="field is-pulled-right">
                             <div class="control">
-                                <button class="button">Submit</button>
+                                <button class="button is-link">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -67,6 +67,26 @@
                             <label class="label">API Secret</label>
                             <div class="control">
                                 <input class="input" type="text" placeholder="API Secret" name="pm[api_secret]" value="{{ $payment_method->api_secret }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">API Token (Test Mode)</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="API Token" name="pm[api_token_test]" value="{{ $payment_method->api_token_test }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">API Secret (Test Mode)</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="API Secret" name="pm[api_secret_test]" value="{{ $payment_method->api_secret_test }}">
                             </div>
                         </div>
                     </div>

@@ -134,9 +134,11 @@
                     {{ csrf_field() }}
                     <?php
                     $availableTypes = \App\Models\Utils\PaymentTool::GetAvailablePaymentTypes();
-                    $firstAvailablePaymentType = isset($availableTypes[0]) ? $availableTypes[0] : null;
+                    $firstAvailablePaymentMethod = $paymentMethods[0];
                     ?>
-                    <input type="hidden" name="payment_method" value="{{ $firstAvailablePaymentType ? $firstAvailablePaymentType['tag_id'] : 'pm-stripe' }}" id="payment-method-input">
+                    <input type="hidden" name="payment_method"
+                           value="{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($firstAvailablePaymentMethod->method_id) }}"
+                           id="payment-method-input">
                     @include(_get_frontend_theme_path('checkout.elements.payments'))
                     <input type="hidden" name="customerUuid" v-model="customer">
                     <div class="order-notes-wrap">

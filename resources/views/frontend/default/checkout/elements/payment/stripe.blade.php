@@ -13,7 +13,7 @@
 <div class="collapse" data-parent="#payment-method-list">
 <stripe-payment
     order-form-id="payment-form"
-    stripe-publishable-key="{{ env('STRIPE_PUBLISHABLE_KEY','') }}"
+    stripe-publishable-key="{{ $paymentMethod->mode==\App\Models\Settings\PaymentMethod::MODE_LIVE ? $paymentMethod->api_token : $paymentMethod->api_token_test }}"
     result-token-input-id="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_ID }}"
 ></stripe-payment>
 <input type="hidden" name="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_NAME }}" id="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_ID }}">

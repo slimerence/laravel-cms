@@ -27,8 +27,12 @@ class PaymentMethods extends Controller
         return view('backend.payment_methods.index', $this->dataForView);
     }
 
+    /**
+     * 保存 Payment Method
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function save(Request $request){
-//        dd($request->all());
         PaymentMethod::Persistent($request->get('pm'));
         return redirect()->route('payment-methods');
     }

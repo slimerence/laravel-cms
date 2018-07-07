@@ -4,6 +4,7 @@ namespace App\Jobs\Payment;
 
 use App\Models\Configuration;
 use App\Models\Order\Order;
+use App\Models\Settings\PaymentMethod;
 use App\Models\Utils\OrderStatus;
 use App\Models\Utils\PaymentTool;
 use App\User;
@@ -43,7 +44,7 @@ class StripePayment implements ShouldQueue
         $this->order = $order;
         $this->request = $request;
         $this->user = $user;
-        $this->apiKey = env('STRIPE_SECRET',false);
+        $this->apiKey = PaymentMethod::GetStripeSecret();
     }
 
     /**

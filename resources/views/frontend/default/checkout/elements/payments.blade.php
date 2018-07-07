@@ -7,12 +7,10 @@
     </div>
 </div>
 <div id="payment-method-list" role="tablist">
-    <?php
-    $availableTypes = \App\Models\Utils\PaymentTool::GetAvailablePaymentTypes();
-    ?>
-    @foreach($availableTypes as $key=>$availableType)
-    <div class="card payment-method-item {{ $key==0 ? 'bg-primary':null }}" id="{{ $availableType['tag_id'] }}">
-        @include(_get_frontend_theme_path('checkout.elements.payment.'.$availableType['template']))
-    </div>
+    @foreach($paymentMethods as $key=>$paymentMethod)
+        <div class="card payment-method-item {{ $key==0 ? 'bg-primary':null }}"
+             id="{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($paymentMethod->method_id) }}">
+            @include(_get_frontend_theme_path('checkout.elements.payment.'.\App\Models\Utils\PaymentTool::GetTemplateNameByMethodId($paymentMethod->method_id)))
+        </div>
     @endforeach
 </div>

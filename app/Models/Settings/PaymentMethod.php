@@ -2,6 +2,7 @@
 
 namespace App\Models\Settings;
 
+use App\Models\Utils\PaymentTool;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentMethod extends Model
@@ -39,4 +40,25 @@ class PaymentMethod extends Model
             self::where('id',$id)->update($data);
         }
     }
+
+    /**
+     * 获取所有的有效支付方式
+     * @return mixed
+     */
+    public static function GetAllAvailable(){
+        return self::where('mode',PaymentMethod::MODE_LIVE)->get();
+    }
+
+    /**
+     * 获取Stripe的 secret
+     * @return mixed
+     */
+    public static function GetStripeSecret(){
+        $method = self::where('method_id', PaymentTool::$TYPE_STRIPE)
+            ->first();
+        return $method->mode == self::MODE_LIVE ?
+                $method->api_secret:
+                $method->api_secret_test;
+    }
+
 }
