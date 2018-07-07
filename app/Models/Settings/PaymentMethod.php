@@ -46,7 +46,9 @@ class PaymentMethod extends Model
      * @return mixed
      */
     public static function GetAllAvailable(){
-        return self::where('mode',PaymentMethod::MODE_LIVE)->get();
+        return self::where('mode',PaymentMethod::MODE_LIVE)
+            ->orWhere('mode',PaymentMethod::MODE_TEST)
+            ->get();
     }
 
     /**
