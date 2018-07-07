@@ -50,6 +50,10 @@
             // 表示当前选定的支付方法, 只有在 pm-stripe 的时候才监听提交按钮的点击操作
             currentPaymentMethod:{
                 type: String, required: true
+            },
+            // 是否需要本组件在验证完表单之后广播事件, 而不是直接的提交
+            needEmit: {
+                type: Boolean, require: false, default: false
             }
         },
         data() {
@@ -98,21 +102,33 @@
                         that.cardErrors = error ? error.message : null;
                     });
                     // 监听提交表单
-                    this.submitButton.addEventListener('click',function(event){
-                        // 提交只在当前的支付方式为stripe的时候才进行
-                        if(that.currentPaymentMethod === TARGET_PAYMENT_METHOD){
-                          event.preventDefault();
-                          that.stripe.createToken(that.card).then(function(result){
-                            if (result.error) {
-                              // Inform the user if there was an error.
-                              that.cardErrors = result.error.message;
-                            } else {
-                              // Send the token to your server.
-                              that.resultToken.value = result.token.id;
-                              that.form.submit();
-                            }
-                          });
+                    this.submitButton.addEventListener('click',this._handleSubmitClick);
+                }
+            },
+            _emitEvent: function(stripeResult){
+                // 发布事件, 先取消对按钮的监听
+                this.submitButton.removeEventListener('click', this._handleSubmitClick);
+                this.$emit('stripe-token-success',stripeResult);
+            },
+            _handleSubmitClick: function(event){
+                // 提交只在当前的支付方式为stripe的时候才进行
+                if(this.currentPaymentMethod === TARGET_PAYMENT_METHOD){
+                    event.preventDefault();
+                    let that = this;
+                    this.stripe.createToken(this.card).then(function(result){
+                      if (result.error) {
+                        // Inform the user if there was an error.
+                        that.cardErrors = result.error.message;
+                      } else {
+                        that.resultToken.value = result.token.id;
+                        if(that.needEmit){
+                          // 发布事件, 不要提交表单
+                          that._emitEvent(result);
+                        }else{
+                          // Send the token to your server.
+                          that.form.submit();
                         }
+                      }
                     });
                 }
             }

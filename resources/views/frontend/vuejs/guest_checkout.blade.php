@@ -39,7 +39,7 @@ $firstAvailablePaymentMethod = $paymentMethods[0];
             }
         },
         created(){
-            console.log(222);
+            //
         },
         methods:{
             submitForm: function(formName){
@@ -75,6 +75,10 @@ $firstAvailablePaymentMethod = $paymentMethods[0];
             },
             switchCurrentPaymentMethod:function(paymentMethodIdString){
                 this.selectedPaymentMethod = paymentMethodIdString;
+            },
+            stripeTokenSuccessHandler: function(param){
+                console.log(param);
+                document.getElementById('payment-form').submit();
             }
         }
     });

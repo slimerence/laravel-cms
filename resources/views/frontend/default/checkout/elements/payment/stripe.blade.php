@@ -14,6 +14,8 @@
     stripe-publishable-key="{{ $paymentMethod->getApiToken() }}"
     result-token-input-id="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_ID }}"
     :current-payment-method="selectedPaymentMethod"
+    :need-emit="true"
+    v-on:stripe-token-success="stripeTokenSuccessHandler"
 ></stripe-payment>
 <input type="hidden" name="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_NAME }}" id="{{ \App\Models\Utils\PaymentTool::STRIPE_TOKEN_INPUT_ID }}">
 </div>
