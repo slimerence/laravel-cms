@@ -133,7 +133,6 @@
                 <form method="post" action="{{ url('/frontend/place_order_checkout') }}" id="payment-form">
                     {{ csrf_field() }}
                     <?php
-                    $availableTypes = \App\Models\Utils\PaymentTool::GetAvailablePaymentTypes();
                     $firstAvailablePaymentMethod = $paymentMethods[0];
                     ?>
                     <input type="hidden" name="payment_method"
