@@ -18,8 +18,8 @@
                 @csrf
                 <div class="columns">
                     <div class="column">
-                        <h3 class="{{ $payment_method->mode==\App\Models\Settings\PaymentMethod::MODE_LIVE ? 'has-text-success':'has-text-grey' }}">
-                            {!! $payment_method->mode==\App\Models\Settings\PaymentMethod::MODE_LIVE ? '<i class="fas fa-check"></i>':null !!} &nbsp;- {{ $payment_method->name }}
+                        <h3 class="{{ $payment_method->isLiveMode() ? 'has-text-success':'has-text-grey' }}">
+                            {!! $payment_method->isLiveMode() ? '<i class="fas fa-check"></i>':null !!} &nbsp;- {{ $payment_method->name }}
                         </h3>
                     </div>
                     <div class="column">
@@ -39,11 +39,11 @@
                                     <select name="pm[mode]">
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_OFF }}"
-                                                {{ $payment_method->mode==\App\Models\Settings\PaymentMethod::MODE_OFF ? 'selected' : null }}
+                                                {{ $payment_method->isLiveMode() ? 'selected' : null }}
                                         >Off</option>
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_TEST }}"
-                                                {{ $payment_method->mode==\App\Models\Settings\PaymentMethod::MODE_TEST ? 'selected' : null }}
+                                                {{ $payment_method->isTestMode() ? 'selected' : null }}
                                         >Test mode</option>
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_LIVE }}"

@@ -22,39 +22,49 @@
                         <a href="{{ url('frontend/my_profile/'.session('user_data.uuid')) }}" class="button is-info is-pulled-right"><i class="fa fa-edit" aria-hidden="true"></i>&nbsp;Update</a>
                         @else
                         <p>WHAT'S YOUR SHIPPING ADDRESS?</p>
-                            <el-form :model="shippingForm" :rules="rules" ref="shippingForm" label-width="70px" class="demo-shippingForm">
+                        <el-form :model="shippingForm" :rules="rules" ref="shippingForm" label-width="70px" class="demo-shippingForm">
                                 <div class="columns">
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Name" prop="name">
-                                            <el-input v-model="shippingForm.name" placeholder="Your Name"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','name',true,null,'Your Name');
+                                        ?>
                                     </div>
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Phone" prop="phone">
-                                            <el-input v-model="shippingForm.phone" placeholder="Phone number"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','phone',true,null,'Phone number');
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="columns">
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Email" prop="email">
-                                            <el-input v-model="shippingForm.email" placeholder="Your Email"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','email',true,null,'Your Email');
+                                        ?>
                                     </div>
                                 </div>
 
                                 <div class="columns">
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Address" prop="address">
-                                            <el-input v-model="shippingForm.address" placeholder="Address line"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','address',true,null,'Address line');
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="columns">
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Suburb" prop="city">
-                                            <el-input v-model="shippingForm.city" placeholder="Suburb"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','city',true,null,'Suburb','Suburb');
+                                        ?>
                                     </div>
                                     <div class="column is-paddingless">
                                         <el-form-item label="State" prop="state">
@@ -70,9 +80,11 @@
                                         </el-form-item>
                                     </div>
                                     <div class="column is-paddingless">
-                                        <el-form-item label="Postcode" prop="postcode">
-                                            <el-input v-model="shippingForm.postcode" placeholder="Postcode"></el-input>
-                                        </el-form-item>
+                                        <?php
+                                        \App\Models\Utils\Html\FormHelper::getInstance()
+                                            ->setTheme(\App\Models\Utils\Html\FormHelper::THEME_VUEJS_ELEMENT_UI)
+                                            ->getInputHelper()->simpleTextField('shippingForm','postcode',true,null,'Postcode');
+                                        ?>
                                     </div>
                                 </div>
 
@@ -88,12 +100,11 @@
                                     </div>
                                     <div class="column is-paddingless">
                                         <el-form-item>
-                                            <el-button type="success" @click="login()" :disabled="customer.length>0">CUSTOMER LOGIN</el-button>
+                                            <el-button type="success" @click="login($event)" :disabled="customer.length>0">CUSTOMER LOGIN</el-button>
                                         </el-form-item>
                                     </div>
                                 </div>
                             </el-form>
-
                         <p class="is-small has-text-grey mt-20 has-text-centered">By proceeding, you agree to our Terms and Conditions and Privacy Policy</p>
                         @endif
                         <div class="is-clearfix"></div>
@@ -132,12 +143,7 @@
             <div class="column border-box">
                 <form method="post" action="{{ url('/frontend/place_order_checkout') }}" id="payment-form">
                     {{ csrf_field() }}
-                    <?php
-                    $firstAvailablePaymentMethod = $paymentMethods[0];
-                    ?>
-                    <input type="hidden" name="payment_method"
-                           value="{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($firstAvailablePaymentMethod->method_id) }}"
-                           id="payment-method-input">
+                    <input type="hidden" name="payment_method" v-model="selectedPaymentMethod" id="payment-method-input">
                     @include(_get_frontend_theme_path('checkout.elements.payments'))
                     <input type="hidden" name="customerUuid" v-model="customer">
                     <div class="order-notes-wrap">

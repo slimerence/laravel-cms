@@ -210,5 +210,15 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('payment-methods', 'Backend\PaymentMethods@index')->name('payment-methods');
 });
 
+// 和PayPal支付相关的路由定义
+Route::prefix('payment')->group(function(){
+    Route::get('paypal/cancelled','Frontend\Payments\PayPalController@cancelled')
+        ->name('paypal.checkout.cancelled');
+    Route::get('paypal/completed','Frontend\Payments\PayPalController@completed')
+        ->name('paypal.checkout.completed');
+    Route::get('paypal/webhook','Frontend\Payments\PayPalController@paypal_webhook')
+        ->name('webhook.paypal.ipn');
+});
+
 Route::get('/home', 'Backend\Home@index');
 Route::get('/{uri}','Frontend\Home@view_content');

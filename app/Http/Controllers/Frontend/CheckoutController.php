@@ -5,8 +5,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Events\Order\Created as OrderCreated;
+use App\Jobs\Payment\Paypal;
 use App\Jobs\Payment\StripePayment;
 use App\Models\Settings\PaymentMethod;
+use App\Models\Utils\Payment\PayPalTool;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
@@ -99,6 +101,13 @@ class CheckoutController extends Controller
                             }else{
                                 session()->flash('msg', ['content'=>'System is Busy, Please try again!','status'=>'danger']);
                             }
+                        }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_PAYPAL_EXPRESS){
+                            // 获取PayPal的数据
+                            $paymentMethod = PaymentMethod::GetByMethodId(
+                                PaymentTool::GetMethodTypeById($request->get('payment_method'))
+                            );
+                            $job = new Paypal($order, $paymentMethod);
+                            $job->handle();
                         }else{
                             // 不是 place order 订单, 那么进行支付处理
                             event(new OrderPlaced($cart,$customer,$request,$order));
@@ -122,7 +131,7 @@ class CheckoutController extends Controller
         $this->dataForView['paymentMethods'] = PaymentMethod::GetAllAvailable();
 
         $this->dataForView['vuejs_libs_required'] = [
-            'payment_accordion',
+//            'payment_accordion',
             'guest_checkout'
         ];
 

@@ -1,5 +1,5 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-@if(env('payment_stripe', false))
+@if(isset($paymentMethods))
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 @endif

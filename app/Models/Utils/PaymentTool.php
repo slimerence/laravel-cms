@@ -7,7 +7,6 @@
  */
 
 namespace App\Models\Utils;
-use App\Models\Settings\PaymentMethod;
 
 /**
  * 支付相关的工具类
@@ -17,8 +16,8 @@ use App\Models\Settings\PaymentMethod;
 class PaymentTool
 {
     // 存储Stripe支付token结果的input的ID
-    const STRIPE_TOKEN_INPUT_ID = 'resultTokenInputId';
-    const STRIPE_TOKEN_INPUT_NAME = 'stripe_token';
+    const STRIPE_TOKEN_INPUT_ID     = 'resultTokenInputId';
+    const STRIPE_TOKEN_INPUT_NAME   = 'stripe_token';
 
     public static $TYPE_PLACE_ORDER = 1;
     public static $TYPE_CASH        = 2;

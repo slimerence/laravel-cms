@@ -8,8 +8,10 @@
 </div>
 <div id="payment-method-list" role="tablist">
     @foreach($paymentMethods as $key=>$paymentMethod)
-        <div class="card payment-method-item {{ $key==0 ? 'bg-primary':null }}"
-             id="{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($paymentMethod->method_id) }}">
+        <?php $idString = \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($paymentMethod->method_id); ?>
+        <div class="card payment-method-item {{ $key==0 ? '':null }}" :class="{'bg-primary':'<?php echo $idString; ?>'==selectedPaymentMethod}"
+             v-on:click="switchCurrentPaymentMethod('{{ $idString }}')"
+             id="{{ $idString }}">
             @include(_get_frontend_theme_path('checkout.elements.payment.'.\App\Models\Utils\PaymentTool::GetTemplateNameByMethodId($paymentMethod->method_id)))
         </div>
     @endforeach

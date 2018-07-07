@@ -15,6 +15,8 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
+        "league/omnipay": "^3",
+        "omnipay/paypal": "^3.0",
         "overtrue/laravel-wechat": "~4.0",
         "paquettg/php-html-parser": "^1.7",
         "predis/predis": "^1.1",

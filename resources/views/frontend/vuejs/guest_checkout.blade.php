@@ -1,8 +1,12 @@
+<?php
+$firstAvailablePaymentMethod = $paymentMethods[0];
+?>
 <script>
     var PlaceOrderCheckoutApp = new Vue({
         el:'#place-order-checkout-app',
         data: {
             customer:'{{ isset($user) && $user ? $user->uuid : null }}',
+            selectedPaymentMethod: '{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($firstAvailablePaymentMethod->method_id) }}',
             submitFormInProgress: false,
             shippingForm:{
                 name:null,
@@ -35,7 +39,7 @@
             }
         },
         created(){
-
+            console.log(222);
         },
         methods:{
             submitForm: function(formName){
@@ -65,6 +69,12 @@
                         window._notify(that,'error','Error','Please fill the form!');
                     }
                 });
+            },
+            login: function(e){
+                e.preventDefault();
+            },
+            switchCurrentPaymentMethod:function(paymentMethodIdString){
+                this.selectedPaymentMethod = paymentMethodIdString;
             }
         }
     });

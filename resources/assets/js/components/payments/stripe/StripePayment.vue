@@ -20,6 +20,7 @@
    * @type {string}
    */
   const cardElement = 'card-element';
+  const TARGET_PAYMENT_METHOD = 'pm-stripe';
 
     export default {
         name: "stripe-payment",
@@ -34,7 +35,7 @@
                 type: String, default: 'AU'
             },
             stripePublishableKey:{
-                type: String, default: 'pk_test_PInFiPUnGR6pzLYZ2IE6oyPf'
+                type: String, default: ''
             },
             // 是测试模式 test, 还是生产模式. 任何非 test 的值, 都会作为生产模式
             mode:{
@@ -44,6 +45,10 @@
                 type: String, required: true
             },
             orderFormId:{
+                type: String, required: true
+            },
+            // 表示当前选定的支付方法, 只有在 pm-stripe 的时候才监听提交按钮的点击操作
+            currentPaymentMethod:{
                 type: String, required: true
             }
         },
@@ -94,17 +99,20 @@
                     });
                     // 监听提交表单
                     this.submitButton.addEventListener('click',function(event){
-                        event.preventDefault();
-                        that.stripe.createToken(that.card).then(function(result){
+                        // 提交只在当前的支付方式为stripe的时候才进行
+                        if(that.currentPaymentMethod === TARGET_PAYMENT_METHOD){
+                          event.preventDefault();
+                          that.stripe.createToken(that.card).then(function(result){
                             if (result.error) {
-                                // Inform the user if there was an error.
-                                that.cardErrors = result.error.message;
+                              // Inform the user if there was an error.
+                              that.cardErrors = result.error.message;
                             } else {
-                                // Send the token to your server.
-                                that.resultToken.value = result.token.id;
-                                that.form.submit();
+                              // Send the token to your server.
+                              that.resultToken.value = result.token.id;
+                              that.form.submit();
                             }
-                        });
+                          });
+                        }
                     });
                 }
             }
