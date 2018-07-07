@@ -6,4 +6,8 @@ return [
     'system_busy'=>'System is busy, please try later!',
     'Required'=>'Required',
     'Optional'=>'Optional',
+    'menu_payment_methods'=>'Payment Methods',
+    'menu_shipment'=>'Delivery Cost',
+    'menu_wechat'=>'WeChat Account',
+    'menu_agent'=>'Wholesaler',
 ];

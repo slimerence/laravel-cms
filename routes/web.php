@@ -202,6 +202,12 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('brands/edit/{id}', 'Backend\Brands@edit');
     Route::get('brands/delete/{id}', 'Backend\Brands@delete');
     Route::post('brands/save','Backend\Brands@save');
+
+    /**
+     * 支付方式管理
+     */
+    Route::post('payment-methods/save', 'Backend\PaymentMethods@save');
+    Route::get('payment-methods', 'Backend\PaymentMethods@index')->name('payment-methods');
 });
 
 Route::get('/home', 'Backend\Home@index');

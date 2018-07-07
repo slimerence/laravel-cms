@@ -17,6 +17,7 @@ class PaymentMethod extends Model
         'api_token_test',
         'api_token',
         'api_secret_test',
+        'api_secret',
         'hook_success',
         'hook_error',
         'notes',
@@ -28,7 +29,7 @@ class PaymentMethod extends Model
      * @param array $data
      */
     public static function Persistent($data){
-        if(!isset($datap['id']) || empty($data['id'])){
+        if(!isset($data['id']) || empty($data['id'])){
             // 添加
             self::create($data);
         }else{
