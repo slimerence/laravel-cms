@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers\Frontend\Payments;
 
+use App\Models\Utils\Payment\RoyalPayTool;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Order\Order;
 use App\Models\Order\OrderItem;
 use App\Models\Utils\OrderStatus;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Log;
 
-class PaypalController extends Controller
+class WechatController extends Controller
 {
-
-    // Create a new instance with our paypal credentials
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * 用户取消操作的时候
+     * 订单取消之后的处理
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
      */
     public function cancelled(Request $request){
-        $order = Order::GetByUuid($request->get('order_id'));
+        $orderId = $request->get('order_id');
+        $order = Order::GetByUuid(RoyalPayTool::decodeOrderSerialNumber($orderId));
         if($order){
             // 把所有的订单项和订单都删除
             OrderItem::where('order_id',$order->id)->delete();
@@ -42,7 +41,7 @@ class PaypalController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
      */
     public function completed(Request $request){
-        $order = Order::GetByUuid($request->get('order_id'));
+        $order = Order::GetByUuid(RoyalPayTool::decodeOrderSerialNumber($request->get('order_id')));
         if($order){
             // 完成之后, 情况购物车， 完成订单状态的切换
             $order->status = OrderStatus::$APPROVED;
@@ -59,8 +58,7 @@ class PaypalController extends Controller
         return '404';
     }
 
-    public function paypal_webhook(Request $request){
+    public function notify(Request $request){
 
-        Log::info('PayPal_Hook',$request->all());
     }
 }

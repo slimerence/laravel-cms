@@ -77,6 +77,10 @@ class CheckoutController extends Controller
                     );
 
                     if($order){
+                        $paymentMethod = PaymentMethod::GetByMethodId(
+                            PaymentTool::GetMethodTypeById($request->get('payment_method'))
+                        );
+
                         /**
                          * 订单生成成功, 发布订单创建事件
                          * 如果是Place Order, 那么不需要进行支付处理
@@ -88,11 +92,18 @@ class CheckoutController extends Controller
                             return redirect('/frontend/my_orders/'.session('user_data.uuid'));
                         }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_WECHAT){
                             // 微信支付
-                            $royalPayTool = new RoyalPayTool();
-                            return redirect($royalPayTool->purchase($order)->getQrRedirectUrl());
+                            $royalPayTool = new RoyalPayTool($paymentMethod);
+                            $royalPayTool->purchase($order);
+                            if(is_null($royalPayTool->errorMessage)){
+                                // 初始化微信支付工具成功, 跳转到扫码支付页面
+                                return redirect($royalPayTool->getQrRedirectUrl());
+                            }else{
+                                // 初始化微信支付工具失败
+                                session()->flash('msg', ['content'=>$royalPayTool->errorMessage,'status'=>'danger']);
+                            }
                         }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_STRIPE){
                             // Stripe 信用卡支付
-                            $job = new StripePayment($order, $request, $customer);
+                            $job = new StripePayment($order, $request, $customer,$paymentMethod);
                             if($job->handle()){
                                 // 一切顺利
                                 $cart->destroy();
@@ -103,9 +114,6 @@ class CheckoutController extends Controller
                             }
                         }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_PAYPAL_EXPRESS){
                             // 获取PayPal的数据
-                            $paymentMethod = PaymentMethod::GetByMethodId(
-                                PaymentTool::GetMethodTypeById($request->get('payment_method'))
-                            );
                             $job = new Paypal($order, $paymentMethod);
                             $job->handle();
                         }else{
@@ -131,7 +139,6 @@ class CheckoutController extends Controller
         $this->dataForView['paymentMethods'] = PaymentMethod::GetAllAvailable();
 
         $this->dataForView['vuejs_libs_required'] = [
-//            'payment_accordion',
             'guest_checkout'
         ];
 

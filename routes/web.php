@@ -216,8 +216,16 @@ Route::prefix('payment')->group(function(){
         ->name('paypal.checkout.cancelled');
     Route::get('paypal/completed','Frontend\Payments\PayPalController@completed')
         ->name('paypal.checkout.completed');
-    Route::get('paypal/webhook','Frontend\Payments\PayPalController@paypal_webhook')
+    Route::any('paypal/webhook','Frontend\Payments\PayPalController@paypal_webhook')
         ->name('webhook.paypal.ipn');
+
+    // 微信支付回调
+    Route::get('wechat/completed','Frontend\Payments\WechatController@completed')
+        ->name('wechat.checkout.completed');
+    Route::get('wechat/cancelled','Frontend\Payments\WechatController@cancelled')
+        ->name('wechat.checkout.cancelled');
+    Route::any('wechat/notify','Frontend\Payments\WechatController@notify')
+        ->name('wechat.checkout.notify');
 });
 
 Route::get('/home', 'Backend\Home@index');

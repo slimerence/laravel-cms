@@ -29,37 +29,39 @@ class RoyalPayApi
      * 汇率查询，nonce_str、time不需要填入
      * @param RoyalPayExchangeRate $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function exchangeRate($inputObj, $timeOut = 10)
+    public static function exchangeRate($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/exchange_rate";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::getJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
     }
 
     /**
-     *
      * QR下单，nonce_str、time不需要填入
-     * @param RoyalPayUnifiedOrder $inputObj
+     * @param $inputObj
      * @param int $timeOut
-     * @throws RoyalPayException
-     * @return $result 成功时返回，其他抛异常
+     * @param null $partnerCode 动态方式获取的 partner code
+     * @param null $credential 动态方式获取的 CREDENTIAL_CODE
+     * @return array
+     * @throws \App\Models\Utils\Payment\RoyalPay\Lib\RoyalPayException
      */
-    public static function qrOrder($inputObj, $timeOut = 15)
+    public static function qrOrder($inputObj, $timeOut = 15, $partnerCode = null, $credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/orders/$orderId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::putJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -70,17 +72,18 @@ class RoyalPayApi
      * JsApi下单，nonce_str、time不需要填入
      * @param RoyalPayUnifiedOrder $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function jsApiOrder($inputObj, $timeOut = 10)
+    public static function jsApiOrder($inputObj, $timeOut = 10, $partnerCode = null, $credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/wechat_jsapi_gateway/partners/$partnerCode/orders/$orderId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::putJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -94,11 +97,11 @@ class RoyalPayApi
      * @throws RoyalPayException
      * @return $pay_url 成功时返回，其他抛异常
      */
-    public static function getQRRedirectUrl($pay_url, $inputObj)
+    public static function getQRRedirectUrl($pay_url, $inputObj, $credential=null)
     {
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $pay_url .= '?' . $inputObj->toQueryParams();
         return $pay_url;
     }
@@ -111,7 +114,7 @@ class RoyalPayApi
      * @throws RoyalPayException
      * @return $pay_url 成功时返回，其他抛异常
      */
-    public static function getJsApiRedirectUrl($pay_url, $inputObj)
+    public static function getJsApiRedirectUrl($pay_url, $inputObj,$credential=null)
     {
         $directPay = $inputObj->getDirectPay();
         if (empty($directPay)) {
@@ -119,7 +122,7 @@ class RoyalPayApi
         }
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $pay_url .= '?' . $inputObj->toQueryParams();
         return $pay_url;
     }
@@ -129,17 +132,18 @@ class RoyalPayApi
      * 线下支付订单，nonce_str、time不需要填入
      * @param RoyalPayMicropayOrder $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function micropayOrder($inputObj, $timeOut = 10)
+    public static function micropayOrder($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/micropay/partners/$partnerCode/orders/$orderId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::putJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -150,17 +154,18 @@ class RoyalPayApi
      * 线下QRCode支付单，nonce_str、time不需要填入
      * @param RoyalPayRetailQRCode $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function retailQRCodeOrder($inputObj, $timeOut = 10)
+    public static function retailQRCodeOrder($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/retail_qrcode/partners/$partnerCode/orders/$orderId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::putJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -171,17 +176,18 @@ class RoyalPayApi
      * 查询订单，nonce_str、time不需要填入
      * @param RoyalPayOrderQuery $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function orderQuery($inputObj, $timeOut = 10)
+    public static function orderQuery($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/orders/$orderId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::getJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -192,18 +198,19 @@ class RoyalPayApi
      * 申请退款，nonce_str、time不需要填入
      * @param RoyalPayApplyRefund $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function refund($inputObj, $timeOut = 10)
+    public static function refund($inputObj, $timeOut = 10, $partnerCode = null, $credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $refundId = $inputObj->getRefundId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/orders/$orderId/refunds/$refundId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::putJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -214,18 +221,19 @@ class RoyalPayApi
      * 查询退款状态，nonce_str、time不需要填入
      * @param RoyalPayQueryRefund $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function refundQuery($inputObj, $timeOut = 10)
+    public static function refundQuery($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $orderId = $inputObj->getOrderId();
         $refundId = $inputObj->getRefundId();
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/orders/$orderId/refunds/$refundId";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::getJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;
@@ -236,16 +244,17 @@ class RoyalPayApi
      * 查看账单，nonce_str、time不需要填入
      * @param RoyalPayQueryOrders $inputObj
      * @param int $timeOut
+     * @param null $partnerCode 动态方式获取的 partner code
      * @throws RoyalPayException
      * @return $result 成功时返回，其他抛异常
      */
-    public static function orders($inputObj, $timeOut = 10)
+    public static function orders($inputObj, $timeOut = 10, $partnerCode = null,$credential=null)
     {
-        $partnerCode = RoyalPayConfig::PARTNER_CODE;
+        $partnerCode = $partnerCode ? $partnerCode : RoyalPayConfig::PARTNER_CODE;
         $url = "https://mpay.royalpay.com.au/api/v1.0/gateway/partners/$partnerCode/orders";
         $inputObj->setTime(self::getMillisecond());//时间戳
         $inputObj->setNonceStr(self::getNonceStr());//随机字符串
-        $inputObj->setSign();
+        $inputObj->setSign($credential);
         $response = self::getJsonCurl($url, $inputObj, $timeOut);
         $result = RoyalPayResults::init($response);
         return $result;

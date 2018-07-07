@@ -21,7 +21,9 @@ class RoyalPayConfig
      * CREDENTIAL_CODE: 系统为商户分配的开发校验码
      *
      */
+//    const PARTNER_CODE = 'RETE';
     const PARTNER_CODE = 'TST3';
+//    const CREDENTIAL_CODE = 'l0LBeBL2wHDqUscp4nhYHV48Ij3yDNYQ';
     const CREDENTIAL_CODE = 'BwD5cRNULZ31VcSRphSUEH6NZvbfW3os';
 
     //=======【curl代理设置】===================================

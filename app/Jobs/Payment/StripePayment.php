@@ -26,25 +26,50 @@ class StripePayment implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * @var Order
+     */
     public $order;
+
+    /**
+     * @var Request
+     */
     public $request;
+
+    /**
+     * @var User
+     */
     public $user;
+
+    /**
+     * @var PaymentMethod
+     */
+    public $paymentMethod;
+
+    /**
+     * @var string
+     */
     private $apiKey;
+
+    /**
+     * @var StripeCustomer
+     */
     private $stripeCustomer = null;
 
     /**
-     * StripePayment constructor.
      * 初始化 Stripe 收费的任务
      * @param Order $order
      * @param Request $request
      * @param User $user
+     * @param PaymentMethod $paymentMethod
      */
-    public function __construct(Order $order, Request $request, User $user)
+    public function __construct(Order $order, Request $request, User $user, PaymentMethod $paymentMethod)
     {
         $this->order = $order;
         $this->request = $request;
         $this->user = $user;
-        $this->apiKey = PaymentMethod::GetStripeSecret();
+        $this->paymentMethod = $paymentMethod;
+        $this->apiKey = $this->paymentMethod->getApiSecret();
     }
 
     /**

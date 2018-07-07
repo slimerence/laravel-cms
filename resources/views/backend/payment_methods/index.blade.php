@@ -39,7 +39,7 @@
                                     <select name="pm[mode]">
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_OFF }}"
-                                                {{ $payment_method->isLiveMode() ? 'selected' : null }}
+                                                {{ !$payment_method->isLiveMode() && !$payment_method->isTestMode() ? 'selected' : null }}
                                         >Off</option>
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_TEST }}"
@@ -47,7 +47,7 @@
                                         >Test mode</option>
                                         <option
                                                 value="{{ \App\Models\Settings\PaymentMethod::MODE_LIVE }}"
-                                                {{ $payment_method->mode==\App\Models\Settings\PaymentMethod::MODE_LIVE ? 'selected' : null }}
+                                                {{ $payment_method->isLiveMode() ? 'selected' : null }}
                                         >Live mode</option>
                                     </select>
                                 </div>

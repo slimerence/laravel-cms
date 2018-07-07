@@ -99,6 +99,6 @@ class PaymentMethod extends Model
      * @return bool
      */
     public function isTestMode(){
-        return $this->mode != self::MODE_TEST;
+        return $this->mode === self::MODE_TEST;
     }
 }

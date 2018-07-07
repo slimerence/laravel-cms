@@ -7,8 +7,10 @@ namespace App\Models\Utils\Payment\RoyalPay\Lib\Data;
  * @author Leijid
  *
  */
+use App\Models\Settings\PaymentMethod;
 use App\Models\Utils\Payment\RoyalPay\Lib\RoyalPayConfig;
 use App\Models\Utils\Payment\RoyalPay\Lib\RoyalPayException;
+use App\Models\Utils\PaymentTool;
 
 class RoyalPayDataBase
 {
@@ -75,11 +77,12 @@ class RoyalPayDataBase
 
     /**
      * 设置签名，详见签名生成算法
-     * @param string $value
-     **/
-    public function setSign()
+     * @param null $credentialCode
+     * @return 签名，本函数不覆盖sign成员变量，如要设置签名需要调用setSign方法赋值
+     */
+    public function setSign($credentialCode=null)
     {
-        $sign = $this->makeSign();
+        $sign = $this->makeSign($credentialCode);
         $this->queryValues['sign'] = $sign;
         return $sign;
     }
@@ -127,19 +130,23 @@ class RoyalPayDataBase
 
     /**
      * 格式化签名参数
+     * @param string|null $credentialCode
+     * @return string
      */
-    public function toSignParams()
+    public function toSignParams($credentialCode = null)
     {
         $buff = "";
-        $buff .= RoyalPayConfig::PARTNER_CODE . '&' . $this->getTime() . '&' . $this->getNonceStr() . "&" . RoyalPayConfig::CREDENTIAL_CODE;
+        $method = PaymentMethod::GetByMethodId(PaymentTool::$TYPE_WECHAT);
+        $buff .= $method->getApiToken() . '&' . $this->getTime() . '&' . $this->getNonceStr() . "&" . $method->getApiSecret();
         return $buff;
     }
 
     /**
      * 生成签名
+     * @param string|null $credentialCode
      * @return 签名，本函数不覆盖sign成员变量，如要设置签名需要调用setSign方法赋值
      */
-    public function makeSign()
+    public function makeSign($credentialCode = null)
     {
         //签名步骤一：构造签名参数
         $string = $this->toSignParams();
