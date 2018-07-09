@@ -30,7 +30,8 @@ class CheckoutController extends Controller
     /**
      * 完成Place Order方式订单的方法
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Models\Utils\Payment\RoyalPay\Lib\RoyalPayException
      */
     public function place_order_checkout(Request $request){
 //        dd($request->all());

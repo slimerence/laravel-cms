@@ -27,7 +27,7 @@
             <!-- 首页 -->
             @if(env('show_ecommerce_sub_categories_at_home',true))
                 @include(_get_frontend_layout_path('frontend.header'))
-                <div class="container">
+                {!! div_container() !!}
                     <div class="columns is-marginless is-paddingless" id="catalog-viewer-app">
                         <div class="column is-2 is-marginless is-paddingless" style="width: {{ env('catalog_trigger_menu_width',161) }}px;">
                             @include(_get_frontend_layout_path('frontend.catalog_viewer'))
@@ -36,7 +36,7 @@
                             @include(_get_frontend_layout_path('frontend.homepage_slider'))
                         </div>
                     </div>
-                </div>
+                {!! div_end() !!}
             @else
                 @include( _get_frontend_layout_path('frontend.header_catalog') )
                 @include( _get_frontend_layout_path('frontend.homepage_slider') )

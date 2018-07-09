@@ -3,16 +3,16 @@
     <div class="content pl-20 pr-20 page-content-wrap" id="category-view-manager">
         @if(isset($featureProducts) && count($featureProducts)>0)
         <hr>
-        <div class="columns">
-            <div class="column is-1">
+        {!! div_row() !!}
+            {!! div_col(1) !!}
                 <i class="far fa-thumbs-up is-size-1 has-text-danger"></i>
                 <br>
                 <p class="has-text-left has-text-danger is-size-7 mt-10">Feature Products</p>
-            </div>
-            <div class="column is-11-desktop">
-                <div class="columns">
+            {!! div_end() !!}
+            {!! div_col(11) !!}
+                {!! div_row() !!}
                     @foreach($featureProducts as $featureProduct)
-                    <div class="column">
+                    {!! div_col() !!}
                         <div class="show-mask-on-hover">
                             <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10" style="height: 201px;">
                             <div class="mask">
@@ -22,11 +22,11 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    {!! div_end() !!}
                     @endforeach
-                </div>
-            </div>
-        </div>
+                {!! div_end() !!}
+            {!! div_end() !!}
+        {!! div_end() !!}
         <hr>
         @endif
         <div class="box is-radiusless mt-20">
