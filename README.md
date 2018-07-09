@@ -50,7 +50,7 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - 凡是在 custom/app 文件夹中创建的类, 都会被框架自动加载, 但是 Namespace 都是以 Smartbro 开头的. 从上面一行的实例, 您可以看到这种加载的方式. 注意命名空间的开头是 Smartbro.
 
 6: Create your own table in database and do 'migrate' 创建自己的数据表定义文件并通过artisan命令来创建数据库表
-- php artisan make:migration --path=resources/views/frontend/custom/app/migrations/ your_migration_name
+- php artisan make:migration --path=resources/views/frontend/custom/app/migrations/ {your_migration_name}
 - php artisan migrate --path=resources/views/frontend/custom/app/migrations/
 
 7: Happy coding ...
@@ -61,7 +61,7 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - Edit .env file
 - php artisan key:generate
 - php artisan migrate
-- php artisan migrate --path=resources/views/frontend/custom/app/migrations/
+- php artisan migrate --path=resources/views/frontend/custom/app/migrations/  (Required if you created your own migrations. 如果你创建了自己的migration, 那么这一步就是必须的)
 - php artisan storage:link
 - Go to resources/view/frontend folder, remove custom folder ( rm -rf custom )
 - Git clone your-awesome-theme-repo-url custom
