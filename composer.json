@@ -39,7 +39,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Smartbro\\":"resources/views/frontend/custom/app/"
         },
         "files": ["app/Helper/General.php"]
     },

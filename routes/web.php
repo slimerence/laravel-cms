@@ -19,7 +19,7 @@ Route::get('/terms', 'Frontend\Pages@terms')->name('terms');
 // Switch to another language
 Route::get('/switch-language/{lang}', 'Frontend\Pages@switch_language')->name('switch_language');
 
-Route::get('/results', 'Frontend\Pages@news');
+//Route::get('/results', 'Frontend\Pages@news');
 
 // 特定的URI
 Route::prefix('page')->group(function(){
@@ -32,7 +32,6 @@ Route::prefix('page')->group(function(){
     // 查看某个独立页面内容的路由
     Route::get('/{uri}', 'Frontend\Pages@view');
 });
-
 
 // 加载产品目录的内容
 Route::get('/category/view/{uri}', 'Frontend\Categories@view');
@@ -229,4 +228,4 @@ Route::prefix('payment')->group(function(){
 });
 
 Route::get('/home', 'Backend\Home@index');
-Route::get('/{uri}','Frontend\Home@view_content');
+//Route::get('/{uri}','Frontend\Home@view_content');
