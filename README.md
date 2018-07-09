@@ -35,14 +35,17 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - Backend javascript: resources/assets/js/backend.js
 
 4: npm run watch
-5: How to create your own routes/controller/model ... 如何创建自己业务需要的路由, 控制器, 模型类?
+
+5: How to create your own routes/controller/model ... 如何创建自己业务需要的路由, 控制器, 模型类
 - 与开发 theme 一样, 但是在 custom 中, 你可以创建一个名字叫 app 的文件夹, 里面可以包含自己创建的各种 PHP 类
 - 定义自己的路由: 在 app 文件夹中, 创建 routes 文件夹, 里面创建 web.php 或者 api.php 文件, 像 Laravel 框架的路由一样, 定义框架没有提供的路由即可. 这些自己创建的路由, 在 Laravel 框架启动之后会被合并到 web 和 api 路由的尾部, 因此与框架同名的路由会覆盖框架中已经定义的路由 (你可以通过这个方式, 改变框架的行为, 但是我们不建议您这么做)
 - 例如: web.php 中的路由 Route::get('/results', '\Smartbro\Controllers\CustomController@index') 会调用 custom/app/Controllers/CustomController.php 文件中的 index 方法.
-- 凡是在 custom/app 文件夹中创建的类, 都会被框架自动加载, 但是 Namespace 都是以 Smartbro 开头的. 从上面一行的实例, 您可以看到这种加载的方式. 注意命名空间的开头是 Smartbro
+- 凡是在 custom/app 文件夹中创建的类, 都会被框架自动加载, 但是 Namespace 都是以 Smartbro 开头的. 从上面一行的实例, 您可以看到这种加载的方式. 注意命名空间的开头是 Smartbro.
+
 6: Create your own table in database and do 'migrate' 创建自己的数据表定义文件并通过artisan命令来创建数据库表
 - php artisan make:migration --path=resources/views/frontend/custom/app/migrations/ your_migration_name
 - php artisan migrate --path=resources/views/frontend/custom/app/migrations/
+
 7: Happy coding ...
 
 # Deployment
