@@ -22,7 +22,7 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - In your theme root folder, init a new git repo and start building something awesome.
 -
 - In Chinese:
-- 创建你自己的主题目录文件夹, 请运行下面的命令
+- 为了快速创建你自己的主题目录结构, 请运行下面的脚手架命令 (你可以放心的运行该命令, 它不会修改已经存在的文件的内容)
 - php artisan smartbro:scaffold {your_theme_name}
 - 当然在 .env 文件里给 frontend_theme 项设定相同的值 custom.{your_theme_name}. 请参考 .env.example 文件.
 - 请不要修改框架的任何文件中的代码 (当然你可以自己修改, 只是在以后pull更新的框架时, 恐怕会很麻烦). 

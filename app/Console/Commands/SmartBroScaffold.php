@@ -52,24 +52,24 @@ class SmartBroScaffold extends Command
         // Make sure the give theme folder is not existed
         if(file_exists($this->rootFolderPath.$themeName)){
             echo 'The theme "'.$themeName.'" is existed!'.PHP_EOL;
-        }else{
-            $structure = $this->_getScaffoldingStructure($themeName);
-            $systemError = false;
+        }
 
-            foreach ($structure as $item) {
+        $structure = $this->_getScaffoldingStructure($themeName);
+        $systemError = false;
+
+        foreach ($structure as $item) {
+            if(file_exists($this->rootFolderPath.$item)){
+                // 已经存在, 直接忽略， 不碰触现有的文件
+                continue;
+            }else{
                 if(strpos($item,DIRECTORY_SEPARATOR) !== false && strpos($item,'.') === false){
                     // it's a folder
-                    if(file_exists($this->rootFolderPath.$item)){
-                        // 已经存在
-                        continue;
+                    if(mkdir($this->rootFolderPath.$item)){
+                        echo 'The folder "'.$this->rootFolderPath.$item.' is created!'.PHP_EOL;
                     }else{
-                        if(mkdir($this->rootFolderPath.$item)){
-                            echo 'The folder "'.$this->rootFolderPath.$item.' is created!'.PHP_EOL;
-                        }else{
-                            echo 'Creating folder "'.$this->rootFolderPath.$item.' failed!'.PHP_EOL;
-                            $systemError = true;
-                            break;
-                        }
+                        echo 'Creating folder "'.$this->rootFolderPath.$item.' failed!'.PHP_EOL;
+                        $systemError = true;
+                        break;
                     }
                 }else{
                     // it's a file name
@@ -80,14 +80,15 @@ class SmartBroScaffold extends Command
                 }
             }
 
-            if($systemError){
-                echo 'System error! Please try again'.PHP_EOL;
-            }else{
-                echo PHP_EOL;
-                echo '*******************************************'.PHP_EOL;
-                echo 'All Good! Keep going for something awesome.'.PHP_EOL;
-                echo '*******************************************'.PHP_EOL;
-            }
+        }
+
+        if($systemError){
+            echo 'System error! Please try again'.PHP_EOL;
+        }else{
+            echo PHP_EOL;
+            echo '*******************************************'.PHP_EOL;
+            echo 'All Good! Keep going for something awesome.'.PHP_EOL;
+            echo '*******************************************'.PHP_EOL;
         }
     }
 
@@ -116,6 +117,7 @@ class SmartBroScaffold extends Command
             'webpack.mix.js',
             '_custom.scss',
             'README.md',
+            '.gitkeep',
         ];
     }
 }
