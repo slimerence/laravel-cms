@@ -3,7 +3,7 @@ You might have been tired with Magento or Shopify, Checkout this one to work wit
 - Some demo websites developed on top of this
 - http://healtree.smartbro.com.au
 - http://cutemoew.smartbro.com.au
-- http://theone.smarbro.com.au
+- http://theone.smartbro.com.au
 
 # Installation
 - composer install
