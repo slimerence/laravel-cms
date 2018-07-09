@@ -1,5 +1,9 @@
 # An e-commerce framework build upon Laravel + VueJS + Bulma
 You might have been tired with Magento or Shopify, Checkout this one to work with your loved Laravel framework and build a e-commerce website in seconds.
+- Some demo websites developed on top of this
+- http://healtree.smartbro.com.au
+- http://cutemoew.smartbro.com.au
+- http://theone.smarbro.com.au
 
 # Installation
 - composer install
