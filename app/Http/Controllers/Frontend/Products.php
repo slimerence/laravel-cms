@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Category;
+use App\Models\Catalog\Tag;
 
 class Products extends Controller
 {
@@ -33,6 +34,7 @@ class Products extends Controller
         $this->dataForView['product'] = $product;
         $this->dataForView['relatedProducts'] = $product->relatedProduct;
         $this->dataForView['product_images'] = $product->get_AllImages();
+        $this->dataForView['tags'] = $product->getTagsForView();
 
         /**
          * 产品的属性集的值
