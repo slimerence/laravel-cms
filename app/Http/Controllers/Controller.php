@@ -28,6 +28,7 @@ class Controller extends BaseController
         'menuName' => null,
         'pageTitle'=>null,
         'metaKeywords'=>null,
+        'openGraphicType'=>'website',
         'metaDescription'=>null,
         'footer'=>null,             // 页脚的Block
         'floatingBox'=>null,        // 页面浮动的Block
