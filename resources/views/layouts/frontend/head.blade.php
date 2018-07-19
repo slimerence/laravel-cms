@@ -28,4 +28,8 @@
         ?>
         }
     </style>
+    <meta property="og:title" content="{{ $pageTitle }}" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ isset($siteConfig) ? $siteConfig->logo : null }}" />
 </head>
