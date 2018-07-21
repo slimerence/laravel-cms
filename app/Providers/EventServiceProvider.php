@@ -58,7 +58,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Page\Hook\FinishLoading' => [
             'App\Listeners\Page\Hook\FinishLoadingEventListener',
         ],
-	// Leads Received
+	    // Leads Received
         'App\Events\Contact\LeadReceived' => [
             'App\Listeners\Contact\LeadReceivedEventListener',
         ],
