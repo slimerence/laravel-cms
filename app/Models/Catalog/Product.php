@@ -124,7 +124,7 @@ class Product extends Model
     /**
      * 根据产品的URI查询. 如果没有找到, 主动尝试通过uuid再试试
      * @param $uri
-     * @return mixed
+     * @return Product
      */
     public static function GetByUri($uri){
         $product = self::where('uri',$uri)->first();
