@@ -584,6 +584,18 @@ class Product extends Model
         return $tagsId;
     }
 
+    public function getTagsForView(){
+        $tagsProducts = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tags=[];
+
+        if(count($tagsProducts)>0){
+            foreach ($tagsProducts as $tagsProduct) {
+                $tags[] = $tagsProduct->tag;
+            }
+        }
+        return $tags;
+    }
+
     public function getTags(){
         $tagsProducts = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
         $tags=[];
