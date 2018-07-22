@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Models\Catalog\Category;
 use Gloudemans\Shoppingcart\Cart;
+use \Illuminate\Contracts\Auth\Authenticatable;
 
 
 class Controller extends BaseController
@@ -69,7 +70,7 @@ class Controller extends BaseController
 
     /**
      * 把用户信息保存到session中
-     * @param User $user
+     * @param User|Authenticatable $user
      */
     public function _saveUserInSession(User $user){
         Session::put('user_data',[
