@@ -68,7 +68,7 @@
                 seo_description: '<?php echo $product->seo_description; ?>',
                 default_price:'<?php echo $product->default_price; ?>',
                 special_price:'<?php echo $product->special_price; ?>',
-                tax:'<?php echo $product->tax ? $product->tax : 10; ?>',
+                tax:'<?php echo is_null($product->tax) ? 10 : $product->tax; ?>',
                 min_quantity:'<?php echo $product->min_quantity ? $product->min_quantity : 1; ?>',
                 manage_stock: '{{ $product->manage_stock ? 1 : 0 }}',
                 stock: '<?php echo $product->stock ? $product->stock : 0; ?>',
