@@ -39,7 +39,6 @@
         "signature_pad": "^2.3.2",
         "slick-carousel": "^1.8.1",
         "slideout": "^1.0.1",
-        "video.js": "^6.11.0",
-        "vue-template-compiler": "^2.5.17"
+        "video.js": "^6.11.0"
     }
 }
