@@ -55,13 +55,32 @@ class OrderItem extends Model
                         // 处理非 Colour 的选项
                         $name = '<span class="note-option-name">'.$option['name'].'</span>';
                         $value = '<span class="note-option-value">'.$option['value'].'</span>';
-                        $notes .= '<p class="note-option-item">'.$name.$value.'</p>';
+
+                        // todo 1: 查看是否为提交的文档类型option
+                        if(isset($option['type'])){
+                            if($option['type'] == 'image'){
+                                // 图片类型的
+                                $notes .= '<p class="note-option-item"><a target="_blank" href="'.
+                                    $value.'"><img src="'.$value.'"></a><span>'.$name.'</span></p>';
+                            }else{
+                                // 文档类型的
+                                $notes .= '<p class="note-option-item"><a target="_blank" class="btn btn-primary" href="'
+                                    .$value.'">&nbsp;'.$name.'</a></p>';
+                            }
+                        }else{
+                            // 非文档类型的
+                            $notes .= '<p class="note-option-item">'.$name.$value.'</p>';
+                        }
                     }
                     $priceExtra += self::ParseProductOptionDataInCart($option);
                 }
             }
 
-            $priceFinal = ($product->getSpecialPriceGST()?$product->getSpecialPriceGST():$product->getDefaultPriceGST()) + $priceExtra;
+            $theProductPrice = $product->getSpecialPriceGST() ? $product->getSpecialPriceGST() : $product->getDefaultPriceGST();
+            if(is_string($theProductPrice)){
+                $theProductPrice = floatval(str_replace(',','',$theProductPrice));
+            }
+            $priceFinal = $theProductPrice + $priceExtra;
 
             $dataOrderItem = [
                 'order_id'=>$order->id,
@@ -70,7 +89,7 @@ class OrderItem extends Model
                 'user_id'=>$order->user_id,
                 'product_id'=>$product->id,
                 'operator_name'=>$operatorName,
-                'product_name'=>$product->name,
+                'product_name'=>$product->getProductName(),
                 // Use special price if possible
                 'price'=>$priceFinal,
                 'quantity'=>$cartItem->qty,

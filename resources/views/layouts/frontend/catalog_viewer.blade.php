@@ -20,7 +20,7 @@ foreach ($categoriesTree as $item) {
     :first-level-categories="{{ json_encode($categories) }}"
     :width="1280"
     :height="600"
-    :left-width="{{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}"
+    :left-width="{{ env('catalog_trigger_menu_width',161) }}"
     :show-now="true"
     categories-list-bg-color="{{ $siteConfig->menu_bar_color }}"
     >

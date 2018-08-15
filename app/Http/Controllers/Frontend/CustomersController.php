@@ -38,8 +38,7 @@ class CustomersController extends Controller
     /**
      * Customer Login Check
      * @param Request $request
-     * @return \Illuminate\Http\Response|void
-     * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function login_check(Request $request){
         $this->validateLogin($request);

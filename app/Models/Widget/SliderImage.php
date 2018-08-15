@@ -21,6 +21,7 @@ class SliderImage extends Model
     /**
      * 根据指定的 slider id 加载所有的关联图片
      * @param $sliderId
+     * @return mixed
      */
     public static function LoadImages($sliderId){
         $sliderImages = self::where('slider_id',$sliderId)->orderBy('position','asc')->get();

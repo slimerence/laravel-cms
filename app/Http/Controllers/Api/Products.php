@@ -11,6 +11,7 @@ use App\Models\Catalog\Product\OptionItem;
 use App\Models\Utils\JsonBuilder;
 use App\Models\Catalog\Product\Colour;
 use PHPUnit\Util\Json;
+use App\Models\Catalog\Tag;
 
 class Products extends Controller
 {
@@ -19,12 +20,13 @@ class Products extends Controller
      * @param $uuid
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function delete($uuid, Request $request){
         $product = Product::GetByUuid($uuid);
 
         if($product){
-            $productName = $product->name;
+            $productName = $product->getProductName();
             if($product->delete()){
                 session()->flash('msg', ['content' => 'Product: "' . $productName . '" has been removed successfully!', 'status' => 'success']);
             }else{
@@ -76,6 +78,17 @@ class Products extends Controller
         $productOptions = $request->get('productOptions');
         $productColours = $request->get('productColours');
         $productAttributeData = $request->get('productAttributeData');
+        $productTag=[];
+        $tags = $request->get('tags');
+        foreach ( $tags as $tag){
+            if(is_string($tag)){
+                $productTag[] = Tag::Persistent(['name'=>$tag]);
+            }
+            else{
+                $productTag[]= $tag['id'];
+            }
+
+        }
 
         if(!empty($productData['id'])){
             /**
@@ -83,7 +96,7 @@ class Products extends Controller
              * 由于产品更新界面前台的处理, 在更新产品的时候,对产品的图片, 产品的Option和 Option的Items
              * 采用的处理方式为: 检查,如果有id就更新,如果没有id就添加。 凡是在前端删除的, 已经在服务器删除了, 并且不会被传到这里
              */
-            $product = Product::Persistent($productData,$imagesData, $categoriesData, $productOptions,$productAttributeData,$productColours);
+            $product = Product::Persistent($productData,$imagesData,$productTag, $categoriesData, $productOptions,$productAttributeData,$productColours);
             if($product){
                 return JsonBuilder::Success($productData['id']);
             }else{
@@ -91,13 +104,14 @@ class Products extends Controller
             }
         }else{
             // 添加新产品
-            $product = Product::Persistent($productData,$imagesData, $categoriesData, $productOptions,$productAttributeData,$productColours);
+            $product = Product::Persistent($productData,$imagesData,$productTag, $categoriesData, $productOptions,$productAttributeData,$productColours);
             if($product){
                 return JsonBuilder::Success($product->id);
             }else{
                 return JsonBuilder::Error();
             }
         }
+
     }
 
     /**
@@ -116,8 +130,9 @@ class Products extends Controller
     }
 
     /**
+     * 删除产品的指定颜色
      * @param Request $request
-     * @return stringdelete_colour_ajax
+     * @return string
      */
     public function delete_colour_ajax(Request $request){
         if(Colour::Terminate($request->get('id'))){
@@ -162,8 +177,9 @@ class Products extends Controller
      */
     public function ajax_search(Request $request){
         $queryKeyword = strtolower($request->get('key'));
-        $products = Product::select('name','uri','default_price','special_price','tax')
+        $products = Product::select('name','name_cn','uri','default_price','special_price','tax')
             ->where('name','like','%'.$queryKeyword.'%')
+            ->orWhere('name_cn','like','%'.$queryKeyword.'%')
             ->orderBy('name','asc')
             ->take(10)
             ->get();
@@ -171,7 +187,7 @@ class Products extends Controller
         $data = [];
         foreach ($products as $key => $product){
             $data[$key] = [
-                'value'=>$product->name.' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
+                'value'=>$product->getProductName().' - '.config('system.CURRENCY').$product->getFinalPriceGst(),
                 'id'=>$product->uri,
             ];
         }

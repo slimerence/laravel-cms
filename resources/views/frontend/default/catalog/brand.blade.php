@@ -14,10 +14,10 @@
                         @foreach($featureProducts as $featureProduct)
                             <div class="column">
                                 <div class="show-mask-on-hover">
-                                    <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10" style="height: 201px;">
+                                    <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->getProductName() }}" class="image mb-10" style="height: 201px;">
                                     <div class="mask">
                                         <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
-                                            <p class="name is-size-4">{{ $featureProduct->name }}</p>
+                                            <p class="name is-size-4">{{ $featureProduct->getProductName() }}</p>
                                             <p class="price is-size-5">${{ $featureProduct->getFinalPriceGst() }}</p>
                                         </a>
                                     </div>
@@ -83,7 +83,7 @@
                             <div class="content box">
                                 <a href="{{ url('catalog/product/'.$product->uri) }}">
                                     <p>
-                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">
+                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->getProductName() }}" class="image">
                                     </p>
                                     <div class="price-box">
                                         <p class="is-pulled-left {{ $product->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">AUD${{ $product->default_price }}</p>
@@ -92,11 +92,11 @@
                                         @endif
                                     </div>
                                     <div class="is-clearfix"></div>
-                                    <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->name }}</p>
+                                    <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->getProductName() }}</p>
                                 </a>
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
-                                        <a class="tag" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
+                                        <a class="tag" href="#" v-on:click.prevent="startEnquiry('{{ $product->getProductName() }}','{{ $product->uuid }}')">
                                             <i class="far fa-comment"></i>&nbsp;Send Enquiry
                                         </a>
                                     </div>

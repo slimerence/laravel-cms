@@ -11,8 +11,8 @@
     ?>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <style amp-custom>
         .container {
         <?php
@@ -28,4 +28,8 @@
         ?>
         }
     </style>
+    <meta property="og:title" content="{{ $pageTitle }}" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:image" content="{{ isset($siteConfig) ? $siteConfig->logo : null }}" />
 </head>

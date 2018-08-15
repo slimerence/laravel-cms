@@ -5,6 +5,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Events\Order\Created as OrderCreated;
+use App\Jobs\Payment\Paypal;
+use App\Jobs\Payment\StripePayment;
+use App\Models\Settings\PaymentMethod;
+use App\Models\Utils\Payment\PayPalTool;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
 use App\User;
@@ -26,9 +30,12 @@ class CheckoutController extends Controller
     /**
      * 完成Place Order方式订单的方法
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \App\Models\Utils\Payment\RoyalPay\Lib\RoyalPayException
      */
     public function place_order_checkout(Request $request){
+//        dd($request->all());
+
         // 检查用户是否登录了, 如果没有登录,那么去登录页
         if(!session()->has('user_data.id')){
 //            return redirect('/frontend/customers/login');
@@ -71,6 +78,10 @@ class CheckoutController extends Controller
                     );
 
                     if($order){
+                        $paymentMethod = PaymentMethod::GetByMethodId(
+                            PaymentTool::GetMethodTypeById($request->get('payment_method'))
+                        );
+
                         /**
                          * 订单生成成功, 发布订单创建事件
                          * 如果是Place Order, 那么不需要进行支付处理
@@ -82,8 +93,30 @@ class CheckoutController extends Controller
                             return redirect('/frontend/my_orders/'.session('user_data.uuid'));
                         }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_WECHAT){
                             // 微信支付
-                            $royalPayTool = new RoyalPayTool();
-                            return redirect($royalPayTool->purchase($order)->getQrRedirectUrl());
+                            $royalPayTool = new RoyalPayTool($paymentMethod);
+                            $royalPayTool->purchase($order);
+                            if(is_null($royalPayTool->errorMessage)){
+                                // 初始化微信支付工具成功, 跳转到扫码支付页面
+                                return redirect($royalPayTool->getQrRedirectUrl());
+                            }else{
+                                // 初始化微信支付工具失败
+                                session()->flash('msg', ['content'=>$royalPayTool->errorMessage,'status'=>'danger']);
+                            }
+                        }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_STRIPE){
+                            // Stripe 信用卡支付
+                            $job = new StripePayment($order, $request, $customer,$paymentMethod);
+                            if($job->handle()){
+                                // 一切顺利
+                                $cart->destroy();
+                                session()->flash('msg', ['content'=>'Order #'.$order->serial_number.' is in progress!','status'=>'success']);
+                                return redirect('/frontend/my_orders/'.session('user_data.uuid'));
+                            }else{
+                                session()->flash('msg', ['content'=>'System is Busy, Please try again!','status'=>'danger']);
+                            }
+                        }elseif($request->get('payment_method') == PaymentTool::$METHOD_ID_PAYPAL_EXPRESS){
+                            // 获取PayPal的数据
+                            $job = new Paypal($order, $paymentMethod);
+                            $job->handle();
                         }else{
                             // 不是 place order 订单, 那么进行支付处理
                             event(new OrderPlaced($cart,$customer,$request,$order));
@@ -95,30 +128,23 @@ class CheckoutController extends Controller
             }
         }
 
+        // 获取当前用户
         $this->dataForView['user'] = $customer;
 
-//        $this->dataForView['shoppingCartTool'] = new ShoppingCartTool(User::find(session('user_data.id')), $cart);
-
-//        $name = 'justin';
-
-//        $nameEncrypt = encrypt($name);
-//        dump($nameEncrypt);
-//        dump(decrypt($nameEncrypt));
-
-//        dump(\GuzzleHttp\json_encode($this->dataForView['shoppingCartTool']->getTransactionsForPayPal(), JSON_PRETTY_PRINT));
-
+        // 获取运费
         $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
             $customer,$cart->total(),$this->getTotalWeightInCart()
         );
 
+        // 获取系统支持的支付方式
+        $this->dataForView['paymentMethods'] = PaymentMethod::GetAllAvailable();
+
         $this->dataForView['vuejs_libs_required'] = [
-//            'paypal_button',
-            'payment_accordion',
             'guest_checkout'
         ];
 
         return view(
-            'frontend.default.checkout.place_order_checkout',
+            _get_frontend_theme_path('checkout.place_order_checkout'),
             $this->dataForView
         );
     }

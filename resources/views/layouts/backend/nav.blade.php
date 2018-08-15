@@ -15,21 +15,28 @@
             @if(env('activate_wechat', false))
                 <li>
                     <a class="{{ $menuName=='blocks' ? 'is-active' : null }}" href="{{ url('/backend/widgets/blocks') }}">
-                        <i class="fab fa-weixin"></i>WeChat 微信公众号
+                        <i class="fab fa-weixin"></i>{{ trans('general.menu_wechat') }}
                     </a>
                 </li>
             @endif
             @if(env('support_multiple_groups', false))
                 <li>
                     <a class="{{ $menuName=='groups' ? 'is-active' : null }}" href="{{ url('/backend/groups') }}">
-                        <i class="fas fa-shopping-basket"></i>合作经销商管理
+                        <i class="fas fa-shopping-basket"></i>{{ trans('general.menu_agent') }}
                     </a>
                 </li>
             @endif
             @if(env('activate_shipment_manager', false))
                 <li>
                     <a class="{{ $menuName=='shipment' ? 'is-active' : null }}" href="{{ url('/backend/shipment') }}">
-                        <i class="fas fa-truck"></i>运费管理
+                        <i class="fas fa-truck"></i>{{ trans('general.menu_shipment') }}
+                    </a>
+                </li>
+            @endif
+            @if(env('activate_shipment_manager', false))
+                <li>
+                    <a class="{{ $menuName=='payment-methods' ? 'is-active' : null }}" href="{{ url('/backend/payment-methods') }}">
+                        <i class="fas fa-credit-card"></i>{{ trans('general.menu_payment_methods') }}
                     </a>
                 </li>
             @endif

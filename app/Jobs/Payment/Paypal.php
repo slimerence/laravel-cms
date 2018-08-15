@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Payment;
 
+use App\Models\Settings\PaymentMethod;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,27 +16,26 @@ class Paypal implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $order;
-    private $libName;
+    private $method;
 
     /**
-     * Paypal constructor.
+     * PayPal constructor.
      * @param Order $order
-     * @param string $libName
+     * @param PaymentMethod $method
      */
-    public function __construct(Order $order, $libName = 'PayPal_Express')
+    public function __construct(Order $order, PaymentMethod $method)
     {
         $this->order = $order;
-        $this->libName = $libName;
+        $this->method = $method;
     }
 
     /**
-     * Execute the job.
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function handle()
     {
-        $payPalExpress = new PayPalTool($this->libName);
+        $payPalExpress = new PayPalTool($this->method);
         $response = $payPalExpress->purchase($this->order);
         if($response->isRedirect()){
             $response->redirect();

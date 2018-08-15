@@ -7,6 +7,7 @@ use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Product\ProductAttribute;
 use App\Models\Catalog\Product\ProductAttributeSet;
 use App\Models\Catalog\Product\ProductOption;
+use App\Models\Catalog\TagProduct;
 use App\Models\Group;
 use App\Models\Utils\MediaTool;
 use App\Models\Utils\ProductType;
@@ -47,6 +48,9 @@ class Product extends Model
         'serial_name',      // 产品所属的序列名称
         'is_group_product',             // 组合产品, 比如一套家具
         'is_configurable_product',      // 可配置产品, 比如 DIY 电脑
+        // 和中文相关
+        'name_cn','description_cn','short_description_cn',
+        'keywords_cn','seo_description_cn',
     ];
 
     protected $casts = [
@@ -120,7 +124,7 @@ class Product extends Model
     /**
      * 根据产品的URI查询. 如果没有找到, 主动尝试通过uuid再试试
      * @param $uri
-     * @return mixed
+     * @return Product
      */
     public static function GetByUri($uri){
         $product = self::where('uri',$uri)->first();
@@ -136,6 +140,14 @@ class Product extends Model
      */
     public function attributeSet(){
         return $this->belongsTo(ProductAttributeSet::class);
+    }
+
+    /**
+     * 关联的组合产品
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupProducts(){
+        return $this->hasMany(GroupProduct::class);
     }
 
     /**
@@ -248,6 +260,7 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
@@ -299,7 +312,7 @@ class Product extends Model
      * @param $productColours   // 产品的颜色数据集合
      * @return bool
      */
-    public static function Persistent($productData, $images, $categories, $productOptionsData, $productAttributeData, $productColours=[]){
+    public static function Persistent($productData, $images, $tags,$categories, $productOptionsData, $productAttributeData, $productColours=[]){
         $result = false;
         $productData = ContentTool::RemoveNewLine($productData);
 
@@ -344,12 +357,29 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
                         );
                     }
                 }
+                if($tags && is_array($tags)){
+                    // 先把原有的删除
+                    TagProduct::where('product_id',$product->id)->delete();
+                    // 把提交的从新添加进去
+                    foreach ($tags as $tagId) {
+                        TagProduct::create(
+                            [
+                                'product_id'=>$product->id,
+                                'tag_id'=>$tagId,
+                                'tag_id'=>$tagId,
+                                'product_name'=>$product->name,
+                            ]
+                        );
+                    }
+                }
+
                 // 处理产品的附加选项
                 if($productOptionsData && is_array($productOptionsData)){
                     // 处理附加选项: 如果有id,就更新;
@@ -404,6 +434,7 @@ class Product extends Model
                                 'product_id'=>$product->id,
                                 'category_id'=>$categoryId,
                                 'product_name'=>$product->name,
+                                'product_name_cn'=>$product->name_cn,
                                 'position'=>$product->position,
                                 'price'=>$product->default_price
                             ]
@@ -539,6 +570,45 @@ class Product extends Model
     }
 
     /**
+     * 获取所关联的tag的id数组
+     * @return array
+     */
+    public function getTagsId(){
+        $tags = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tagsId = [];
+        if(count($tags)>0){
+            foreach ($tags as $tag) {
+                $tagsId[] = $tag;
+            }
+        }
+        return $tagsId;
+    }
+
+    public function getTagsForView(){
+        $tagsProducts = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tags=[];
+
+        if(count($tagsProducts)>0){
+            foreach ($tagsProducts as $tagsProduct) {
+                $tags[] = $tagsProduct->tag;
+            }
+        }
+        return $tags;
+    }
+
+    public function getTags(){
+        $tagsProducts = TagProduct::select('tag_id')->where('product_id',$this->id)->get();
+        $tags=[];
+
+        if(count($tagsProducts)>0){
+            foreach ($tagsProducts as $tagsProduct) {
+                $tags[] = ['name'=>$tagsProduct->tag->name,'id'=>$tagsProduct->tag->id];
+            }
+        }
+        return $tags;
+    }
+
+    /**
      * 根据给定的UUID获取产品对象
      * @param $uuid
      * @return Product
@@ -628,7 +698,7 @@ class Product extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function relatedProduct(){
-        return $this->hasMany(RelatedProduct::class);
+        return $this->hasOne(RelatedProduct::class);
     }
 
     /**
@@ -666,5 +736,31 @@ class Product extends Model
             return $brand->getImageUrl();
         }
         return null;
+    }
+
+    /**
+     * 获取产品的名称, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductName(){
+        return app()->getLocale() == 'cn' && $this->name_cn ? $this->name_cn : $this->name;
+    }
+
+    /**
+     * 获取产品的详情, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductDescription(){
+        return app()->getLocale() == 'cn' && $this->description_cn
+            ? $this->description_cn : $this->description;
+    }
+
+    /**
+     * 获取产品的详情简介, 根据当前的语言自动选择
+     * @return string
+     */
+    public function getProductShortDescription(){
+        return app()->getLocale() == 'cn' && $this->short_description_cn
+            ? $this->short_description_cn : $this->short_description;
     }
 }

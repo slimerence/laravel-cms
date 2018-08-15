@@ -16,17 +16,22 @@ Route::get('/contact-us', 'Frontend\Pages@contact_us')->name('contact_us');
 Route::post('/contact-us', 'Frontend\Pages@contact_us_handler');
 Route::get('/terms', 'Frontend\Pages@terms')->name('terms');
 
+// Switch to another language
+Route::get('/switch-language/{lang}', 'Frontend\Pages@switch_language')->name('switch_language');
+
+//Route::get('/results', 'Frontend\Pages@news');
+
 // 特定的URI
 Route::prefix('page')->group(function(){
     Route::get('/blog', 'Frontend\Pages@blog');
     Route::get('/blog/{uri}', 'Frontend\Pages@blog_view');
+    Route::post('/blog-search', 'Frontend\Pages@blog_search');
     Route::get('/news', 'Frontend\Pages@news');
     Route::get('/news/{uri}', 'Frontend\Pages@news_view');
 
     // 查看某个独立页面内容的路由
     Route::get('/{uri}', 'Frontend\Pages@view');
 });
-
 
 // 加载产品目录的内容
 Route::get('/category/view/{uri}', 'Frontend\Categories@view');
@@ -72,6 +77,7 @@ Route::prefix('frontend')->group(function () {
 });
 
 Auth::routes();
+//Route::get('admin_admin','');
 
 Route::prefix('backend')->middleware('auth')->group(function(){
     // 联系的 Leads 列表
@@ -195,6 +201,31 @@ Route::prefix('backend')->middleware('auth')->group(function(){
     Route::get('brands/edit/{id}', 'Backend\Brands@edit');
     Route::get('brands/delete/{id}', 'Backend\Brands@delete');
     Route::post('brands/save','Backend\Brands@save');
+
+    /**
+     * 支付方式管理
+     */
+    Route::post('payment-methods/save', 'Backend\PaymentMethods@save');
+    Route::get('payment-methods', 'Backend\PaymentMethods@index')->name('payment-methods');
+});
+
+// 和PayPal支付相关的路由定义
+Route::prefix('payment')->group(function(){
+    Route::get('paypal/cancelled','Frontend\Payments\PayPalController@cancelled')
+        ->name('paypal.checkout.cancelled');
+    Route::get('paypal/completed','Frontend\Payments\PayPalController@completed')
+        ->name('paypal.checkout.completed');
+    Route::any('paypal/webhook','Frontend\Payments\PayPalController@paypal_webhook')
+        ->name('webhook.paypal.ipn');
+
+    // 微信支付回调
+    Route::get('wechat/completed','Frontend\Payments\WechatController@completed')
+        ->name('wechat.checkout.completed');
+    Route::get('wechat/cancelled','Frontend\Payments\WechatController@cancelled')
+        ->name('wechat.checkout.cancelled');
+    Route::any('wechat/notify','Frontend\Payments\WechatController@notify')
+        ->name('wechat.checkout.notify');
 });
 
 Route::get('/home', 'Backend\Home@index');
+//Route::get('/{uri}','Frontend\Home@view_content');

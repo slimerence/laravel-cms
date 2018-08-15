@@ -54,6 +54,15 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
+
+        /*
+         * 自定义的 theme 的 routes 加载
+         */
+        if(file_exists(resource_path('views/frontend/custom/app/routes/web.php'))){
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(resource_path('views/frontend/custom/app/routes/web.php'));
+        }
     }
 
     /**
@@ -69,5 +78,14 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+
+        /*
+         * 自定义的 theme 的 routes 加载
+         */
+        if(file_exists(resource_path('views/frontend/custom/app/routes/api.php'))){
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(resource_path('views/frontend/custom/app/routes/api.php'));
+        }
     }
 }

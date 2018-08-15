@@ -25,6 +25,10 @@
             productDialogVisible: false,
             productImageUrl: '',
             categories: {{ $product->id ? json_encode($product->getCategoriesId()) : '[]' }},
+            // 产品的 Tags 的数据
+            tags:{!!  $product->id ? json_encode($product->getTags()) : '[]' !!},
+            tagsNamelist: {!! isset($tagslist) ? $tagslist->toJson() : '[]' !!},
+            // 产品的 Images 的数据
             productImages: [],
             // 产品的额外信息
             editExistProductOption: false,  // 表示是否处于产品option编辑的模式
@@ -64,7 +68,7 @@
                 seo_description: '<?php echo $product->seo_description; ?>',
                 default_price:'<?php echo $product->default_price; ?>',
                 special_price:'<?php echo $product->special_price; ?>',
-                tax:'<?php echo $product->tax ? $product->tax : 10; ?>',
+                tax:'<?php echo is_null($product->tax) ? 10 : $product->tax; ?>',
                 min_quantity:'<?php echo $product->min_quantity ? $product->min_quantity : 1; ?>',
                 manage_stock: '{{ $product->manage_stock ? 1 : 0 }}',
                 stock: '<?php echo $product->stock ? $product->stock : 0; ?>',
@@ -73,7 +77,13 @@
                 brand_serial_id: <?php echo $product->brand_serial_id ? $product->brand_serial_id : 'null'; ?>,
                 serial_name: '<?php echo $product->serial_name; ?>',
                 is_group_product: <?php echo $product->is_group_product ? 'true' : 'false'; ?>,
-                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>
+                is_configurable_product: <?php echo $product->is_configurable_product ? 'true' : 'false'; ?>,
+                // 课程中文
+                name_cn: '<?php echo $product->name_cn; ?>',
+                short_description_cn: '<?php echo str_replace(PHP_EOL,'', $product->short_description_cn); ?>',
+                description_cn: '<?php echo str_replace(PHP_EOL,'', $product->description_cn); ?>',
+                keywords_cn: '<?php echo $product->keywords_cn; ?>',
+                seo_description_cn: '<?php echo $product->seo_description_cn; ?>',
             },
             rules: {
                 name: [
@@ -400,7 +410,7 @@
             },
             handleColourPictureSuccess: function(res, file){
                 // 用户选择了图片来代表颜色, 那么图片上传成功之后的回调
-                this.productColourForm.imageUrl = res;
+                this.productColourForm.imageUrl = res.url;
             },
             beforeColourPictureUpload: function(file){
                 // 用户选择了图片来代表颜色, 那么图片上传之前的处理
@@ -539,6 +549,8 @@
                     // 由于使用了 vuejs-editor, 需要单独通过下面的方式获取产品的description最新值
                     this.product.description = this.$refs.productDescriptionEditor.getContent();
                     this.product.short_description = this.$refs.productShortDescriptionEditor.getContent();
+                    this.product.description_cn         = this.$refs.productDescriptionCNEditor.getContent();
+                    this.product.short_description_cn   = this.$refs.productShortDescriptionCNEditor.getContent();
 
                     axios.post(
                             '<?php echo url('api/products/clone') ?>',
@@ -626,6 +638,7 @@
                             product:this.product,
                             images: this.productImages,
                             categories: this.categories,
+                            tags:this.tags,
                             productOptions: this.productOptions,
                             productColours: this.productColours,
                             productAttributeData: paData // 和产品属性相关的值

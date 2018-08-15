@@ -4,7 +4,7 @@
             @if(empty($siteConfig->logo))
                 {{ str_replace('_',' ',env('APP_NAME','Home')) }}
                 @else
-                {!! \App\Models\Utils\AMP\MediaUtil::NormalImage(asset($siteConfig->logo),'Logo', 80, 80, 'logo-img') !!}
+                {!! \App\Models\Utils\AMP\MediaUtil::NormalImage(asset($siteConfig->logo),'Logo', null, 80, 'logo-img') !!}
             @endif
         </a>
     </div>
@@ -83,7 +83,7 @@
         <div class="navbar-start">
             @if(isset($categoriesTree) && count($categoriesTree) > 0)
                 <a id="catalog-viewer-app" class="navbar-item product-category-root" href="#"
-                   style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px; background-color: {{ $siteConfig->theme_main_color?$siteConfig->theme_main_color:'#000' }};"
+                   style="background-color: {{ $siteConfig->theme_main_color?$siteConfig->theme_main_color:'#ffffff' }};"
                 >
                     <i class="fas fa-cube"></i>&nbsp;&nbsp;Catalog
                     <div class="columns is-marginless is-paddingless" id="" style="position: absolute;left:0;top:52px;">
@@ -109,7 +109,7 @@
                                 :first-level-categories="{{ json_encode($categories) }}"
                                 :width="1280"
                                 :height="600"
-                                :left-width="{{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}"
+                                :left-width="{{ env('catalog_trigger_menu_width',161) }}"
                                 :show-now="false"
                                 trigger-id=".product-category-root"
                                 show-by="hover"

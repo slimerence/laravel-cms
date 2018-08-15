@@ -8,24 +8,46 @@ namespace App\Models\Utils\Payment;
 use Omnipay\Omnipay;
 use Omnipay\Common\Message\ResponseInterface;
 use App\Models\Order\Order;
+use App\Models\Settings\PaymentMethod;
 
 class PayPalTool
 {
     private $libName;
-    public function __construct($libName)
+    private $paymentMethod;
+
+    //
+    private $username;
+    private $password;
+    private $signature;
+    private $brandName;
+    private $isLiveMode;
+
+    public function __construct(PaymentMethod $method)
     {
-        $this->libName = $libName;
+        $this->libName = str_replace(' ','_',$method->name);
+        $this->paymentMethod = $method;
+
+        $this->isLiveMode = $this->paymentMethod->isLiveMode();
+        $this->username = $this->paymentMethod->getApiToken();
+        $this->signature = $this->paymentMethod->getApiSecret();
+
+        // 为了安全, PayPal的Password放到env中
+        $this->password = env('PAYPAL_PASSWORD');
+        $this->brandName = env('APP_NAME');
     }
 
+    /**
+     * 获取网关对象
+     * @return \Omnipay\Common\GatewayInterface
+     */
     public function gateway()
     {
         $gateway = Omnipay::create($this->libName);
-        $mode = env('RUNNING_IN_TEST_MODE',true) ? 'sandbox' : 'live';
-        $gateway->setUsername(config('paypal.'.$mode.'.api.username'));
-        $gateway->setPassword(config('paypal.'.$mode.'.api.password'));
-        $gateway->setSignature(config('paypal.'.$mode.'.api.signature'));
-        $gateway->setTestMode(env('RUNNING_IN_TEST_MODE',true));
-        $gateway->setBrandName(config('app.name'));
+        $gateway->setUsername($this->username);
+        $gateway->setPassword($this->password);
+        $gateway->setSignature($this->signature);
+        $gateway->setTestMode(!$this->isLiveMode);
+        $gateway->setBrandName($this->brandName);
         return $gateway;
     }
 

@@ -35,7 +35,7 @@ class Media extends Model
             if($dimension){
                 return self::create([
                     'uuid'=>Uuid::uuid4()->toString(),
-                    'type'=>MediaTool::$TYPE_IMAGE,
+                    'type'=>$type,
                     'target_id'=>$targetId,
                     'url'=>$filePath,
                     'width'=>$dimension['width'],
@@ -46,6 +46,19 @@ class Media extends Model
                     'alt'=>$alt
                 ]);
             }
+        }else{
+            return self::create([
+                'uuid'=>Uuid::uuid4()->toString(),
+                'type'=>$type,
+                'target_id'=>$targetId,
+                'url'=>$filePath,
+                'width'=>0,
+                'height'=>0,
+                'size'=>MediaTool::GetFileSizeInKB($filePath),
+                'duration'=>0,
+                'for'=>$for,
+                'alt'=>$alt
+            ]);
         }
     }
 
@@ -132,16 +145,19 @@ class Media extends Model
         $exist = Storage::exists($filePath);
         if($exist){
             $image = Image::make(storage_path('app/public').'/'.$filePath);
+            $size = MediaTool::GetFileSizeInKB($filePath);
             return [
                 'width'=>$image->width(),
                 'height'=>$image->height(),
-                'size'=>ceil(Storage::size($filePath)/1000)
+                'size'=>$size
             ];
         }else{
             Log::info('Error',['path'=>storage_path('app/public').$filePath]);
         }
         return null;
     }
+
+
 
     /**
      * 根据给定的产品ID获取所有图片
@@ -162,6 +178,9 @@ class Media extends Model
     public function toHtml($classNames = null){
         if($this->type == MediaTool::$TYPE_IMAGE){
             return '<img class="image '.$classNames.'" src="'.$this->url.'" alt="'.$this->alt.'">';
+        }else{
+            // 非图片类型
+            return '<a title="'.$this->alt.'" class="'.$classNames.'" href="'.$this->url.'">'.$this->alt.'</a>';
         }
     }
 }

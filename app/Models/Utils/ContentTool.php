@@ -23,7 +23,9 @@ class ContentTool
     public static $ROOT_MENU_ID = 1;
     public static $ROOT_CONFIGURATION_ID = 1;
 
-    public static $newlineFilters = ['seo_keyword','keywords','seo_description','css_class','link_to','short_description','content','description'];
+    public static $newlineFilters = ['seo_keyword','keywords','seo_description','css_class','link_to',
+        'short_description','content','description','teasing','description_cn','short_description_cn',
+        'keywords_cn','seo_description_cn'];
 
     /**
      * 表示page的content中是否有动态内容, 主要就是是否嵌入了BLOCK
@@ -137,5 +139,16 @@ class ContentTool
     public static function GetPageLayoutTypeByKey($key){
         $types = self::GetPageLayoutTypes();
         return isset($types[$key]) ? $types[$key] : '';
+    }
+
+    /**
+     * 转换name字符串, 去掉可能造成干扰的字符, 以便当做URI
+     * @param string $name
+     * @return string
+     */
+    public static function ConvertNameToUri($name){
+        $name = str_replace('/','-and-',strtolower($name));
+        $name = str_replace('\\','-and-',$name);
+        return urlencode(str_replace(' ','-',$name));
     }
 }

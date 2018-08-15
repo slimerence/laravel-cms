@@ -48,7 +48,7 @@
             </el-upload>
             <div class="exist-attachment-wrap">
                 <div class="exist-attachment-item" v-for="(item, theIndex) in productAttributesValues[idx]" v-if="item.idx">
-                    <a v-bind:href="'/storage/'+item.url" target="_blank">@{{ item.name }}</a>
+                    <a v-bind:href="item.url" target="_blank">@{{ item.name }}</a>
                     <el-button v-on:click="removeAttachmentExist(item.idx, theIndex)" type="danger" size="mini" icon="el-icon-delete"></el-button>
                 </div>
             </div>
@@ -58,19 +58,55 @@
 <hr>
 <h5 class="desc-text">Categories</h5>
 <div class="content">
-    <?php
-    $chunks = $categories->chunk(6);
-    ?>
-    @foreach($chunks as $row)
-        <div class="columns is-multiline">
-            @foreach($row as $key=>$category)
-                <div class="column is-2 form-check form-check-inline">
-                    <label class="checkbox form-check-label">
-                        <input v-model="categories" class="checkbox form-check-input"
-                               type="checkbox" value="{{ $category->id }}"> {{ $category->name }}
-                    </label>
+    @foreach($categoriesTree['children'] as $key=>$levelOne)
+        <article class="message is-info">
+            <div class="message-header">
+                <label class="checkbox form-check-label">
+                    <input v-model="categories" class="checkbox form-check-input"
+                       type="checkbox" value="{{ $levelOne['id'] }}"> {{ $levelOne['name'] }}
+                </label>
+            </div>
+            @if(count($levelOne['children'])>0)
+                <div class="message-body">
+                    @foreach($levelOne['children'] as $key=>$levelTwo)
+                        <p>
+                            <label class="checkbox form-check-label">
+                                <input v-model="categories" class="checkbox form-check-input"
+                                   type="checkbox" value="{{ $levelTwo['id'] }}"> - {{ $levelTwo['name'] }}
+                            </label>
+                        </p>
+                        @if(isset($levelTwo['children']) && count($levelTwo['children']))
+                            <p>
+                                @foreach($levelTwo['children'] as $levelThree)
+                                    <label class="form-check-label" style="margin-right: 20px;">
+                                        <input v-model="categories" class="checkbox form-check-input"
+                                               type="checkbox" value="{{ $levelThree['id'] }}"> -- {{ $levelThree['name'] }}
+                                    </label>
+                                @endforeach
+                            </p>
+                        @endif
+                    @endforeach
                 </div>
-            @endforeach
-        </div>
+            @endif
+        </article>
     @endforeach
+</div>
+<h5 class="desc-text">Tags</h5>
+
+<div class="content">
+    <el-select
+            v-model="tags"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            value-key="id"
+            placeholder="请选择产品标签">
+        <el-option
+                v-for="(item, idx) in tagsNamelist"
+                :key="idx"
+                :label="item.name"
+                :value="item">
+        </el-option>
+    </el-select>
 </div>

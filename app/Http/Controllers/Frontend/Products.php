@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Category;
+use App\Models\Catalog\Tag;
 
 class Products extends Controller
 {
@@ -22,10 +23,10 @@ class Products extends Controller
         $product = Product::GetByUri($uri);
 
         if(!$product){
-            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+            return response()->view(_get_frontend_theme_path('pages.404'), $this->dataForView, 404);
         }
 
-        $this->dataForView['pageTitle'] = $product->name;
+        $this->dataForView['pageTitle'] = $product->getProductName();
         $this->dataForView['metaKeywords'] = $product->keywords;
         $this->dataForView['metaDescription'] = $product->seo_description;
 
@@ -33,6 +34,7 @@ class Products extends Controller
         $this->dataForView['product'] = $product;
         $this->dataForView['relatedProducts'] = $product->relatedProduct;
         $this->dataForView['product_images'] = $product->get_AllImages();
+        $this->dataForView['tags'] = $product->getTagsForView();
 
         /**
          * 产品的属性集的值
@@ -50,7 +52,9 @@ class Products extends Controller
         $this->dataForView['productShortDescriptionTop'] = Block::where('short_code','like','product_short_description_block_top%')->get();
         $this->dataForView['productShortDescriptionBottom'] = Block::where('short_code','like','product_short_description_block_bottom%')->get();
 
-        return view('frontend.default.catalog.product',$this->dataForView);
+
+        return view(_get_frontend_theme_path('catalog.product'),$this->dataForView);
+
     }
 
     /**
@@ -62,7 +66,7 @@ class Products extends Controller
         $brand = Brand::where('name',$request->get('name'))->first();
 
         if(!$brand){
-            return response()->view('frontend.default.pages.404', $this->dataForView, 404);
+            return response()->view(_get_frontend_theme_path('pages.404'), $this->dataForView, 404);
         }
 
         $this->dataForView['brand'] = $brand;
@@ -118,7 +122,7 @@ class Products extends Controller
         $this->dataForView['vuejs_libs_required'] = ['category_view_manager'];
 
         // 总是加载Features product and promotion
-        return view('frontend.default.catalog.brand',$this->dataForView);
+        return view(  _get_frontend_theme_path('catalog.brand'),$this->dataForView);
     }
 
     /**

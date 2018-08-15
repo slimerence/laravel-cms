@@ -81,6 +81,7 @@ class Users extends Controller
     public function update_password_handler(Request $request){
         $user = User::find($request->get('id'));
         $user->password = Hash::make($request->get('password'));
+        $user->save();
 
         if($user->role == UserGroup::$GENERAL_CUSTOMER || $user->role == UserGroup::$WHOLESALE_CUSTOMER){
             return redirect()->route('customers');

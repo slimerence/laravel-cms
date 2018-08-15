@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" ⚡>
+<html amp lang="{{ app()->getLocale() }}" ⚡>
 @include('layouts.frontend.head')
 <body>
 @if($agentObject->isPhone())
@@ -21,20 +21,21 @@
     </main>
 @else
     <!-- Desktop Version -->
+    @include(_get_frontend_layout_path('frontend.top_bar'))
     <section class="section is-paddingless">
-        @include('layouts.frontend.header_catalog')
+        @include( _get_frontend_layout_path('frontend.header_catalog') )
         <div class="container">
-            @include('layouts.frontend.promotion')
+            @include( _get_frontend_layout_path('frontend.promotion') )
         </div>
         <div class="container mt-10">
-            @include('layouts.frontend.session_flash_msg_box')
+            @include( _get_frontend_layout_path('frontend.session_flash_msg_box'))
             @yield('content')
-            @include('layouts.frontend.footer')
+            @include( _get_frontend_layout_path('frontend.footer') )
         </div>
     </section>
-    @include('layouts.frontend.floating_box')
+    @include( _get_frontend_layout_path('frontend.floating_box'))
 @endif
 
-@include('layouts.frontend.js')
+@include( _get_frontend_layout_path('frontend.js') )
 </body>
 </html>

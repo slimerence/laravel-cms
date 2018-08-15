@@ -60,10 +60,18 @@ if(!function_exists('_get_frontend_theme_prefix')){
     function _get_frontend_theme_path($path){
         // 检查文件是否存在
         $filename = resource_path('views/frontend/').str_replace('.','/',_get_frontend_theme_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+
+        $finalPath = 'frontend.'.config('system.frontend_theme').'.'.$path;
         if(file_exists($filename)){
-            return 'frontend.'._get_frontend_theme_prefix().'.'.$path;
+            $finalPath = 'frontend.'._get_frontend_theme_prefix().'.'.$path;
         }
-        return 'frontend.'.config('system.frontend_theme').'.'.$path;
+
+        if(env('APP_DEBUG', false)){
+            // Log layout path file if in APP_DEBUG mode
+            \Illuminate\Support\Facades\Log::info('Theme: '.$path, ['location'=>$finalPath]);
+        }
+
+        return $finalPath;
     }
 
     /**
@@ -80,12 +88,125 @@ if(!function_exists('_get_frontend_theme_prefix')){
      * @return string
      */
     function _get_frontend_layout_path($path){
-        $filename = resource_path('views/layouts/').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+//        $filename = resource_path('views/layouts/').str_replace('.','/',_get_frontend_layout_prefix()).'/'.str_replace('.','/',$path).'.blade.php';
+        $filename = resource_path('views/frontend/').str_replace('.','/',_get_frontend_layout_prefix()).'/layouts/'.str_replace('.','/',$path).'.blade.php';
+
+        $finalPath = 'layouts.'.$path;
         if(file_exists($filename)){
             if(strlen(_get_frontend_layout_prefix()) > 0){
-                return 'layouts.'._get_frontend_layout_prefix().'.'.$path;
+                $finalPath = 'frontend.'._get_frontend_layout_prefix().'.layouts.'.$path;
             }
         }
-        return 'layouts.'.$path;
+
+        if(env('APP_DEBUG', false)){
+            // Log layout path file if in APP_DEBUG mode
+            \Illuminate\Support\Facades\Log::info('Layout: '.$path, ['location'=>$finalPath]);
+        }
+
+        return $finalPath;
+    }
+}
+
+if (!function_exists('a2a')){
+    function a2a($class, $options){
+        if(isset($options['class'])){
+            if(is_string($options['class'])){
+                $options['class'] = $class.' '.$options['class'];
+            }elseif(is_array($options['class'])){
+                array_unshift($options['class'], $class);
+            }
+        }else{
+            $options['class'] = $class;
+        }
+
+        $result = '';
+        foreach ($options as $attrName=>$attrValue) {
+            if(is_string($attrValue)){
+                $result .= ' '.$attrName.'="'.$attrValue.'"';
+            }else{
+                $result .= ' '.$attrName.'="'.implode(' ',$attrValue).'"';
+            }
+        }
+        return $result;
+    }
+}
+
+if(!function_exists('div_container')){
+    /**
+     * 根据当前主题输出 container 类型的 div tag 的方法
+     * @param array $options
+     * @param bool $fluid
+     * @return string
+     */
+    function div_container($options=[],$fluid = false){
+        return '<div'.
+            a2a($fluid?'container-fluid':'container',$options).
+            '>';
+    }
+}
+
+if(!function_exists('div_content')){
+    /**
+     * 根据当前主题输出 container 类型的 div tag 的方法
+     * @param array $options
+     * @param bool $fluid
+     * @return string
+     */
+    function div_content($options=[],$fluid = false){
+        return '<div'.
+            a2a($fluid?'content-fluid':'content',$options)
+            .'>';
+    }
+}
+
+if(!function_exists('div_row')){
+    /**
+     * 根据当前主题输出 row 类型的 div tag 的方法
+     * @param array $options
+     * @return string
+     */
+    function div_row($options=[]){
+        $class = 'row';
+        switch (env('FRONTEND_THEME',\App\Models\Utils\Html\FormHelper::THEME_BULMA)){
+            case \App\Models\Utils\Html\FormHelper::THEME_BULMA:
+                $class = 'columns';
+                break;
+            default:
+                break;
+        }
+        return '<div'.a2a($class,$options).'>';
+    }
+}
+
+if(!function_exists('div_col')){
+    /**
+     * 根据当前主题输出 col 类型的 div tag 的方法
+     * @param string $cols
+     * @param array $options
+     * @return string
+     */
+    function div_col($cols=null, $options=[]){
+        $class = 'col';
+        switch (env('FRONTEND_THEME',\App\Models\Utils\Html\FormHelper::THEME_BULMA)){
+            case \App\Models\Utils\Html\FormHelper::THEME_BULMA:
+                $class = 'column'.($cols ? ' is-'.$cols : null);
+                break;
+            case \App\Models\Utils\Html\FormHelper::THEME_TWITTER_BOOTSTRAP4:
+                $class = 'col'.($cols ? '-'.$cols : null);
+                break;
+            default:
+                break;
+        }
+        return '<div'.a2a($class,$options).'>';
+    }
+}
+
+if(!function_exists('div_end')){
+    /**
+     * 根据当前主题输出 container 类型的 div tag 的方法
+     * @return string
+     */
+    function div_end(){
+        return '</div>';
     }
 }

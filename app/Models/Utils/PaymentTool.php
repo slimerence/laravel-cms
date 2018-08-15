@@ -15,6 +15,10 @@ namespace App\Models\Utils;
  */
 class PaymentTool
 {
+    // 存储Stripe支付token结果的input的ID
+    const STRIPE_TOKEN_INPUT_ID     = 'resultTokenInputId';
+    const STRIPE_TOKEN_INPUT_NAME   = 'stripe_token';
+
     public static $TYPE_PLACE_ORDER = 1;
     public static $TYPE_CASH        = 2;
     public static $TYPE_CREDIT_CARD = 3;
@@ -113,7 +117,10 @@ class PaymentTool
             self::$TYPE_ALIPAY => '支付宝',
             self::$TYPE_MONEY_ORDER => 'Money Order',
             self::$TYPE_CHEQUE => 'Cheque',
-            self::$TYPE_APPLE_PAY => 'Apple Pay'
+            self::$TYPE_APPLE_PAY => 'Apple Pay',
+            self::$TYPE_STRIPE => 'Stripe',
+            self::$TYPE_PAYPAL => 'PayPal Express',
+            self::$TYPE_PAYPAL_PRO => 'PayPal PRO',
         ];
     }
 
@@ -125,5 +132,49 @@ class PaymentTool
     public static function GetTypeName($type){
         $types = self::AllTypes();
         return isset($types[$type]) ? $types[$type] : 'N.A';
+    }
+
+    /**
+     * 根据Method id的值, 获取对应的Tag id的值
+     * @param $methodId
+     * @return mixed
+     */
+    public static function GetMethodIdStringByMethodId($methodId){
+        $types = [
+            self::$TYPE_PLACE_ORDER => self::$METHOD_ID_PLACE_ORDER,
+            self::$TYPE_CASH => self::$METHOD_ID_CASH,
+            self::$TYPE_CREDIT_CARD => self::$METHOD_ID_CREDIT_CARD,
+            self::$TYPE_WECHAT => self::$METHOD_ID_WECHAT,
+            self::$TYPE_ALIPAY => self::$METHOD_ID_ALIPAY,
+            self::$TYPE_MONEY_ORDER => self::$METHOD_ID_MONEY_ORDER,
+            self::$TYPE_CHEQUE => self::$METHOD_ID_CHEQUE,
+            self::$TYPE_APPLE_PAY => self::$METHOD_ID_APPLE_PAY,
+            self::$TYPE_STRIPE => self::$METHOD_ID_STRIPE,
+            self::$TYPE_PAYPAL => self::$METHOD_ID_PAYPAL_EXPRESS,
+            self::$TYPE_PAYPAL_PRO => self::$METHOD_ID_PAYPAL_PRO,
+        ];
+        return $types[$methodId];
+    }
+
+    /**
+     * 根据Method id的值, 获取对应的模板文件名
+     * @param $methodId
+     * @return mixed
+     */
+    public static function GetTemplateNameByMethodId($methodId){
+        $types = [
+            self::$TYPE_PLACE_ORDER => 'place_order',
+            self::$TYPE_CASH => 'CASH',
+            self::$TYPE_CREDIT_CARD => 'bank_credit_card',
+            self::$TYPE_WECHAT => 'wechat_off_site',
+            self::$TYPE_ALIPAY => 'ali_off_site',
+            self::$TYPE_MONEY_ORDER => 'money_order',
+            self::$TYPE_CHEQUE => 'cheque',
+            self::$TYPE_APPLE_PAY => 'apple_pay',
+            self::$TYPE_STRIPE => 'stripe',
+            self::$TYPE_PAYPAL => 'paypal_express_off_site',
+            self::$TYPE_PAYPAL_PRO => 'paypal_pro',
+        ];
+        return $types[$methodId];
     }
 }

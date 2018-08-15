@@ -23,6 +23,9 @@ $theSpecialPrice = $product->getSpecialPriceGST();
             // 和产品的颜色相关
             productColours:{!! count($product_colours)>0 ? json_encode($product_colours) : '[]' !!},
             selectedColour:null,
+            // 和上传附件有关
+            attachments:[],
+            somethingAttached: false, // 作为监听用的, 不会实际上传
             /*
              验证规则
              */
@@ -51,7 +54,7 @@ $theSpecialPrice = $product->getSpecialPriceGST();
                 if(this._buildColourItem() && this._buildOrderItem() && !this._hasError()){
                     axios.post(
                             '/products/add_to_cart',
-                            {items: this.orderItem, colour: this.selectedColour}
+                            {items: this.orderItem, colour: this.selectedColour, attachments:this.attachments}
                     ).then(function(res){
                         if(res.data.error_no == 100){
                             // 成功 刷新购物车的count
@@ -69,6 +72,35 @@ $theSpecialPrice = $product->getSpecialPriceGST();
                         }
                     });
                 }
+            },
+            _getAttachmentUrl: function(idx){
+                // 获取attachments中保存的url字符串
+                return this.attachments[idx];
+            },
+            handleAttachmentSuccess: function(res, file){
+                // 返回的数据中会有idx
+                var idx = parseInt(res.directReturn);
+                if(idx > -1){
+                    // 保存url字符串到attachments中
+                    this.attachments[idx] = res.url;
+                }
+                this.somethingAttached = true;
+            },
+            beforeAttachmentUpload: function(file){
+                // 支持三种文件类型作为附件上传
+                this.somethingAttached = false;
+                var isJPG = file.type === 'image/jpeg';
+                var isPNG = file.type === 'image/png';
+                var isPDF = file.type === 'application/pdf';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG && !isPNG && !isPDF) {
+                    this.$message.error('Image or PDF file only!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('File size is limited to 2MB!');
+                }
+                return (isJPG || isPNG || isPDF) && isLt2M;
             },
             _buildColourItem: function(){
                 // Check Colour option
@@ -122,6 +154,10 @@ $theSpecialPrice = $product->getSpecialPriceGST();
                         if(currentInput.attr('name') == 'quantity' || currentInput.attr('type') == 'hidden'){
                             // 产品的购买数量和其他的隐藏属性都是一般的数据
                             item.type = 'general';
+                            if(currentInput.data('type')){
+                                // 如果指定了特殊的type
+                                item.type = currentInput.data('type');
+                            }
                             item.name = currentInput.attr('name');
                             item.value = currentInput.val();
                         }else if(currentInput.attr('type') == 'radio'){

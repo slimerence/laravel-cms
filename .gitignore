@@ -3,6 +3,11 @@
 /public/uploads
 /public/storage
 /public/demos/*
+/public/css/*
+/public/js/*
+/public/images/*
+/public/fonts/*
+/public/mix-manifest.json
 /storage/app/public/uploads/*
 /vendor
 /.idea
@@ -17,3 +22,14 @@ yarn-error.log
 /resources/views/layouts/custom/*
 /resources/assets/sass/frontend/_custom.scss
 /resources/assets/sass/frontend/custom/*
+/resources/assets/images/frontend/custom/*
+/composer.lock
+/public/css/_custom.css
+/public/css/all.css
+/public/css/backend.css
+/public/js/all.js
+/public/js/app.js
+/public/js/backend.js
+/public/mix-manifest.json
+webpack.mix.js
+package-lock.json

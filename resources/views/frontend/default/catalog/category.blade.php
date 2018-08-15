@@ -3,30 +3,30 @@
     <div class="content pl-20 pr-20 page-content-wrap" id="category-view-manager">
         @if(isset($featureProducts) && count($featureProducts)>0)
         <hr>
-        <div class="columns">
-            <div class="column is-1">
+        {!! div_row() !!}
+            {!! div_col(1) !!}
                 <i class="far fa-thumbs-up is-size-1 has-text-danger"></i>
                 <br>
                 <p class="has-text-left has-text-danger is-size-7 mt-10">Feature Products</p>
-            </div>
-            <div class="column is-11-desktop">
-                <div class="columns">
+            {!! div_end() !!}
+            {!! div_col(11) !!}
+                {!! div_row() !!}
                     @foreach($featureProducts as $featureProduct)
-                    <div class="column">
+                    {!! div_col() !!}
                         <div class="show-mask-on-hover">
                             <img src="{{ $featureProduct->getProductDefaultImageUrl() }}" alt="{{ $featureProduct->name }}" class="image mb-10" style="height: 201px;">
                             <div class="mask">
                                 <a href="{{ url('catalog/product/'.$featureProduct->uri) }}">
-                                    <p class="name is-size-4">{{ $featureProduct->name }}</p>
+                                    <p class="name is-size-4">{{ $featureProduct->getProductName() }}</p>
                                     <p class="price is-size-5">${{ $featureProduct->getFinalPriceGst() }}</p>
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    {!! div_end() !!}
                     @endforeach
-                </div>
-            </div>
-        </div>
+                {!! div_end() !!}
+            {!! div_end() !!}
+        {!! div_end() !!}
         <hr>
         @endif
         <div class="box is-radiusless mt-20">
@@ -113,8 +113,8 @@
                     <p class="has-text-left has-text-danger is-size-4 is-marginless mb-10">Promotion</p><br>
                     @foreach($promotionProducts as $promotionProduct)
                     <a href="{{ url('catalog/product/'.$promotionProduct->uri) }}">
-                        <img src="{{ $promotionProduct->getProductDefaultImageUrl() }}" alt="{{ $promotionProduct->name }}" class="image mb-10">
-                        <p class="is-size-6 has-text-grey mb-10">{{ $promotionProduct->name }}</p>
+                        <img src="{{ $promotionProduct->getProductDefaultImageUrl() }}" alt="{{ $promotionProduct->getProductName() }}" class="image mb-10">
+                        <p class="is-size-6 has-text-grey mb-10">{{ $promotionProduct->getProductName() }}</p>
                         <div class="price-box">
                             <p class="is-pulled-left {{ $promotionProduct->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $promotionProduct->getDefaultPriceGST() }}</p>
                             @if($promotionProduct->special_price)
@@ -166,7 +166,7 @@
                                 <div class="is-clearfix"></div>
                                     <a href="{{ url('catalog/product/'.$product->uri) }}">
                                     <p class="has-text-centered p-img">
-                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->name }}" class="image">
+                                        <img src="{{ $product->getProductDefaultImageUrl() }}" alt="{{ $product->getProductName() }}" class="image">
                                     </p>
                                     <div class="price-box">
                                         <p class="is-pulled-left {{ $product->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $product->getDefaultPriceGST() }}</p>
@@ -175,7 +175,7 @@
                                         @endif
                                     </div>
                                     <div class="is-clearfix"></div>
-                                    <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->name }}</p>
+                                    <p class="is-size-6 has-text-grey mb-10 mh48">{{ $product->getProductName() }}</p>
                                 </a>
                                 @if($product->serial_name)
                                 <div class="control is-pulled-left"><div class="tags has-addons">
@@ -186,7 +186,7 @@
                                 @endif
                                 <div class="control is-pulled-right">
                                     <div class="tags has-addons">
-                                        <a class="tag is-success" href="#" v-on:click.prevent="startEnquiry('{{ $product->name }}','{{ $product->uuid }}')">
+                                        <a class="tag is-success" href="#" v-on:click.prevent="startEnquiry('{{ $product->getProductName() }}','{{ $product->uuid }}')">
                                             <i class="far fa-comment"></i>&nbsp;Send Enquiry
                                         </a>
                                     </div>

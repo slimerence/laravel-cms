@@ -15,12 +15,6 @@ class Categories extends Controller
      */
     public function tree(){
         $categoriesTreeArray = Category::Tree()->toArray();
-//        dd($categoriesTreeArray['children']);
-//        foreach ($categoriesTreeArray['children'] as $index => $child) {
-//            if($child['as_link']){
-//                $categoriesTreeArray['children'][$index]['name'] .= '<span class="badge badge-light">L</span>';
-//            }
-//        }
         return JsonBuilder::Success($categoriesTreeArray);
     }
 
@@ -28,6 +22,7 @@ class Categories extends Controller
      * 删除目录的方法
      * @param Request $request
      * @return string
+     * @throws \Exception
      */
     public function delete(Request $request){
         if($request->get('category') && Category::Terminate($request->get('category'))){

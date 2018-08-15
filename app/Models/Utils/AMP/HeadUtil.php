@@ -2,16 +2,20 @@
 
 namespace App\Models\Utils\AMP;
 
-use Spatie\SchemaOrg\Schema;
 use Spatie\SchemaOrg\Thing;
 
 class HeadUtil
 {
     private static $instance = null;
     private $schemas = null;
+    // 是否支持 AMP
+    private $enableAMP = false;
+    private $enableAMPMobile = false;
 
     private function __construct(){
         $this->schemas = $this->initSchemasGenerator();
+        $this->enableAMP = env('enable_amp', false);
+        $this->enableAMPMobile = env('enable_amp_mobile', false);
     }
 
     /**
@@ -46,7 +50,7 @@ class HeadUtil
     public function output($title, $keywords = null, $description = null)
     {
         $head = '<meta charset="utf-8">';
-        $head .= '<script async src="https://cdn.ampproject.org/v0.js"></script>';
+        $head .= $this->enableAMP ? '<script async src="https://cdn.ampproject.org/v0.js"></script>' : '';
         $head .= '<title>'.$title.'</title>';
 
         if($keywords){
@@ -65,7 +69,8 @@ class HeadUtil
             $head .= $schema->toScript();
         }
 
-        return $head. $this->_getAmpBoilerplateCode();
+        $head .= $this->enableAMP ? $this->_getAmpBoilerplateCode() : null;
+        return $head;
     }
 
     private function initSchemasGenerator(){
@@ -73,6 +78,6 @@ class HeadUtil
     }
 
     private function _getAmpBoilerplateCode(){
-        return '    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>';
+        return '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>';
     }
 }

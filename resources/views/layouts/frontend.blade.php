@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-    @include('layouts.frontend.head')
+<html amp lang="{{ app()->getLocale() }}">
+@include('layouts.frontend.head')
 <body>
 @if($agentObject->isPhone())
     <!-- Mobile Version -->
@@ -21,33 +21,39 @@
     </main>
 @else
     <!-- Desktop Version -->
+    @include(_get_frontend_layout_path('frontend.top_bar'))
     <section class="section is-paddingless">
-        @if( \Illuminate\Support\Facades\URL::current() == url('/') )
+        @if( \Illuminate\Support\Facades\URL::current() == url('/'))
             <!-- 首页 -->
-            @include('layouts.frontend.header')
-            <div class="container">
-                <div class="columns is-marginless is-paddingless" id="catalog-viewer-app">
-                    <div class="column is-2 is-marginless is-paddingless" style="width: {{ config('system.CATALOG_TRIGGER_MENU_WIDTH') }}px;">
-                        @include('layouts.frontend.catalog_viewer')
+            @if(env('show_ecommerce_sub_categories_at_home',true))
+                @include(_get_frontend_layout_path('frontend.header'))
+                {!! div_container() !!}
+                    <div class="columns is-marginless is-paddingless" id="catalog-viewer-app">
+                        <div class="column is-2 is-marginless is-paddingless" style="width: {{ env('catalog_trigger_menu_width',161) }}px;">
+                            @include(_get_frontend_layout_path('frontend.catalog_viewer'))
+                        </div>
+                        <div class="column is-marginless is-paddingless" style="overflow: hidden;">
+                            @include(_get_frontend_layout_path('frontend.homepage_slider'))
+                        </div>
                     </div>
-                    <div class="column is-marginless is-paddingless" style="overflow: hidden;">
-                        @include('layouts.frontend.homepage_slider')
-                    </div>
-                </div>
-            </div>
+                {!! div_end() !!}
+            @else
+                @include( _get_frontend_layout_path('frontend.header_catalog') )
+                @include( _get_frontend_layout_path('frontend.homepage_slider') )
+            @endif
         @else
             <!-- 非首页 -->
-            @include('layouts.frontend.header_catalog')
+            @include( _get_frontend_layout_path('frontend.header_catalog') )
         @endif
         <div class="container">
-            @include('layouts.frontend.session_flash_msg_box')
+            @include( _get_frontend_layout_path('frontend.session_flash_msg_box'))
             @yield('content')
-            @include('layouts.frontend.footer')
+            @include( _get_frontend_layout_path('frontend.footer') )
         </div>
     </section>
-    @include('layouts.frontend.floating_box')
+    @include( _get_frontend_layout_path('frontend.floating_box'))
 @endif
 
-@include('layouts.frontend.js')
+@include( _get_frontend_layout_path('frontend.js') )
 </body>
 </html>

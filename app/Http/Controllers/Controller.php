@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Session;
 use App\User;
 use App\Models\Catalog\Category;
 use Gloudemans\Shoppingcart\Cart;
+use \Illuminate\Contracts\Auth\Authenticatable;
+
 
 class Controller extends BaseController
 {
@@ -27,6 +29,7 @@ class Controller extends BaseController
         'menuName' => null,
         'pageTitle'=>null,
         'metaKeywords'=>null,
+        'openGraphicType'=>'website',
         'metaDescription'=>null,
         'footer'=>null,             // 页脚的Block
         'floatingBox'=>null,        // 页面浮动的Block
@@ -34,7 +37,8 @@ class Controller extends BaseController
         // 和电商相关的部分
         'categoriesTree'=>[],
         'categoriesNav'=>[],
-        'cart'=>null
+        'cart'=>null,
+        'tags'=>[],
     ];
 
     // 网站的配置信息对象
@@ -66,7 +70,7 @@ class Controller extends BaseController
 
     /**
      * 把用户信息保存到session中
-     * @param User $user
+     * @param User|Authenticatable $user
      */
     public function _saveUserInSession(User $user){
         Session::put('user_data',[

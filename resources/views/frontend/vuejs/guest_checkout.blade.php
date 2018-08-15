@@ -1,8 +1,12 @@
+<?php
+$firstAvailablePaymentMethod = $paymentMethods[0];
+?>
 <script>
     var PlaceOrderCheckoutApp = new Vue({
         el:'#place-order-checkout-app',
         data: {
             customer:'{{ isset($user) && $user ? $user->uuid : null }}',
+            selectedPaymentMethod: '{{ \App\Models\Utils\PaymentTool::GetMethodIdStringByMethodId($firstAvailablePaymentMethod->method_id) }}',
             submitFormInProgress: false,
             shippingForm:{
                 name:null,
@@ -35,7 +39,7 @@
             }
         },
         created(){
-
+            //
         },
         methods:{
             submitForm: function(formName){
@@ -49,7 +53,6 @@
                             {shippingForm:that.shippingForm}
                         ).then(function(res){
                             that.submitFormInProgress = false;
-                            console.log(res.data);
                             if(res.data.error_no == {{ \App\Models\Utils\JsonBuilder::CODE_SUCCESS }}){
                                 that.customer = res.data.data.uuid;
                                 window._notify(that,'success','Done','All Good, please submit your order now!');
@@ -66,6 +69,16 @@
                         window._notify(that,'error','Error','Please fill the form!');
                     }
                 });
+            },
+            login: function(e){
+                e.preventDefault();
+            },
+            switchCurrentPaymentMethod:function(paymentMethodIdString){
+                this.selectedPaymentMethod = paymentMethodIdString;
+            },
+            stripeTokenSuccessHandler: function(param){
+                console.log(param);
+                document.getElementById('payment-form').submit();
             }
         }
     });

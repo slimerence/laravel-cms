@@ -22,7 +22,7 @@
                     <th>Position</th>
                     <th>Level</th>
                     <th>Parent</th>
-                    <th>URL</th>
+                    <th>Type</th>
                     <th>CSS</th>
                     <th>TAG</th>
                     <th>EXTRA</th>
@@ -34,7 +34,7 @@
                 @foreach($menus as $key=>$value)
                     <tr>
                         <td>
-                            {{ $value->name }}
+                            <a href="{{ $value->getMenuUrl() }}" target="_blank">{{ $value->name }}</a>
                         </td>
                         <td>
                             {{ $value->name_cn }}
@@ -43,7 +43,7 @@
                         <td>{{ $value->level }}</td>
                         <td>{{ $value->parent ? $value->parent->name : null }}</td>
                         <td>
-                            <a href="{{ url($value->link_to) }}" target="_blank">Preview</a>
+                            {{ $value->link_type == \App\Models\Menu::TYPE_STATIC_CONTENT ? 'Static' : 'Dynamic' }}
                         </td>
                         <td>{{ $value->css_classes }}</td>
                         <td>{{ $value->html_tag }}</td>

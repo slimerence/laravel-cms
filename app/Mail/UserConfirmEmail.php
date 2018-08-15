@@ -38,14 +38,14 @@ class UserConfirmEmail extends Mailable
         if($this->user->role == UserGroup::$GENERAL_CUSTOMER){
             return $this->subject($this->user->name.', Your '.config('app.name').' account has been created!')
                 ->markdown(
-                    _get_frontend_theme_prefix().'.email.user.confirm_email'
+                    _get_frontend_theme_path('email.user.confirm_email')
                 );
         }
 
         if($this->user->role == UserGroup::$WHOLESALE_CUSTOMER){
             return $this->subject($this->user->name.', Your '.config('app.name').' account has been created!')
                 ->markdown(
-                    _get_frontend_theme_prefix().'.email.wholesaler.confirm_email'
+                    _get_frontend_theme_path('email.wholesaler.confirm_email')
                 );
         }
     }

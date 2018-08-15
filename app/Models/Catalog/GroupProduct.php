@@ -16,4 +16,12 @@ class GroupProduct extends Model
     ];
 
     public $timestamps = false;
+
+    /**
+     * 关联的产品
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function relatedProduct(){
+        return $this->hasOne(Product::class,'id','grouped_product_id');
+    }
 }

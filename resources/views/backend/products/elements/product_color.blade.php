@@ -36,7 +36,7 @@
                     :show-file-list="false"
                     :on-success="handleColourPictureSuccess"
                     :before-upload="beforeColourPictureUpload">
-                <img v-if="productColourForm.imageUrl" :src="'/storage/'+productColourForm.imageUrl" class="avatar">
+                <img v-if="productColourForm.imageUrl" :src="productColourForm.imageUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-form-item>
@@ -64,7 +64,7 @@
                 <div style="min-height: 50px;width: 50px;" class="color-box" :style="{background:pColour.value}"></div>
             </div>
             <div class="text item" style="min-height: 50px;" v-if="pColour.type=={{ \App\Models\Utils\ColourTool::$TYPE_IMAGE }}">
-                <img :src="'/storage/'+pColour.imageUrl" class="img-thumbnail" style="width: 50px;height: 50px;">
+                <img :src="pColour.imageUrl" class="img-thumbnail" style="width: 50px;height: 50px;">
             </div>
     </el-card>
 </div>

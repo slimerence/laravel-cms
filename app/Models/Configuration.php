@@ -12,6 +12,7 @@ class Configuration extends Model
         'multi_language',
         'contact_phone',
         'contact_email',
+        'finance_email',
         'contact_fax',
         'contact_address',
         'contact_person',
@@ -44,6 +45,10 @@ class Configuration extends Model
         return $this->fillable;
     }
 
+    /**
+     * 获取联系我们的字段
+     * @return array
+     */
     public static function GetContactUsFields(){
         return [
             'contact_phone',
@@ -54,6 +59,10 @@ class Configuration extends Model
         ];
     }
 
+    /**
+     * 获取社交媒体的字段
+     * @return array
+     */
     public static function GetSocialNetworkFields(){
         return [
             'twitter',
@@ -62,5 +71,14 @@ class Configuration extends Model
             'linked_in',
             'facebook',
         ];
+    }
+
+    /**
+     * 获取财务人员的邮件. 如果没有单独指定, 则使用默认联系人的
+     * @return string
+     */
+    public static function GetFinanceEmail(){
+        $config = self::find(1);
+        return $config->finance_email ? $config->finance_email : $config->contact_email;
     }
 }

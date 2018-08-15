@@ -2,7 +2,6 @@
 @section('content')
     <div class="content pl-20 pr-20 page-content-wrap" id="product-view-manager-app">
         <hr>
-
         <div class="columns">
             <div class="column is-6">
                 <div class="fotorama" data-allowfullscreen="true" data-nav="thumbs" data-navposition="left" data-arrows="false" data-autoplay="true" data-height="350" data-maxheight="100%">
@@ -10,10 +9,13 @@
                         <img src="{{ asset($media->url) }}">
                     @endforeach
                 </div>
+                @if($product->is_group_product)
+                    @include(_get_frontend_theme_path('catalog.elements.sections.grouped_products'))
+                @endif
             </div>
             <div class="column is-6 product-info-wrap">
                 <h2>
-                    {{ $product->name }}&nbsp;
+                    {{ $product->getProductName() }}&nbsp;
                     @if($product->manage_stock && $product->stock<$product->min_quantity)
                         <span class="badge badge-pill badge-danger">Out of Stock</span>
                     @endif
@@ -88,4 +90,43 @@
         </div>
         @include(_get_frontend_theme_path('catalog.elements.sections.description'))
     </div>
+    <?php
+        $relatedProducts = $product->loadRelatedProducts();
+    ?>
+    @if(count($relatedProducts))
+    <div class="content pl-20 pr-20 page-content-wrap">
+        <hr>
+        <h3 class="has-text-centered">Similar Products</h3>
+        <div class="columns is-multiline">
+        @foreach($relatedProducts as $rp)
+            <div class="column is-3">
+                <div class="content box">
+                    <div class="is-clearfix"></div>
+                    <a href="{{ url('catalog/product/'.$rp->uri) }}">
+                        <p class="has-text-centered p-img">
+                            <img src="{{ $rp->getProductDefaultImageUrl() }}" alt="{{ $rp->name }}" class="image">
+                        </p>
+                        <div class="price-box">
+                            <p class="is-pulled-left {{ $rp->special_price ? 'has-text-grey-lighter' : 'has-text-danger' }} is-size-5">${{ $rp->getDefaultPriceGST() }}</p>
+                            @if($rp->special_price)
+                                <p class="is-pulled-right has-text-danger is-size-4">${{ $rp->getSpecialPriceGST() }}</p>
+                            @endif
+                        </div>
+                        <div class="is-clearfix"></div>
+                        <p class="is-size-6 has-text-grey mb-10 mh48">{{ $rp->name }}</p>
+                    </a>
+                    @if($rp->serial_name)
+                        <div class="control is-pulled-left"><div class="tags has-addons">
+                                <a class="tag" href="#">
+                                    Serial: {{ $rp->serial_name }}
+                                </a>
+                            </div></div>
+                    @endif
+                    <div class="is-clearfix"></div>
+                </div>
+            </div>
+        @endforeach
+        </div>
+    </div>
+    @endif
 @endsection

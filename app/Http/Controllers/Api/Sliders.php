@@ -38,8 +38,8 @@ class Sliders extends Controller
 
         if(!empty($sliderId)){
             // Update
-            $updated = Slider::where('id',$sliderId)->update($data);
-            return $updated ? JsonBuilder::Success() : JsonBuilder::Error();
+            Slider::where('id',$sliderId)->update($data);
+            return JsonBuilder::Success();
         }else{
             $slider = Slider::create($data);
             if($slider){

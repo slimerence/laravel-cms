@@ -20,7 +20,7 @@
                     <el-input placeholder="Required: Page title" v-model="currentPage.title"></el-input>
                 </el-form-item>
                 <el-form-item label="中文Title" prop="title_cn">
-                    <el-input placeholder="中文名称: 必填" v-model="currentPage.title_cn"></el-input>
+                    <el-input placeholder="中文标题: 选填" v-model="currentPage.title_cn"></el-input>
                 </el-form-item>
                 <el-form-item label="URI" prop="uri" required>
                     <el-input placeholder="必填: 网址的URI" v-model="currentPage.uri"></el-input>
@@ -65,10 +65,7 @@
                             class="rich-text-editor"
                             placeholder="Put content here"
                             text-area-id="page-content-editor"
-                            image-upload-url="/api/images/upload"
-                            existed-images="/api/images/load-all"
                             :original-content="currentPage.content"
-                            short-codes-load-url="/api/widgets/load-short-codes"
                     ></vuejs-editor>
                 </el-form-item>
                 <el-button type="primary" :loading="savingPage" v-on:click="savePage('currentPage')">
