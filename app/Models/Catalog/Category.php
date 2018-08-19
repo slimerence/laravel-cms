@@ -68,8 +68,9 @@ class Category extends Model
 
     /**
      * 保存目录的方法
-     * @param array $data
-     * @return Integer
+     * @param $data
+     * @return int
+     * @throws \Exception
      */
     public static function Persistent($data){
 //        $data['keywords'] = ContentTool::RemoveNewLineFromString($data['keywords']);

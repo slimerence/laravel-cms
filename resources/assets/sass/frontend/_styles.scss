@@ -1,5 +1,7 @@
 $color-gold: #b0976d;
 $color-dark-green: #3a482e;
+$color-dark-theme: #3a482e;
+$color-dark-theme-alt: #20CE88;
 
 body{
   //background-image: url("../../images/backend/wine_red_wallpaper_025.jpg");
@@ -33,6 +35,10 @@ body{
   a{
     color: white;
   }
+}
+
+.bg-theme-alt{
+  background-color: $color-dark-theme-alt !important;
 }
 
 .bg-dark-gradient{
@@ -252,3 +258,4 @@ ul.tight-list{
 @import "category";
 @import "catalog";
 @import "checkout";
+@import "shopping_cart_mobile";

@@ -1,0 +1,22 @@
+#shopping-cart-mobile{
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  bottom:0;
+  height: 60px;
+  .columns{
+    margin: 0;
+    padding: 0;
+    .column{
+      margin: 0;
+      padding: 0;
+      background-color: $color-dark-theme;
+      p{
+        margin: 0;
+        padding: 0;
+        line-height: 60px;
+        font-size: 20px;
+      }
+    }
+  }
+}

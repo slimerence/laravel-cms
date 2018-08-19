@@ -64,7 +64,7 @@ class Controller extends BaseController
                 $data[] = $category->loadForNav();
             }
             $this->dataForView['categoriesNav'] = $data;
-            $this->_createCart();
+            $this->dataForView['cart'] = $this->_createCart();
         }
     }
 
