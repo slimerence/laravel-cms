@@ -4,9 +4,6 @@ require('./bootstrap');
 import './bulma/carousel';
 import './bulma/accordion';
 
-// 导入 Slideout 库
-import Slideout from 'slideout';
-
 // 导入 fastclick 库
 import fastclick from 'fastclick';
 
@@ -46,6 +43,9 @@ Vue.component('VuejsSignaturePad', require('./components/vuejs-signature-pad/vue
 Vue.component('StripePayment', require('./components/payments/stripe/StripePayment.vue'));
 
 fastclick.attach(document.body);
+
+import SlideOutTrigger from './components/slideout-trigger/slideout-trigger';
+SlideOutTrigger();
 
 /**
  * 全局可用的通知函数
@@ -91,19 +91,6 @@ if(naviAppEl){
                 });
             }
         }
-    });
-}
-
-if(document.getElementById('menu')){
-    var slideout = new Slideout({
-        'panel': document.getElementById('panel'),
-        'menu': document.getElementById('menu'),
-        'padding': 256,
-        'tolerance': 70
-    });
-
-    document.querySelector('.toggle-button').addEventListener('click', function() {
-        slideout.toggle();
     });
 }
 

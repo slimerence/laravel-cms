@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html amp lang="{{ app()->getLocale() }}" ⚡>
+<html lang="{{ app()->getLocale() }}" ⚡>
 @include(_get_frontend_layout_path('frontend.head'))
 <body>
 @if($agentObject->isPhone())
     <!-- Mobile Version -->
     @include( _get_frontend_layout_path('frontend.mobile.nav') )
-    <main id="panel">
+    <main id="panel" class="panel-mask">
         <header>
             @include(_get_frontend_layout_path('frontend.mobile.header_mobile'))
         </header>

@@ -19,7 +19,7 @@
         @endforeach
         </section>
     @endif
-    <!-- e-commerce end -->
+
     @foreach($rootMenus as $key=>$rootMenu)
         <section class="menu-section mb-10 mt-10">
         <?php

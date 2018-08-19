@@ -3,7 +3,7 @@
 @include('layouts.backend.head')
 <body>
 @include('layouts.backend.nav')
-<main id="panel">
+<main id="panel" class="panel-mask">
     <header>
         @include('layouts.backend.header')
     </header>

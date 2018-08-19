@@ -70,4 +70,19 @@
 .slideout-open .slideout-menu {
   display: block;
 }
+// 菜单滑出后，主界面出现透明的蒙版
+.panel-mask:before {
+  content: '';
+  display: block;
+  background-color: rgba(0,0,0,0);
+  transition: background-color 0.5s ease-in-out;
+}
 
+.panel-mask-open:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 99;
+}
