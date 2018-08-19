@@ -1,4 +1,5 @@
 $color-gold: #b0976d;
+$color-dark-green: #3a482e;
 
 body{
   //background-image: url("../../images/backend/wine_red_wallpaper_025.jpg");
@@ -25,6 +26,15 @@ body{
     color: white;
   }
 }
+
+.bg-dark-green{
+  background-color: $color-dark-green;
+  color: white;
+  a{
+    color: white;
+  }
+}
+
 .bg-dark-gradient{
   background: linear-gradient(#113c82,#0b2653,#0b2653,#0b2653,#0b2653,#0b2653);
 }

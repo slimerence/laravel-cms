@@ -7,7 +7,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\UserGroup;
-use Stripe\Stripe;
 use Stripe\Customer;
 
 class User extends Authenticatable
