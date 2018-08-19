@@ -35,8 +35,9 @@ window.Vue = require('vue');
 // 加载Element UI 库
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/en'
 // import { Loading } from 'element-ui';
-Vue.use(ElementUI);
+Vue.use(ElementUI,{ locale });
 
 // 导入子定义的 vue js editor组件
 Vue.component('CatalogViewer', require('./components/catalog-viewer/catalogviewer.vue'));
