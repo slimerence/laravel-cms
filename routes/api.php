@@ -46,7 +46,7 @@ Route::prefix('sliders')->group(function(){
     Route::get('loadAll','Api\Sliders@load_all');
     Route::get('load/{id}','Api\Sliders@load_slider');
     Route::get('load-slider-images/{id}','Api\Sliders@load_slider_images');
-    Route::get('load-slider-images/{id}','Api\Sliders@load_slider_images');
+    Route::get('delete-slider-image/{sliderImageId}','Api\Sliders@delete_slider_image');
     Route::post('save','Api\Sliders@save');
     Route::post('save-slider-image','Api\Sliders@save_slider_image');
     Route::post('delete','Api\Sliders@delete');

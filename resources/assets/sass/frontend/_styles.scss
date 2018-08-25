@@ -84,8 +84,8 @@ body{
   }
 }
 .logo-img{
-  max-height: 80px !important;
-  height: 80px;
+  max-height: 120px !important;
+  height: 120px;
 }
 .logo-img-mobile{
   width: 100%;
@@ -95,7 +95,8 @@ body{
 // 顶部菜单的搜索框
 .nav-search-form{
   margin-right: 20px;
-  margin-top: 26px;
+  margin-top: 12px;
+  width: 300px;
   .el-input{
     .el-input__inner{
       margin: 5px;

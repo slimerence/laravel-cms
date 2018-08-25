@@ -61,20 +61,23 @@
         </div>
 
         @if(env('activate_search_bar',false))
-            <div id="navigation-app">
-                <el-autocomplete
-                        class="nav-search-form must-on-layer-top"
-                        v-model="searchKeyword"
-                        :fetch-suggestions="querySearchAsync"
-                        placeholder="Search ..."
-                @select="handleSelect"
-                :trigger-on-focus="false"
-                prefix-icon="el-icon-search"
-                ></el-autocomplete>
-            </div>
+        <div id="navigation-app" class="navbar-item">
+            <el-autocomplete
+                    class="nav-search-form must-on-layer-top"
+                    v-model="searchKeyword"
+                    :fetch-suggestions="querySearchAsync"
+                    placeholder="Search ..."
+            @select="handleSelect"
+            :trigger-on-focus="false"
+            prefix-icon="el-icon-search"
+            ></el-autocomplete>
+        </div>
         @endif
+
         @if(env('activate_ecommerce',false))
+        <div class="navbar-item">
             @include('layouts.frontend.shopping_cart')
+        </div>
         @endif
     </div>
 </nav>

@@ -247,7 +247,11 @@
                 this.fileList2 = [];
             },
             deleteExistSliderImage: function(obj){
-                console.log(obj);
+                var that = this;
+                axios.get('/api/sliders/delete-slider-image/' + obj.id)
+                  .then(function(res){
+                    that.loadSlider(obj.slider_id);
+                  });
             },
             /**
              * 关闭编辑slider image表单

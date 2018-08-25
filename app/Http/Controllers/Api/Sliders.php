@@ -119,6 +119,19 @@ class Sliders extends Controller
     }
 
     /**
+     * Delete slider image
+     * @param $sliderImageId
+     * @return string
+     */
+    public function delete_slider_image($sliderImageId){
+        $deleted = SliderImage::where('id',$sliderImageId)->delete();
+        if($deleted){
+            return JsonBuilder::Success();
+        }
+        return JsonBuilder::Error();
+    }
+
+    /**
      * 加载 Slider 数据
      * @param $id
      * @return string
