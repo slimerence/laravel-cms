@@ -2,37 +2,19 @@ require('./bootstrap');
 import './bulma/carousel';
 import './bulma/accordion';
 import './bulma/tagsinput';
-import Slideout from 'slideout';
 
 window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import { Loading } from 'element-ui';
-Vue.use(ElementUI);
+import locale from 'element-ui/lib/locale/lang/en';
+// import { Loading } from 'element-ui';
+Vue.use(ElementUI, { locale });
 
 // 导入子定义的 vue js editor组件
 Vue.component('VuejsEditor', require('./components/vuejs-editor/VuejsEditor.vue'));
 
-// Slide out菜单
-if(document.getElementById('menu')){
-    var slideout = new Slideout({
-        'panel': document.getElementById('panel'),
-        'menu': document.getElementById('menu'),
-        'padding': 256,
-        'tolerance': 70
-    });
-
-    document.getElementById('panel').addEventListener('click', function(e) {
-        if(slideout.isOpen()){
-            slideout.close();
-        }else{
-            let clickedEl = $(e.target);
-            if(clickedEl.attr('id') == 'toggle-drawer-btn' || clickedEl.parent().attr('id') == 'toggle-drawer-btn'){
-                slideout.toggle();
-            }
-        }
-    });
-}
+import SlideOutTrigger from './components/slideout-trigger/slideout-trigger';
+SlideOutTrigger();
 
 $(document).ready(function(){
     if(jQuery('.btn-delete').length > 0){

@@ -9,12 +9,17 @@
     <!-- e-commerce -->
     @if(isset($categoriesTree) && count($categoriesTree) > 0)
         <section class="menu-section mb-10 mt-10">
-        <a class="has-text-white navbar-item" href="#">
-            Catalog
-        </a>
+            <a class="has-text-white navbar-item" href="#">
+                Catalog
+            </a>
+        @foreach($categoriesTree as $category)
+            <p class="pl-20">
+                <a class="has-text-white navbar-item" href="{{ $category->getCategoryUrl() }}">- {{ $category->name }}</a>
+            </p>
+        @endforeach
         </section>
     @endif
-    <!-- e-commerce end -->
+
     @foreach($rootMenus as $key=>$rootMenu)
         <section class="menu-section mb-10 mt-10">
         <?php

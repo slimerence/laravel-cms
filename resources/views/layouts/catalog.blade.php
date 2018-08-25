@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html amp lang="{{ app()->getLocale() }}" ⚡>
-@include('layouts.frontend.head')
+<html lang="{{ app()->getLocale() }}" ⚡>
+@include(_get_frontend_layout_path('frontend.head'))
 <body>
 @if($agentObject->isPhone())
     <!-- Mobile Version -->
-    @include('layouts.frontend.mobile.nav')
-    <main id="panel">
+    @include( _get_frontend_layout_path('frontend.mobile.nav') )
+    <main id="panel" class="panel-mask">
         <header>
-            @include('layouts.frontend.mobile.header_mobile')
+            @include(_get_frontend_layout_path('frontend.mobile.header_mobile'))
         </header>
-        <section id="main" class="section">
+        <section id="main" class="section is-paddingless">
             <div class="container is-fluid">
-                @include('layouts.frontend.session_flash_msg_box')
+                @include(_get_frontend_layout_path('frontend.session_flash_msg_box'))
                 <div id="panel">
                     @yield('content')
                 </div>
-                @include('layouts.frontend.footer')
+                @include(_get_frontend_layout_path('frontend.footer'))
             </div>
         </section>
     </main>
+    @if(env('activate_ecommerce',false))
+        @include( _get_frontend_layout_path('frontend.mobile.shopping_cart_mobile') )
+    @endif
 @else
     <!-- Desktop Version -->
     @include(_get_frontend_layout_path('frontend.top_bar'))

@@ -4,9 +4,6 @@ require('./bootstrap');
 import './bulma/carousel';
 import './bulma/accordion';
 
-// 导入 Slideout 库
-import Slideout from 'slideout';
-
 // 导入 fastclick 库
 import fastclick from 'fastclick';
 
@@ -35,8 +32,9 @@ window.Vue = require('vue');
 // 加载Element UI 库
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import locale from 'element-ui/lib/locale/lang/en'
 // import { Loading } from 'element-ui';
-Vue.use(ElementUI);
+Vue.use(ElementUI,{ locale });
 
 // 导入子定义的 vue js editor组件
 Vue.component('CatalogViewer', require('./components/catalog-viewer/catalogviewer.vue'));
@@ -45,6 +43,9 @@ Vue.component('VuejsSignaturePad', require('./components/vuejs-signature-pad/vue
 Vue.component('StripePayment', require('./components/payments/stripe/StripePayment.vue'));
 
 fastclick.attach(document.body);
+
+import SlideOutTrigger from './components/slideout-trigger/slideout-trigger';
+SlideOutTrigger();
 
 /**
  * 全局可用的通知函数
@@ -90,19 +91,6 @@ if(naviAppEl){
                 });
             }
         }
-    });
-}
-
-if(document.getElementById('menu')){
-    var slideout = new Slideout({
-        'panel': document.getElementById('panel'),
-        'menu': document.getElementById('menu'),
-        'padding': 256,
-        'tolerance': 70
-    });
-
-    document.querySelector('.toggle-button').addEventListener('click', function() {
-        slideout.toggle();
     });
 }
 

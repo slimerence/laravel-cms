@@ -42,7 +42,8 @@
                                         <div class="column is-4" v-for="(myProduct, idx) in currentCategory.products" :key="idx" v-show="myProduct.image_path">
                                             <div class="box">
                                                 <a :href="buildProductViewLink(myProduct.uri)">
-                                                    {{ myProduct.name }}
+                                                    <img v-if="showProductImage" class="image" :src="myProduct.image_path" :alt="myProduct.name">
+                                                    <p>{{ myProduct.name }}</p>
                                                 </a>
                                             </div>
                                         </div>
@@ -119,6 +120,12 @@
             needShowBrand: {
                 type: Boolean,
                 required: false
+            },
+            // 是否在菜单中显示产品的图片
+            showProductImage:{
+                type: Boolean,
+                required: false,
+                default: true
             }
         },
         data: function(){
@@ -258,6 +265,10 @@
                                     a{
                                         font-size: 16px;
                                         font-weight: 400;
+                                        .image{
+                                            height: 200px !important;
+                                            display: block;
+                                        }
                                     }
                                 }
                             }
