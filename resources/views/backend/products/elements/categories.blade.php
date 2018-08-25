@@ -76,14 +76,16 @@
                             </label>
                         </p>
                         @if(isset($levelTwo['children']) && count($levelTwo['children']))
-                            <p>
+                            <div class="panel" style="padding-left: 40px;">
                                 @foreach($levelTwo['children'] as $levelThree)
-                                    <label class="form-check-label" style="margin-right: 20px;">
-                                        <input v-model="categories" class="checkbox form-check-input"
-                                               type="checkbox" value="{{ $levelThree['id'] }}"> -- {{ $levelThree['name'] }}
-                                    </label>
+                                    <p>
+                                        <label class="form-check-label" style="margin-right: 20px;">
+                                            <input v-model="categories" class="checkbox form-check-input"
+                                                   type="checkbox" value="{{ $levelThree['id'] }}"> -- {{ $levelThree['name'] }}
+                                        </label>
+                                    </p>
                                 @endforeach
-                            </p>
+                            </div>
                         @endif
                     @endforeach
                 </div>
