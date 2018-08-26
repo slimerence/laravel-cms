@@ -36,7 +36,6 @@
                                     <el-select v-model="slider.lib" placeholder="请选择">
                                         <el-option label="Slick" value="slick"></el-option>
                                         <el-option label="Carousel" value="carousel"></el-option>
-                                        <el-option label="Fotorama" value="fotorama"></el-option>
                                     </el-select>
                                 </el-form-item>
                             </div>

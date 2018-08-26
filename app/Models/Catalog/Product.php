@@ -7,17 +7,15 @@ use App\Models\Catalog\Product\Colour;
 use App\Models\Catalog\Product\ProductAttribute;
 use App\Models\Catalog\Product\ProductAttributeSet;
 use App\Models\Catalog\Product\ProductOption;
-use App\Models\Catalog\TagProduct;
 use App\Models\Group;
 use App\Models\Utils\MediaTool;
 use App\Models\Utils\ProductType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use phpDocumentor\Reflection\Types\Null_;
 use Ramsey\Uuid\Uuid;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Media;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Utils\ContentTool;
 
 class Product extends Model
@@ -224,8 +222,9 @@ class Product extends Model
      * @param $categories
      * @param $productOptionsData
      * @param $productAttributeData
-     * @param $productColours           // 产品的颜色
-     * @return mixed
+     * @param $productColours
+     * @return bool
+     * @throws \Exception
      */
     public static function DoClone($productData, $images, $categories, $productOptionsData, $productAttributeData,$productColours){
         $result = false;
@@ -304,13 +303,16 @@ class Product extends Model
     }
 
     /**
+     * 保存
      * @param $productData
      * @param $images
+     * @param $tags
      * @param $categories
-     * @param $productOptionsData   // 产品的附加选项
-     * @param $productAttributeData   // 产品的属性数据集合
-     * @param $productColours   // 产品的颜色数据集合
+     * @param $productOptionsData
+     * @param $productAttributeData
+     * @param array $productColours
      * @return bool
+     * @throws \Exception
      */
     public static function Persistent($productData, $images, $tags,$categories, $productOptionsData, $productAttributeData, $productColours=[]){
         $result = false;
