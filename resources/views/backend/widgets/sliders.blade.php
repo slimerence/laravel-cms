@@ -119,6 +119,18 @@
                         <el-form-item label="链接URL" prop="link_to">
                             <el-input placeholder="链接URL: 选填" type="textarea" v-model="sliderImage.link_to"></el-input>
                         </el-form-item>
+                        <el-form-item label="Image Caption" prop="caption">
+                            <el-input placeholder="Image Caption: Optional" type="textarea" v-model="sliderImage.caption"></el-input>
+                        </el-form-item>
+                        <el-form-item label="Animate">
+                            <el-select v-model="sliderImage.animate_class" placeholder="请选择">
+                                <el-option label="Default" value=""></el-option>
+                                @foreach(\App\Models\Widget\SliderImage::GetAnimateEffects() as $effect)
+                                <el-option label="{{ ucfirst($effect) }}" value="{{$effect}}"></el-option>
+                                @endforeach
+                            </el-select>
+                            <p>以上动画效果仅对Slick类型的幻灯片有效</p>
+                        </el-form-item>
                         <hr>
                         <el-form-item label="图片上传" prop="link_to">
                             <el-upload
@@ -150,7 +162,7 @@
                     <el-row style="width: 90%;margin-left: 5%;">
                         <el-col :span="5" v-for="(o, index) in sliderImages" :key="index" :offset="1">
                             <el-card :body-style="{ padding: '0px' }">
-                                <div style="padding: 0px;height: 300px;overflow: hidden">
+                                <div style="padding: 0px;height: 140px;overflow: hidden">
                                     <img :src="o.media.url" class="image" style="width: 100%;">
                                 </div>
                                 <div style="padding: 14px;">
@@ -167,11 +179,16 @@
 
                 <div class="row slider-preview-wrapper" v-if="sliderImages.length > 0"  style="margin-top: 40px;margin-left: 30px;">
                     <h2>Preview</h2>
-                    <el-carousel :interval="2000" arrow="always" style="width: 100%;">
+                    <el-carousel :interval="4000" arrow="always" style="width: 100%;" v-on:change="changeAnimate">
                         <el-carousel-item v-for="(item,idx) in sliderImages" :key="idx">
-                            <img :src="item.media.url" alt="" style="width: 100%;">
+                            <div class="full-width slick-carousel-item">
+                                <img :src="item.media.url" alt="" style="width: 100%;">
+                                <div v-html="item.extra_html"></div>
+                            </div>
                         </el-carousel-item>
                     </el-carousel>
+                    <hr>
+
                 </div>
             </div>
         </div>

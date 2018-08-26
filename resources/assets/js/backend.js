@@ -13,6 +13,12 @@ Vue.use(ElementUI, { locale });
 // 导入子定义的 vue js editor组件
 Vue.component('VuejsEditor', require('./components/vuejs-editor/VuejsEditor.vue'));
 
+// Slick 幻灯动画库
+require('!style-loader!css-loader!animate.css/animate.min.css');    // 导入animate动画库
+require('!style-loader!css-loader!slick-carousel/slick/slick.css');
+require('!style-loader!css-loader!slick-carousel/slick/slick-theme.css');
+import 'slick-carousel';
+
 import SlideOutTrigger from './components/slideout-trigger/slideout-trigger';
 SlideOutTrigger();
 

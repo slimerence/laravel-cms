@@ -15,15 +15,13 @@ require('@fancyapps/fancybox');
 require('!style-loader!css-loader!video.js/dist/video-js.css');
 import videojs from 'video.js';
 
-// 导入 Fotorama
-// import './fotorama/fotorama';
-
 // 导入 PhotoSwipe
 require('!style-loader!css-loader!photoswipe/dist/photoswipe.css');
 require('!style-loader!css-loader!photoswipe/dist/default-skin/default-skin.css');
 import 'photoswipe';
 
 // 导入 Slick Carousel
+require('!style-loader!css-loader!animate.css/animate.min.css');    // 导入animate动画库
 require('!style-loader!css-loader!slick-carousel/slick/slick.css');
 require('!style-loader!css-loader!slick-carousel/slick/slick-theme.css');
 import 'slick-carousel';
@@ -58,7 +56,6 @@ SlideOutTrigger();
 window._notify = function(vm, type, title, msg){
     // 显示弹出消息的方法
     vm.$notify({title:title,message:msg,type:type,position:'bottom-right'});
-    return;
 }
 
 // 导航菜单的应用
@@ -169,9 +166,21 @@ $(document).ready(function(){
         });
     }
 
+    let animationEnds = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd';
     // 检查是否有Slick Carousel
-    if($('.slick-carousel-el').length > 0){
-        $('.slick-carousel-el').slick();
+    if($('#slick-carousel-el-slider_home_page')){
+        let homepageSlider = $('#slick-carousel-el-slider_home_page');
+        homepageSlider.slick();
+        homepageSlider.on('beforeChange',function(event,slick, currentSlide,nextSlide){
+            let next = homepageSlider.find('.slick-carousel-item').eq(nextSlide);
+            let animateClass = next.data('animate');
+            if(animateClass.length > 0){
+              next.addClass(animateClass).one(
+                  animationEnds, function(){
+                      $(this).removeClass(animateClass)
+                  });
+            }
+        });
     }
 
     // tabs 功能

@@ -66,6 +66,8 @@
                 classes_name:'',
                 extra_html:'',
                 link_to:'',
+                caption:'',
+                animate_class:'',
                 id:'',
                 media:{}
             },
@@ -138,6 +140,8 @@
                     this.sliderImage.classes_name = '';
                     this.sliderImage.extra_html = '';
                     this.sliderImage.link_to = '';
+                    this.sliderImage.caption = '';
+                    this.sliderImage.animate_class = '';
                     this.sliderImage.id = '';
                     this.sliderId = '';
                     this.fileList2 = [];
@@ -296,7 +300,18 @@
                 .catch(function(){
 
                 });
+            },
+            changeAnimate: function(currentSlideIndex, nextSlideIndex){
+                var animationEnds = 'animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd';
+                if(nextSlideIndex > -1){
+                  var next = $('.slick-carousel-item').eq(nextSlideIndex);
+                  var sm = this.sliderImages[nextSlideIndex];
+                  var amClass = 'animated '+sm.animate_class;
+                  next.addClass(amClass).one(animationEnds,function(){
+                    $(this).removeClass(amClass);
+                  });
+                }
             }
         }
     });
-</script>147494730 2yzj78
+</script>

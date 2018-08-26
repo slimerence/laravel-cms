@@ -27,6 +27,7 @@
     "dependencies": {
         "@fancyapps/fancybox": "^3.3.5",
         "ajv": "^6.5.0",
+        "animate.css": "^3.7.0",
         "better-scroll": "^1.12.6",
         "bulma": "^0.7.1",
         "bulma-accordion": "^1.0.1",
