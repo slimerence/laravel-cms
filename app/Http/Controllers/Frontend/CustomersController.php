@@ -55,7 +55,14 @@ class CustomersController extends Controller
             }
             return redirect($referrer);
         }else{
-            return redirect('frontend/customers/login');
+            $errors = [$this->username() => trans('auth.failed')];
+
+            if ($request->expectsJson()) {
+                return response()->json($errors, 422);
+            }
+            return redirect()->back()
+                ->withInput($request->only($this->username(), 'remember'))
+                ->withErrors($errors);
         }
     }
 
