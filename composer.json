@@ -12,6 +12,7 @@
         "gloudemans/shoppingcart": "^2.5",
         "intervention/image": "^2.4",
         "intervention/imagecache": "^2.3",
+        "ixudra/curl": "^6.16",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
