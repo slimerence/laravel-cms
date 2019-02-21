@@ -152,6 +152,7 @@
             this.firstLevelCategoriesWrapperWidth = this.leftWidth ? this.leftWidth : CATALOG_VIEWER_LEFT_SECTION_WIDTH;
             this.currentCategoryDetailsWrapperWidth = this.width - this.firstLevelCategoriesWrapperWidth;
         },
+
         mounted() {
             this.isShowSubsNow = this.showNow;
             if(!this.isShowSubsNow){

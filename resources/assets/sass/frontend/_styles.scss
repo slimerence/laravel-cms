@@ -7,9 +7,10 @@ body{
   //background-image: url("../../images/backend/wine_red_wallpaper_025.jpg");
 }
 .container{
-  background-color: white;
   max-width: 1280px !important;
+  position: relative;
 }
+
 .grey-shadow{
   -webkit-box-shadow: 10px 10px 5px 0px rgba(255,255,255,1);
   -moz-box-shadow: 10px 10px 5px 0px rgba(255,255,255,1);
@@ -85,8 +86,8 @@ body{
 }
 .logo-img{
   max-height: 120px !important;
-  height: 120px;
 }
+
 .logo-img-mobile{
   width: 100%;
   margin-top: -25px;
