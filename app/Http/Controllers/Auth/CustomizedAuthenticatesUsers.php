@@ -9,6 +9,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -38,6 +39,13 @@ trait CustomizedAuthenticatesUsers
     {
         $this->validateLogin($request);
 
+        $user = User::where('email',$request->get('email'))->first();
+        if($user && $user->role == 5){
+            $errors = ['email'=> 'Your account cannot access here!'];
+            return redirect()->back()
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors($errors);
+        }
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.

@@ -63,7 +63,6 @@ class Users extends Controller
         }else{
             $user = Auth::user();
         }
-
         if($user){
             $this->dataForView['user'] = $user;
             $this->dataForView['menuName'] = 'update-password';
@@ -91,9 +90,9 @@ class Users extends Controller
     }
 
     /**
-     * 保存客户账户信息
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function save(Request $request){
         $data = $request->all();
