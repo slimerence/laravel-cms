@@ -374,6 +374,7 @@ class CustomersController extends Controller
         $data['uuid'] = $userData['uuid'];
         $data['password'] = $userData['password'];
         $data['role'] = UserGroup::$GENERAL_CUSTOMER;
+        $data['country'] = 'Australia';
 
         return [
             'userObject'=>User::create($data),

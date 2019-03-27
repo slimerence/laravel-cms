@@ -47,8 +47,7 @@ class Group extends Model
                 $totalWeight
             );
         }else{
-            // 未登陆用户, 返回 -1
-            return env('DOMESTIC_DELIVERY_FEE',0);
+            return DeliveryFee::CalculateFee(5,$orderAmount,'Australia',null,null,$totalWeight);
         }
     }
 

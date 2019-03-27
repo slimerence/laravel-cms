@@ -8,6 +8,7 @@ use App\Events\Order\Created as OrderCreated;
 use App\Jobs\Payment\Paypal;
 use App\Jobs\Payment\StripePayment;
 use App\Models\Settings\PaymentMethod;
+use App\Models\Shipment\DeliveryFee;
 use App\Models\Utils\Payment\PayPalTool;
 use App\Models\Utils\Payment\RoyalPayTool;
 use App\Models\Utils\PaymentTool;
@@ -130,11 +131,13 @@ class CheckoutController extends Controller
 
         // 获取当前用户
         $this->dataForView['user'] = $customer;
+        $this->dataForView['weight'] = $this->getTotalWeightInCart();
 
         // 获取运费
         $this->dataForView['delivery_charge'] = Group::CalculateDeliveryCharge(
             $customer,$cart->total(),$this->getTotalWeightInCart()
         );
+        //dump(DeliveryFee::CalculateFee(5,$cart->total(),'Australia','VIC',null,$this->getTotalWeightInCart()));
 
         // 获取系统支持的支付方式
         $this->dataForView['paymentMethods'] = PaymentMethod::GetAllAvailable();
